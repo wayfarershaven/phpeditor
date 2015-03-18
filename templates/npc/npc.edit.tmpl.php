@@ -164,17 +164,17 @@
   }
 ?>
                 <td valign="top" align="left">
-                  Summon (1):<br/><input type="text" name="1" size="10" value="<?=$specabilcont[1]?>"><br/>
-                  Enrage (2):<br/><input type="text" name="2" size="10" value="<?=$specabilcont[2]?>"><br/>
-                  Rampage (3):<br/><input type="text" name="3" size="10" value="<?=$specabilcont[3]?>"><br/>
-                  AE Rampage (4):<br/><input type="text" name="4" size="10" value="<?=$specabilcont[4]?>"><br/>
-                  Flurry (5):<br/><input type="text" name="5" size="10" value="<?=$specabilcont[5]?>"><br/>
-                  Tunnel Vision (29):<br/><input type="text" name="29" size="10" value="<?=$specabilcont[29]?>"><br/>
-                  Leashed (32):<br/><input type="text" name="32" size="10" value="<?=$specabilcont[32]?>"><br/>
-                  Tethered (33):<br/><input type="text" name="33" size="10" value="<?=$specabilcont[33]?>"><br/>
-                  Flee Percent (37):<br/><input type="text" name="37" size="10" value="<?=$specabilcont[37]?>"><br/>
-                  Chase Distance (40):<br/><input type="text" name="40" size="10" value="<?=$specabilcont[40]?>"><br/>
-                  Casting Resist Diff (43):<br/><input type="text" name="43" size="10" value="<?=$specabilcont[43]?>"><br/>
+                  Summon (1):<br/><input type="text" name="1" size="10" value="<?=($specabil[1]) ? $specabilcont[1] : ""?>"><br/>
+                  Enrage (2):<br/><input type="text" name="2" size="10" value="<?=($specabil[2]) ? $specabilcont[2] : ""?>"><br/>
+                  Rampage (3):<br/><input type="text" name="3" size="10" value="<?=($specabil[3]) ? $specabilcont[3] : ""?>"><br/>
+                  AE Rampage (4):<br/><input type="text" name="4" size="10" value="<?=($specabil[4]) ? $specabilcont[4] : ""?>"><br/>
+                  Flurry (5):<br/><input type="text" name="5" size="10" value="<?=($specabil[5]) ? $specabilcont[5] : ""?>"><br/>
+                  Tunnel Vision (29):<br/><input type="text" name="29" size="10" value="<?=($specabil[29]) ? $specabilcont[29] : ""?>"><br/>
+                  Leashed (32):<br/><input type="text" name="32" size="10" value="<?=($specabil[32]) ? $specabilcont[32] : ""?>"><br/>
+                  Tethered (33):<br/><input type="text" name="33" size="10" value="<?=($specabil[33]) ? $specabilcont[33] : ""?>"><br/>
+                  Flee Percent (37):<br/><input type="text" name="37" size="10" value="<?=($specabil[37]) ? $specabilcont[37] : ""?>"><br/>
+                  Chase Distance (40):<br/><input type="text" name="40" size="10" value="<?=($specabil[40]) ? $specabilcont[40] : ""?>"><br/>
+                  Casting Resist Diff (43):<br/><input type="text" name="43" size="10" value="<?=($specabil[43]) ? $specabilcont[43] : ""?>"><br/>
                 </td>
                 <td valign="top" align="left">
                   <input type="checkbox" name="6" value="6,1^"<?echo ($specabil[6] == 1) ? "checked" : "";?>>  Triple Attack (6)<br/>

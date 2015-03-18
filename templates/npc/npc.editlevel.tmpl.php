@@ -128,7 +128,7 @@
               <tr>
  		    <? $specabil = array();
 			$specabilcont = array();
-		    for ($i = 1; $i <= 37; $i++){
+		    for ($i = 1; $i <= $special_abilities_max; $i++){
 			if (preg_match("/^$i,/", $special_abilities) == 1){
 				$specabil[$i] = 1;
 				// Leading special ability

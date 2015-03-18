@@ -124,7 +124,7 @@ switch ($action) {
       $body->set('races', $races);
       $body->set('yesno', $yesno);
       $body->set('skilltypes', $skilltypes);
-      $body->set('suggestedid', ($_POST['selected_id'] > 0) ? $_POST['selected_id'] : suggest_npcid());
+      $body->set('suggestedid', (isset($_POST['selected_id']) && $_POST['selected_id'] > 0) ? $_POST['selected_id'] : suggest_npcid());
       $body->set('npc_name', getNPCName($npcid));
       $body->set('factions', $factions);
       $body->set('faction_values', $faction_values);
@@ -2179,7 +2179,7 @@ function export_sql() {
   $results = $mysql->query_assoc($query);
 
   foreach ($results as $key=>$value) {
-    if($table_string) {
+    if(isset($table_string)) {
       $table_string .= ", " . $key;
       $value_string .= ", \"" . $value . "\"";
     }
@@ -2191,7 +2191,7 @@ function export_sql() {
   $export_array['insert'] = "INSERT INTO npc_types ($table_string) VALUES ($value_string);";
 
   foreach ($results as $key=>$value) {
-    if($update_string) {
+    if(isset($update_string)) {
       $update_string .= ", " . $key . "=\"" . $value . "\"";
     }
     else {

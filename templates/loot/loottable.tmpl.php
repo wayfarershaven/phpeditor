@@ -113,7 +113,7 @@
 <?
   foreach ($lootdrop['items'] as $item): extract($item);
     $total = (($chance/100) * ($lootdrop['probability']/100)) * 100;
-    $chance_total += $chance;
+    if(isset($chance_total)) { $chance_total += $chance; } else {$chance_total = $chance;}
     if($lootdrop['probability'] == 0)
       $chance = 0;
     if($lootdrop['probability'] > 0 && $lootdrop['probability'] < 100)
@@ -133,10 +133,10 @@
             <td align="right">
               <a href="index.php?editor=loot&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&ldid=<?=$lootdrop['id']?>&itemid=<?=$item_id?>&action=47"><img src="images/minus.gif" border="0" title="Move Lootdrop Item"></a>
               <a href="index.php?editor=loot&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&ldid=<?=$lootdrop['id']?>&itemid=<?=$item_id?>&action=5"><img src="images/edit2.gif" border="0" title="Edit Lootdrop Item"></a>
-<? if($disabled_chance == 0 && $chance > 0): ?>
+<? if(!isset($disabled_chance) && $chance > 0): ?>
               <a href="index.php?editor=loot&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&ldid=<?=$lootdrop['id']?>&itemid=<?=$item_id?>&chance=<?=$chance?>&action=44"><img src="images/downgrade.gif" border="0" title="Disable Item"></a>
 <? endif; ?>
-<? if($disabled_chance > 0): ?>
+<? if(isset($disabled_chance) && $disabled_chance > 0): ?>
               <a href="index.php?editor=loot&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&ldid=<?=$lootdrop['id']?>&itemid=<?=$item_id?>&dchance=<?=$disabled_chance?>&action=45"><img src="images/upgrade.gif" border="0" title="Enable Item"></a>
 <? endif; ?>
               <a onClick="return confirm('Really remove item <?=$item_id?> from LootDrop <?=$lootdrop['id']?>?');" href="index.php?editor=loot&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&ldid=<?=$lootdrop['id']?>&itemid=<?=$item_id?>&action=17"><img src="images/remove3.gif" border="0" title="Remove Item"></a>

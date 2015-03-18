@@ -1,5 +1,7 @@
 <?php
 
+$current_revision = "GITHUB";
+
 require_once("config.php");
 require_once("lib/logging.php");
 if ($mysql_class == "mysqli")

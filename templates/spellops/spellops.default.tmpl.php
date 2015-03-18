@@ -10,6 +10,8 @@
                <a href="index.php?editor=spellset&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>">Edit Spell Sets</a><br>
                <a href="index.php?editor=spells">Edit Spells</a><br>
                <a href="index.php?editor=spells&action=10">Generate spells_us.txt</a>
+			   <a href="index.php?editor=spells&action=10">Generate spells_us.txt</a><br>
+			   <a href="index.php?editor=spells&action=11">Generate dbstr_us.txt</a><br>
              </center>
            </td>
          </tr>

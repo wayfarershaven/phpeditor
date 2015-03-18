@@ -143,12 +143,33 @@
                 <td colspan="2">
                   <table border="0" cellspacing="0" cellpadding="2" width="100%">
                     <tr>
+					<td width="16%"><br/></td>
+					  <td width="17%"><img id="iconImage" src="icons/<?=$new_icon?>.gif" /><br/></td>
+					  <td width="66%"><br/></td>
+					</tr>
+				  </table>
+                  <table border="0" cellspacing="0" cellpadding="2" width="100%">
+                    <tr>
                       <td width="16%">Old Icon:<br/><input type="text" name="icon" value="<?=$icon?>" size="6"></td>
-                      <td width="17%">New Icon:<br/><input type="text" name="new_icon" value="<?=$new_icon?>" size="6"></td>
+                      <td width="17%">New Icon:<br/><input id="iconField" type="text" name="new_icon" value="<?=$new_icon?>" size="6" onchange="changeSpellIcon()"></td>
                       <td width="17%">Mem Icon:<br/><input type="text" name="memicon" value="<?=$memicon?>" size="6"></td>
                       <td width="16%">Spell Anim:<br/><input type="text" name="spellanim" value="<?=$spellanim?>" size="6"></td>
-                      <td width="17%">Casting Anim:<br/><input type="text" name="CastingAnim" value="<?=$CastingAnim?>" size="6"></td>
-                      <td width="17%">Target Anim:<br/><input type="text" name="TargetAnim" value="<?=$TargetAnim?>" size="6"></td>
+                      <td width="17%">Casting Anim:<br/>
+					  <!-- <input type="text" name="CastingAnim" value="=$CastingAnim" size="6"> -->
+					  <select name="CastingAnim" style="width:60px;">
+<?foreach($castanims as $k => $v):?>
+                    <option value="<?=$k?>"<? echo ($k == $CastingAnim) ? " selected" : ""?>><?=$k?>: <?=$v?></option>
+<?endforeach;?>
+						</select>
+					  </td>
+                      <td width="17%">Target Anim:<br/>
+					  <!-- <input type="text" name="TargetAnim" value="=$TargetAnim" size="6"> -->
+					  <select name="TargetAnim" style="width:60px;">
+<?foreach($targetanims as $k => $v):?>
+                    <option value="<?=$k?>"<? echo ($k == $TargetAnim) ? " selected" : ""?>><?=$k?>: <?=$v?></option>
+<?endforeach;?>
+						</select>
+					  </td>
                     </tr>
                   </table>
                 </td>
@@ -561,6 +582,30 @@
               </tr>
             </table>
           </fieldset><br/>
+          <fieldset style="text-align:left;">
+		   <legend><strong><font size="4">Other</font></strong></legend>
+		    <table width="100%" border="0" cellpadding="3" cellspacing="0">
+			  <tr>
+			    <td>Viral Targets:<br/><input type="text" name="viral_targets" value="<?=$viral_targets?>"></td>
+				<td>Viral Timer:<br/><input type="text" name="viral_timer" value="<?=$viral_timer?>"></td>
+				<td>Viral Range:<br/><input type="text" name="viral_range" value="<?=$viral_range?>"></td>
+			  </tr>
+			  <tr>
+			    <td>Disallow Sit:<br/><input type="text" name="disallow_sit" value="<?=$disallow_sit?>"></td>
+				<td>Powerful:(max duration charm)<br/><input type="text" name="field209" value="<?=$field209?>"></td>
+				<td>SpellGroup:<br/><input type="text" name="spellgroup" value="<?=$spellgroup?>"></td>
+			  </tr>
+			</table>
+		  </fieldset>
+		  <fieldset style="text-align:left;">
+		    <legend><strong><font size="4">DBSTR_US</font></strong></legend>
+			<table width="100%" border="0" cellpadding="3" cellspacing="0">
+			  <tr>
+				<td width="75%">Descnum Text:</br><input type="text" name="txtfile" size="100%" value="<? echo htmlentities($txtfile);?>"></td>
+				<td width="25%">
+			  </tr>
+			</table>
+		  </fieldset>
           <fieldset style="text-align:left;">
             <legend><strong><font size="4">Reagents</font></strong></legend>
             <table width="100%" border="0" cellpadding="3" cellspacing="0">

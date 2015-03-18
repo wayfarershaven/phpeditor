@@ -15,7 +15,7 @@
               <select OnChange="gotosite(this.options[this.selectedIndex].value)">
                 <option value="">Select an NPC</option>
 <?php foreach ($npcs as $npc): ?>
-                <option value="index.php?editor=<?=$curreditor?>&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npc['id']?>"<?php if ($currnpc == $npc['id']): ?> selected<?php endif;?>><?=$npc['name']?></option>
+                 <option value="index.php?editor=<?=$curreditor?>&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npc['id']?>"<?php if ($currnpc == $npc['id']): ?> selected<?php endif;?>><?=$npc['name']?> [<?=$npc['id']?>]</option>
 <?php endforeach;?>
               </select>
             </td>

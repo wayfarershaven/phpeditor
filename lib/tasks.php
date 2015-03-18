@@ -535,9 +535,9 @@ function update_tasks() {
 
   $id = $_POST['id'];
   $duration = $_POST['duration'];
-  $title = $_POST['title'];
-  $description = $_POST['description']; 
-  $reward = $_POST['reward'];
+  $title = mysql_real_escape_string($_POST['title']);
+  $description = mysql_real_escape_string($_POST['description']); 
+  $reward = mysql_real_escape_string($_POST['reward']);
   $rewardid = $_POST['rewardid'];
   $cashreward = $_POST['cashreward'];
   $xpreward = $_POST['xpreward'];
@@ -559,9 +559,9 @@ function update_activity() {
   $newactivityid = $_POST['newactivityid'];
   $step = $_POST['step'];
   $activitytype = $_POST['activitytype']; 
-  $text1 = $_POST['text1'];
-  $text2 = $_POST['text2'];
-  $text3 = $_POST['text3'];
+  $text1 = mysql_real_escape_string($_POST['text1']);
+  $text2 = mysql_real_escape_string($_POST['text2']);
+  $text3 = mysql_real_escape_string($_POST['text3']);
   $goalid = $_POST['goalid'];
   $goalmethod = $_POST['goalmethod']; 
   $goalcount = $_POST['goalcount'];
@@ -744,9 +744,9 @@ function add_tasks() {
 
   $id = $_POST['id'];
   $duration = $_POST['duration'];
-  $title = $_POST['title'];
-  $description = $_POST['description']; 
-  $reward = $_POST['reward'];
+  $title = mysql_real_escape_string($_POST['title']);
+  $description = mysql_real_escape_string($_POST['description']); 
+  $reward = mysql_real_escape_string($_POST['reward']);
   $rewardid = $_POST['rewardid'];
   $cashreward = $_POST['cashreward'];
   $xpreward = $_POST['xpreward'];

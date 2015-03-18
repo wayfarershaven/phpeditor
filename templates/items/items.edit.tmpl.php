@@ -532,8 +532,12 @@
         <fieldset>
           <legend><strong><font size="4">Appearance</font></strong></legend>
           <table width="100%" border="0" cellpadding="3" cellspacing="0">
+		  <td align="left" width="25%"><img id="iconImage" src="icons/item_<?=$icon?>.gif" /><br/></td>
+			<td align="left" width="75%"><br/></td>
+		  </table>
+          <table width="100%" border="0" cellpadding="3" cellspacing="0">
             <tr>
-              <td align="left" width="25%">Icon:<br/><input type="text" name="icon" size="9" value="<?=$icon?>"></td>
+              <td align="left" width="25%">Icon:<br/><input id="iconField" type="text" name="icon" size="9" value="<?=$icon?>" onchange="changeIcon()"></td>
               <td align="left" width="25%">IDFile:<br/><input type="text" name="idfile" size="9" value="<?=$idfile?>"></td>
               <td align="left" width="25%">Weight:<br/><input type="text" name="weight" size="9" value="<?=$weight?>"></td>
               <td align="left" width="25%">Color:<br/><input type="text" name="color" size="9" value="<?=$color?>"></td>

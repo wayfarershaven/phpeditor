@@ -35,7 +35,9 @@ switch ($action) {
     $body->set("acttypes", $sp_acttypes);
     $body->set("daytimes", $sp_daytimes);
     $body->set("traveltypes", $sp_traveltypes);
-    $body->set("spellcats", $sp_categories);
+    //$body->set("spellcats", $sp_categories); //Wtf is this?
+	$body->set("castanims", $sp_animationlist);
+	$body->set("targetanims", $sp_animationlist);
 
     $vars = spell_info();
     if ($vars) {
@@ -50,6 +52,13 @@ switch ($action) {
        $body->set($key, $value);
      }
     }
+	
+	$ass = spell_dbstrus();
+	if ($ass) {
+       $body->set("txtfile", $ass);
+	} else {
+		$body->set("txtfile", "");
+	}
 
     break;
   case 5: // Delete spell
@@ -61,6 +70,7 @@ switch ($action) {
      check_authorization();
      $id = $_GET['id'];
      update_spell();
+	 update_dbstrus();
      header("Location: index.php?editor=spells&id=$id&action=2");
      exit;
   case 7: // Copy spell
@@ -84,6 +94,14 @@ switch ($action) {
      check_authorization();
      $body = new Template("templates/spells/genspells.php");
      break;
+	case 11: // Dump dbstr_us
+	 check_authorization();
+	 $body = new Template("templates/spells/gendbstrus.php");
+	 break;
+   case 12: // Dump SkillCaps
+	 check_authorization();
+	 $body = new Template("templates/spells/genskillcaps.php");
+	 break;
 }
 
 function spell_info () {
@@ -99,6 +117,33 @@ function spell_info () {
 
   $result = $result+$result2;
   return $result;
+}
+
+function spell_dbstrus() {
+  global $mysql;
+
+  $id = $_GET['id'];
+  //$descnum = $_POST['descnum'];
+  $query1 = "SELECT descnum FROM spells_new WHERE id = $id";
+  $result1 = $mysql->query_assoc($query1);
+  $descnum = $result1['descnum'];
+
+  $query2 = "SELECT txtfile FROM dbstr_us WHERE descnum=$descnum and type_=6";
+  $result2 = $mysql->query_assoc($query2);
+  $txtfile = $result2['txtfile'];
+
+  return $txtfile;
+}
+
+function update_dbstrus() {
+	global $mysql;
+	
+	$descnum = $_POST['descnum'];
+	$txtfile = mysql_real_escape_string($_POST['txtfile']);
+	if ($descnum > 0) {
+		$query = "REPLACE INTO dbstr_us VALUES ($descnum, 6, \"$txtfile\", 0)";
+		$mysql->query_no_result($query);
+	}
 }
 
 function delete_spell () {

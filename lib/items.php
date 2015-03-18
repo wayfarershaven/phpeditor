@@ -108,7 +108,7 @@ switch ($action) {
     $body->set("worncasttype", $worncasttype);
     $body->set("focuscasttype", $focuscasttype);
     $body->set("scrollcasttype", $scrollcasttype);
-    $body->set("equipslots", $equipslots); 
+    //$body->set("equipslots", $equipslots); //WTF is this?
     $body->set("factions", factions_array());
     $vars = item_info();
     if ($vars) {

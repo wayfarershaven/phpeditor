@@ -1,4 +1,16 @@
 <script type="text/javascript">
+  function changeIcon() {
+	var iconImage = document.getElementById("iconImage");
+	var iconField = document.getElementById("iconField");
+	iconImage.src = "icons/item_" + iconField.value + ".gif";
+  }
+  
+  function changeSpellIcon() {
+	var iconImage = document.getElementById("iconImage");
+	var iconField = document.getElementById("iconField");
+	iconImage.src = "icons/" + iconField.value + ".gif";
+  }
+
   function showSearch() {
     document.getElementById("searchframe").style.display = "block";
     document.getElementById("button").style.display = "block";

@@ -7,6 +7,7 @@
          <tr>
            <td class="edit_form_content">
              <center><a href="index.php?editor=items&action=8">Create an item</a></center>
+			 <center><a href="index.php?editor=items&action=999">Create a Tiered item</a></center>
            </td>
          </tr>
        </table>

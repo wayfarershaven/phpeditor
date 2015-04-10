@@ -369,7 +369,7 @@ function npcs() {
       $results = $mysql->query_mult_assoc($query);
     }
     if ($version < 1) {
-      $query = "SELECT id, name FROM npc_types WHERE id like \"$zid\" GROUP BY id ORDER BY name ASC";
+      $query = "SELECT id, name FROM npc_types WHERE id like \"$zid\" AND `version` = 0 GROUP BY id ORDER BY name ASC";
       $results = $mysql->query_mult_assoc($query);
     }
   }
@@ -461,7 +461,7 @@ function npcs_by_spellid() {
       $results = $mysql->query_mult_assoc($query);
     }
     if ($version == 0) {
-      $query = "SELECT id, name FROM npc_types WHERE id like \"$zid\" AND npc_spells_id != 0 GROUP BY id ORDER BY name ASC";
+      $query = "SELECT id, name FROM npc_types WHERE id like \"$zid\" AND version = 0 AND npc_spells_id != 0 GROUP BY id ORDER BY name ASC";
       $results = $mysql->query_mult_assoc($query);
     }
   }

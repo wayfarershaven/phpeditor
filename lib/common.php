@@ -43,7 +43,7 @@ function getZoneName($zoneidnumber) {
 function searchItems($search) {
   global $mysql;
   
-  $query = "SELECT id, name, lore FROM items WHERE name rlike \"$search\"";
+  $query = "SELECT id, name, lore FROM items WHERE name rlike \"$search\" order by id asc";
   $results = $mysql->query_mult_assoc($query);
   return $results;
 }
@@ -172,7 +172,7 @@ function search_items() {
   global $mysql;
   $search = $_GET['search'];
 
-  $query = "SELECT id, name FROM items WHERE name rlike \"$search\"";
+  $query = "SELECT id, name FROM items WHERE name like \"%$search%\"  order by id asc";
   $results = $mysql->query_mult_assoc($query);
   return $results;
 }

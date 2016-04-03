@@ -113,7 +113,7 @@ switch ($action) {
     delete_graveyard();
     header("Location: index.php?editor=zone&z=$z&action=1");
     exit;
-   case 8: // Get graveyard ID
+   case 8: // Add graveyard data
     check_authorization();
     $breadcrumbs .= " >> Add Graveyard";
     $body = new Template("templates/zone/graveyard.add.tmpl.php");
@@ -122,11 +122,11 @@ switch ($action) {
     $body->set('zid', getZoneID($z));
     $body->set('suggestgid', suggest_graveyard_id());
     break;
-   case 9: // Add graveyard data
+   case 9: // Insert graveyard data
     check_authorization();
     add_graveyard();
     $graveyard_id = $_POST['graveyard_id'];
-    header("Location: index.php?editor=zone&z=$z&zoneid=$zoneid&graveyard_id=$graveyard_id&action=4");
+    header("Location: index.php?editor=zone&z=$z&zoneid=$zoneid&graveyard_id=$graveyard_id&action=10");
     exit;
    case 10: // View graveyard data
     $breadcrumbs .= " >> Graveyard Data";
@@ -448,7 +448,7 @@ function update_blockedspell() {
   $x_diff = $_POST['x_diff'];
   $y_diff = $_POST['y_diff']; 
   $z_diff = $_POST['z_diff'];
-  $message = $_POST['message']; 
+  $message = $mysql->real_escape_string($_POST['message']); 
   $description = $_POST['description'];
 
   $query = "UPDATE blocked_spells SET spellid=\"$spellid\", type=\"$type\", x=\"$x_coord\", y=\"$y_coord\", z=\"$z_coord\", x_diff=\"$x_diff\", y_diff=\"$y_diff\", z_diff=\"$z_diff\", message=\"$message\", description=\"$description\" WHERE id=\"$bsid\"";
@@ -576,7 +576,7 @@ function add_blockedspell() {
   $x_diff = $_POST['x_diff'];
   $y_diff = $_POST['y_diff']; 
   $z_diff = $_POST['z_diff'];
-  $message = $_POST['message']; 
+  $message = $mysql->real_escape_string($_POST['message']); 
   $description = $_POST['description'];
 
   $query = "INSERT INTO blocked_spells SET id=\"$bsid\", zoneid=\"$zoneid\", spellid=\"$spellid\", type=\"$type\", x=\"$x_coord\", y=\"$y_coord\", z=\"$z_coord\", x_diff=\"$x_diff\", y_diff=\"$y_diff\", z_diff=\"$z_diff\", message=\"$message\", description=\"$description\"";

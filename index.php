@@ -1,6 +1,6 @@
 <?php
 
-$current_revision = "20 July 2016";
+$current_revision = "16 April 2017";
 
 require_once("config.php");
 require_once("lib/logging.php");
@@ -27,6 +27,7 @@ $playerid = (isset($_GET['playerid']) ? $_GET['playerid'] : null);
 $acctid = (isset($_GET['acctid']) ? $_GET['acctid'] : null);
 $guildid = (isset($_GET['guildid']) ? $_GET['guildid'] : null);
 $aaid = (isset($_GET['aaid']) ? $_GET['aaid'] : null);
+$nseid = (isset($_GET['nseid']) ? $_GET['nseid'] : null);
 
 $searchbar = '';
 $body = '';
@@ -127,6 +128,9 @@ switch ($editor) {
     break;
   case 'keys':
     require_once('lib/keys.php');
+    break;
+  case 'titles':
+    require_once('lib/titles.php');
     break;
 }
 

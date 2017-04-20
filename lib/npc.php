@@ -53,7 +53,8 @@ $pet_naming = array(
   1 => "`s familiar",
   2 => "`s Warder",
   3 => "Random pet name",
-  4 => "Keep DB name"
+  4 => "Keep DB name",
+  5 => "`s ward"
 );
 
 $pet_control = array(
@@ -1214,6 +1215,7 @@ function update_npc() {
   if (!isset($_POST['unique_spawn_by_name'])) $_POST['unique_spawn_by_name'] = 0;
   if (!isset($_POST['underwater'])) $_POST['underwater'] = 0;
   if (!isset($_POST['isquest'])) $_POST['isquest'] = 0;
+  if (!isset($_POST['ignore_despawn'])) $_POST['ignore_despawn'] = 0;
 
   // Check for special attacks change
   $new_specialattks = '';
@@ -1294,7 +1296,7 @@ function update_npc() {
   if ($AC != $_POST['AC']) $fields .= "AC=\"" . $_POST['AC'] . "\", ";
   if ($npc_aggro != $_POST['npc_aggro']) $fields .= "npc_aggro=\"" . $_POST['npc_aggro'] . "\", ";
   if ($spawn_limit != $_POST['spawn_limit']) $fields .= "spawn_limit=\"" . $_POST['spawn_limit'] . "\", ";
-  if ($attack_speed != $_POST['attack_speed']) $fields .= "attack_speed=\"" . $_POST['attack_speed'] . "\", ";
+  //attack_speed
   if ($attack_delay != $_POST['attack_delay']) $fields .= "attack_delay=\"" . $_POST['attack_delay'] . "\", ";
   if ($findable != $_POST['findable']) $fields .= "findable=\"" . $_POST['findable'] . "\", ";
   if ($STR != $_POST['STR']) $fields .= "STR=\"" . $_POST['STR'] . "\", ";
@@ -1311,7 +1313,7 @@ function update_npc() {
   //exclude
   if ($ATK != $_POST['ATK']) $fields .= "ATK=\"" . $_POST['ATK'] . "\", ";
   if ($Accuracy != $_POST['Accuracy']) $fields .= "Accuracy=\"" . $_POST['Accuracy'] . "\", ";
-  //Avoidance
+  if ($Avoidance != $_POST['Avoidance']) $fields .= "Avoidance=\"" . $_POST['Avoidance'] . "\", ";
   if ($slow_mitigation != $_POST['slow_mitigation']) $fields .= "slow_mitigation=\"" . $_POST['slow_mitigation'] . "\", ";
   if ($version != $_POST['version']) $fields .= "version=\"" . $_POST['version'] . "\", ";
   if ($maxlevel != $_POST['maxlevel']) $fields .= "maxlevel=\"" . $_POST['maxlevel'] . "\", ";
@@ -1335,6 +1337,7 @@ function update_npc() {
   //peqid
   //unique_
   //fixed
+  if ($ignore_despawn != $_POST['ignore_despawn']) $fields .= "ignore_despawn=\"" . $_POST['ignore_despawn'] . "\", ";
   $fields =  rtrim($fields, ", ");
 
   if ($fields != '') {
@@ -1358,6 +1361,7 @@ function add_npc() {
   if ($_POST['unique_spawn_by_name'] != 1) $_POST['unique_spawn_by_name'] = 0;
   if ($_POST['underwater'] != 1) $_POST['underwater'] = 0;
   if ($_POST['isquest'] != 1) $_POST['isquest'] = 0;
+  if ($_POST['ignore_despawn'] != 1) $_POST['ignore_despawn'] = 0;
 
   foreach ($specialattacks as $k => $v) {
     if (isset($_POST["$k"])) {
@@ -1431,7 +1435,7 @@ function add_npc() {
   $fields .= "AC=\"" . $_POST['AC'] . "\", ";
   $fields .= "npc_aggro=\"" . $_POST['npc_aggro'] . "\", ";
   $fields .= "spawn_limit=\"" . $_POST['spawn_limit'] . "\", ";
-  $fields .= "attack_speed=\"" . $_POST['attack_speed'] . "\", ";
+  //attack_speed
   $fields .= "attack_delay=\"" . $_POST['attack_delay'] . "\", ";
   $fields .= "findable=\"" . $_POST['findable'] . "\", ";
   $fields .= "STR=\"" . $_POST['STR'] . "\", ";
@@ -1448,7 +1452,7 @@ function add_npc() {
   //exclude
   $fields .= "ATK=\"" . $_POST['ATK'] . "\", ";
   $fields .= "Accuracy=\"" . $_POST['Accuracy'] . "\", ";
-  //Avoidance
+  $fields .= "Avoidance=\"" . $_POST['Avoidance'] . "\", ";
   $fields .= "slow_mitigation=\"" . $_POST['slow_mitigation'] . "\", ";
   $fields .= "version=\"" . $_POST['version'] . "\", ";
   $fields .= "maxlevel=\"" . $_POST['maxlevel'] . "\", ";
@@ -1467,11 +1471,12 @@ function add_npc() {
   //handtexture
   //legtexture
   //feettexture
-  $fields .= "light=\"" . $_POST['light'] . "\"";
+  $fields .= "light=\"" . $_POST['light'] . "\", ";
   //walkspeed
   //peqid
   //unique_
   //fixed
+  $fields .= "ignore_despawn=\"" . $_POST['ignore_despawn'] . "\"";
 
   if ($fields != '') {
     $query = "INSERT INTO npc_types SET $fields";
@@ -1551,7 +1556,7 @@ function copy_npc() {
   $fields .= "AC=\"" . $_POST['AC'] . "\", ";
   $fields .= "npc_aggro=\"" . $_POST['npc_aggro'] . "\", ";
   $fields .= "spawn_limit=\"" . $_POST['spawn_limit'] . "\", ";
-  $fields .= "attack_speed=\"" . $_POST['attack_speed'] . "\", ";
+  //attack_speed
   $fields .= "attack_delay=\"" . $_POST['attack_delay'] . "\", ";
   $fields .= "findable=\"" . $_POST['findable'] . "\", ";
   $fields .= "STR=\"" . $_POST['STR'] . "\", ";
@@ -1568,7 +1573,7 @@ function copy_npc() {
   //exclude
   $fields .= "ATK=\"" . $_POST['ATK'] . "\", ";
   $fields .= "Accuracy=\"" . $_POST['Accuracy'] . "\", ";
-  //Avoidance
+  $fields .= "Avoidance=\"" . $_POST['Avoidance'] . "\", ";
   $fields .= "slow_mitigation=\"" . $_POST['slow_mitigation'] . "\", ";
   $fields .= "version=\"" . $_POST['version'] . "\", ";
   $fields .= "maxlevel=\"" . $_POST['maxlevel'] . "\", ";
@@ -1592,6 +1597,7 @@ function copy_npc() {
   //peqid
   //unique_
   //fixed
+  $fields .= "ignore_despawn=\"" . $_POST['ignore_despawn'] . "\", ";
   $fields =  rtrim($fields, ", ");
 
   if ($fields != '') {
@@ -1615,14 +1621,14 @@ function update_npc_bytier() {
   $level = $_POST['npclevel'];
   $stat = $_POST['npcstatchange_selected'];
  
-  if($race == 0){ $nrace = "race"; }
-  if($race > 0){ $nrace = $race; }
-  if($class == 0){ $nclass = "class"; }
-  if($class > 0){ $nclass = $class; }
-  if($name == ''){ $nname = "name"; }
-  if($name != ''){ $nname = $name; }
-  if($level == '' || $level == 0){ $nlevel = "level"; }
-  if($level > 0){ $nlevel = $level; }
+  if ($race == 0) { $nrace = "race"; }
+  if ($race > 0) { $nrace = $race; }
+  if ($class == 0) { $nclass = "class"; }
+  if ($class > 0) { $nclass = $class; }
+  if ($name == '') { $nname = "name"; }
+  if ($name != '') { $nname = $name; }
+  if ($level == '' || $level == 0) { $nlevel = "level"; }
+  if ($level > 0) { $nlevel = $level; }
 
   $npctype = 0;
   if ($_POST['npctype_selected'] == 1) $npctype = 1.0;
@@ -1647,7 +1653,7 @@ function update_npc_bytier() {
   if ($_POST['npctier_selected'] == 8) $npctier = 3.0;
   if ($_POST['npctier_selected'] == 9) $npctier = 3.15;
 
-  if($stat == 1) {
+  if ($stat == 1) {
     $ac_ = "((((level - 1) / 10.0) * 65.0) + 25.0) * ($npctier * $npctype)";
     $mresist = "MR";
     $cresist = "CR";
@@ -1657,7 +1663,7 @@ function update_npc_bytier() {
     $coresist = "Corrup";
   }
 
-  if($stat == 2) {
+  if ($stat == 2) {
     $resist = "(80*0.4) * ($npctier * $npctype * $npcclass)";
     $mresist = $resist;
     $cresist = $resist;
@@ -1668,7 +1674,7 @@ function update_npc_bytier() {
     $ac_ = "AC";
   }
   
-  if($stat == 3) {
+  if ($stat == 3) {
     $ac_ = "((((level - 1) / 10.0) * 65.0) + 25.0) * ($npctier * $npctype)";
     $resist = "(80*0.4) * ($npctier * $npctype * $npcclass)";
     $mresist = $resist;
@@ -1679,12 +1685,12 @@ function update_npc_bytier() {
     $coresist = $resist;
   }
 
-  if($type == 1) {
+  if ($type == 1) {
     $query = "UPDATE npc_types SET ac = $ac_, mr = $mresist, cr = $cresist, dr = $dresist, pr = $presist, fr = $fresist, Corrup = $coresist WHERE id=$npcid";
     $mysql->query_no_result($query);
   }
 
-  if($type == 2) {
+  if ($type == 2) {
     $query = "SELECT name FROM npc_types WHERE id=$npcid";
     $result = $mysql->query_assoc($query);
     $nname = $result['name'];
@@ -1693,7 +1699,7 @@ function update_npc_bytier() {
     $mysql->query_no_result($query);
   }
 
-  if($type == 3) {
+  if ($type == 3) {
     $query = "SELECT race FROM npc_types WHERE id=$npcid";
     $result = $mysql->query_assoc($query);
     $nrace = $result['race'];
@@ -1702,7 +1708,7 @@ function update_npc_bytier() {
     $mysql->query_no_result($query);
   }
 
-  if($type == 4) {
+  if ($type == 4) {
     $query = "SELECT class FROM npc_types WHERE id=$npcid";
     $result = $mysql->query_assoc($query);
     $nclass = $result['class'];
@@ -1711,7 +1717,7 @@ function update_npc_bytier() {
     $mysql->query_no_result($query);
   }
 
-  if($type == 5) {
+  if ($type == 5) {
     $query = "SELECT level FROM npc_types WHERE id=$npcid";
     $result = $mysql->query_assoc($query);
     $nlevel = $result['level'];
@@ -1720,12 +1726,12 @@ function update_npc_bytier() {
     $mysql->query_no_result($query);
   }
 
-  if($type == 6) {
-    if($name == '' && $class == 0 && $race == 0 && ($level == '' || $level == 0)) {
+  if ($type == 6) {
+    if ($name == '' && $class == 0 && $race == 0 && ($level == '' || $level == 0)) {
       $query = "UPDATE npc_types SET ac = $ac_, mr = $mresist, cr = $cresist, dr = $dresist, pr = $presist, fr = $fresist, Corrup = $coresist WHERE id=$npcid";
       $mysql->query_no_result($query);
     }
-    if($name == '' && ($class > 0 || $race > 0 || $level > 0)) {
+    if ($name == '' && ($class > 0 || $race > 0 || $level > 0)) {
       $query = "UPDATE npc_types SET ac = $ac_, mr = $mresist, cr = $cresist, dr = $dresist, pr = $presist, fr = $fresist, Corrup = $coresist WHERE name=$nname AND level=$nlevel AND class=$nclass AND race=$nrace AND id > $min_id AND id < $max_id";
       $mysql->query_no_result($query);
     }
@@ -1736,7 +1742,7 @@ function update_npc_bytier() {
   }
 }
 
-function get_faction_name ($id) {
+function get_faction_name($id) {
   global $mysql;
 
   $query = "SELECT name FROM faction_list WHERE id=$id";
@@ -2072,7 +2078,13 @@ function suggest_npcid() {
 
   $query = "SELECT zoneidnumber FROM zone WHERE short_name=\"$z\"";
   $result = $mysql->query_assoc($query);
-  $zid = $result['zoneidnumber'] . "___";
+
+  if ($result) {
+    $zid = $result['zoneidnumber'] . "___";
+  }
+  else {
+    $zid = "___";
+  }
 
   $query = "SELECT MAX(id) as id FROM npc_types WHERE id like \"$zid\"";
   $result = $mysql->query_assoc($query);
@@ -2198,7 +2210,7 @@ function export_sql() {
       $update_string = $key . "=\"" . $value . "\"";
     }
   }
-  $export_array['update'] = "UPDATE npc_types SET $update_string WHERE id='$npcid';";
+  $export_array['update'] = "UPDATE npc_types SET $update_string WHERE id=\"$npcid\";";
 
   return($export_array);
 }
@@ -2230,12 +2242,12 @@ function delete_emote() {
   $result = $mysql->query_assoc($query);
   $count = $result['emotecount'];
 
-  if($count == 0) {
+  if ($count == 0) {
     $query = "UPDATE npc_types SET emoteid=0 WHERE emoteid=$emoteid";
     $mysql->query_no_result($query);
   }
     
-  if($count != 0) {
+  if ($count != 0) {
     return $emoteid;
   }
   else {
@@ -2276,7 +2288,7 @@ function update_emote() {
   $result = $mysql->query_assoc($query);
   $count = $result['emotecount'];
 
-  if($count == 0) {
+  if ($count == 0) {
     $query = "UPDATE npc_types SET emoteid=0 WHERE emoteid=$oldemote";
     $mysql->query_no_result($query);
   }
@@ -2328,8 +2340,12 @@ function getNPCsByEmote() {
   $query = "SELECT id, name FROM npc_types WHERE emoteid=$emoteid ORDER BY id";
   $result = $mysql->query_mult_assoc($query);
 
-  if ($result)
+  if ($result) {
     return $result;
+  }
+  else {
+    return null;
+  }
 }
 
 function getExistingEmoteEvents($emoteid) {

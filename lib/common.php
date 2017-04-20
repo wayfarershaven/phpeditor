@@ -183,6 +183,7 @@ function get_zone_by_npcid($npcid) {
 
   $query = "SELECT short_name FROM zone WHERE zoneidnumber=\"$npczone\"";
   $result = $mysql->query_assoc($query);
+
   return $result['short_name'];
 }
 
@@ -209,7 +210,12 @@ function getPlayerName($playerid) {
   if ($playerid > 0) {
     $query = "SELECT name FROM character_data WHERE id=$playerid";
     $result = $mysql->query_assoc($query);
-    return $result['name'];
+    if ($result) {
+      return $result['name'];
+    }
+    else {
+      return "";
+    }
   }
   else {
     return "";
@@ -381,7 +387,7 @@ function search_aas_by_name() {
   global $mysql;
   $search = $_GET['search'];
 
-  $query = "SELECT id, name FROM aa_ability WHERE name rlike \"$search\" ORDER BY name, id";
+  $query = "SELECT id, name, classes, deities FROM aa_ability WHERE name rlike \"$search\" ORDER BY name, id, classes, deities";
   $results = $mysql->query_mult_assoc($query);
   return $results;
 }
@@ -390,7 +396,7 @@ function search_aas_by_id() {
   global $mysql;
   $aaid = $_GET['aaid'];
 
-  $query = "SELECT id, name FROM aa_ability WHERE id=\"$aaid\"";
+  $query = "SELECT id, name, classes, deities FROM aa_ability WHERE id rlike \"$aaid\"";
   $results = $mysql->query_mult_assoc($query);
   return $results;
 }
@@ -524,6 +530,8 @@ function delete_player($playerid) {
   //reports?
   $query = "DELETE FROM timers WHERE char_id=$playerid";
   $mysql->query_no_result($query);
+  $query = "DELETE FROM titles WHERE char_id=$playerid";
+  $mysql->query_no_result($query);
   $query = "DELETE FROM trader WHERE char_id=$playerid";
   $mysql->query_no_result($query);
   //trader_audit?
@@ -590,4 +598,93 @@ function item_isNoRent($item_id) {
     return false;
   }
 }
+
+function getClasses($classes) {
+  if ($classes == 0) {
+    return "None";
+  }
+  elseif ($classes == 65535) 
+    return "ALL";
+  else {
+    $result = '';
+    if ($classes & 32768) $result .= "BER ";
+    if ($classes &   128) $result .= "BRD ";
+    if ($classes & 16384) $result .= "BST ";
+    if ($classes &     2) $result .= "CLR ";
+    if ($classes &    32) $result .= "DRU ";
+    if ($classes &  8192) $result .= "ENC ";
+    if ($classes &  4096) $result .= "MAG ";
+    if ($classes &    64) $result .= "MNK ";
+    if ($classes &  1024) $result .= "NEC ";
+    if ($classes &     4) $result .= "PAL ";
+    if ($classes &     8) $result .= "RNG ";
+    if ($classes &   256) $result .= "ROG ";
+    if ($classes &    16) $result .= "SHD ";
+    if ($classes &   512) $result .= "SHM ";
+    if ($classes &     1) $result .= "WAR ";
+    if ($classes &  2048) $result .= "WIZ ";
+    $result = rtrim($result, " ");
+    return $result;
+  }
+}
+
+function getRaces($races) {
+  if ($races == 0) {
+    return "None";
+  }
+  elseif ($races == 65535) 
+    return "ALL";
+  else {
+    $result = '';
+    if ($races &     2) $result .= "BAR ";
+    if ($races &    32) $result .= "DEF ";
+    if ($races & 32768) $result .= "DRK ";
+    if ($races &   128) $result .= "DWF ";
+    if ($races &     8) $result .= "ELF ";
+    if ($races &     4) $result .= "ERU ";
+    if ($races &  4096) $result .= "FRG ";
+    if ($races &  2048) $result .= "GNM ";
+    if ($races &    64) $result .= "HEF ";
+    if ($races &  1024) $result .= "HFL ";
+    if ($races &    16) $result .= "HIE ";
+    if ($races &     1) $result .= "HUM ";
+    if ($races &  8192) $result .= "IKS ";
+    if ($races &   512) $result .= "OGR ";
+    if ($races &   256) $result .= "TRL ";
+    if ($races & 16384) $result .= "VAH ";
+    $result = rtrim($result, " ");
+    return $result;
+  }
+}
+
+function getDeities($deities) {
+  if ($deities == 0) {
+    return "None";
+  }
+  elseif ($deities == 131071) 
+    return "ALL";
+  else {
+    $result = '';
+    if ($deities & 65536) $result .= "Agnostic ";
+    if ($deities &     1) $result .= "Bertoxxulous ";
+    if ($deities &     2) $result .= "Brell Serilis ";
+    if ($deities &    16) $result .= "Bristlebane ";
+    if ($deities &     4) $result .= "Cazic-Thule ";
+    if ($deities &     8) $result .= "Erollisi Marr ";
+    if ($deities &    32) $result .= "Innoruuk ";
+    if ($deities &    64) $result .= "Karana ";
+    if ($deities &   128) $result .= "Mithaniel Marr ";
+    if ($deities &   256) $result .= "Prexus ";
+    if ($deities &   512) $result .= "Quellious ";
+    if ($deities &  1024) $result .= "Rallos Zek ";
+    if ($deities &  2048) $result .= "Rodcet Nife ";
+    if ($deities &  4096) $result .= "Solusek Ro ";
+    if ($deities &  8192) $result .= "The Tribunal ";
+    if ($deities & 16384) $result .= "Tunare ";
+    if ($deities & 32768) $result .= "Veeshan ";
+    $result = rtrim($result, " ");
+    return $result;
+  }
+}
+
 ?>

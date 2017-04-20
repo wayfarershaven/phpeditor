@@ -1,8 +1,8 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
-   "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
 
   <head>
+    <meta name="viewport" content="width=800">
     <meta http-equiv="Content-type" content="text/html;charset=UTF-8">
     <script type="text/javascript">
       function gotosite(site) { if (site != "") { self.location=site; } }
@@ -23,6 +23,16 @@
       <div id="header">
         <a href="index.php"><img src="images/peq_editor.gif" title="Home" border="0" alt="PEQ Editor Banner"></a>
       </div>
+<?php if (ini_get('short_open_tag') != 1): ?>
+  <div class="error">
+    <table width="100%">
+      <tr>
+        <td valign="middle" width="30px"><img src="images/caution.gif"></td>
+        <td style="padding:0px 5px;">The setting for <strong><em>short_open_tag</em></strong> must be turned <strong><em>on</em></strong> in php.ini</td>
+      </tr>
+    </table>
+  </div>
+<?php exit; endif; ?>
 <?if (isset($headbar)) echo $headbar;?>
 <?if (isset($searchbar)) echo $searchbar;?>
       <div id="content">

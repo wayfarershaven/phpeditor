@@ -77,7 +77,7 @@ $sp_formulas = array(
 );
 
 $sp_zonetypes = array(
-   -1  => "None",
+   -1   => "None",
     0   => "Indoor",
     1   => "Outdoor",
     2   => "Dungeon",
@@ -821,7 +821,9 @@ $sp_effects = array(
     212 => "Frenzied Devastation",
     213 => "Pet Percent HP",
     214 => "HP Max Percent",
+    215 => "Pet Avoidance",
     216 => "Accuracy Amount",
+    217 => "Headshot",
     218 => "Pet Crit Melee",
     219 => "Slay Undead",
     220 => "Skill Damage Amount",
@@ -1261,8 +1263,8 @@ $sp_fields = array(
     "spell_category",       //GLOBAL_GROUP
     "field181",             //PVP_DURATION
     "field182",             //PVP_DURATION_CAP
-    "field183",             //PCNPC_ONLY_FLAG
-    "field184",             //CAST_NOT_STANDING
+    "pcnpc_only_flag",      //PCNPC_ONLY_FLAG
+    "cast_not_standing",    //CAST_NOT_STANDING
     "can_mgb",              //CAN_MGB
     "nodispell",            //NO_DISPELL
     "npc_category",         //NPC_MEM_CATEGORY

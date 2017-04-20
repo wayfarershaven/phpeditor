@@ -1,25 +1,24 @@
 <?$export_sql_array = export_sql();?>
   <div id="sql_block" style="display:none;">
     <center>
-      <textarea id="insert_sql" rows="3" cols="90"><?=$export_sql_array['insert']?></textarea><br/><br/>
-      <textarea id="update_sql" rows="3" cols="90"><?=$export_sql_array['update']?></textarea><br/><br/>
+      <textarea id="insert_sql" rows="3" cols="90"><?=$export_sql_array['insert']?></textarea><br><br>
+      <textarea id="update_sql" rows="3" cols="90"><?=$export_sql_array['update']?></textarea><br><br>
       <button type="button" id="copy_insert" onClick="clipboardData.setData('Text', insert_sql.value);">Copy INSERT to Clipboard</button>&nbsp;
       <button type="button" id="copy_update" onClick="clipboardData.setData('Text', update_sql.value);">Copy UPDATE to Clipboard</button>&nbsp;
       <button type="button" id="hide_sql" onClick="document.getElementById('sql_block').style.display='none';document.getElementById('sql_image').style.display='inline';">Hide SQL</button>
-    </center><br/>
+    </center><br>
   </div>
   <form name="npc" method="post" action="index.php?editor=npc&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&action=28">
     <div class="table_container">
       <div class="table_header">
         <div style="float:right">
-          <a onClick="document.getElementById('sql_block').style.display='block';document.getElementById('sql_image').style.display='none';"><img id="sql_image" src="images/sql.gif" border="0" title="Show SQL"></a>
-
-          <a href="index.php?editor=npc&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&action=42"><img src="images/add.gif" border="0" title="Add an NPC"></a>
-          <a href="index.php?editor=npc&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&action=1"><img src="images/c_table.gif" border="0" title="Edit this NPC"></a>
-          <a href="index.php?editor=npc&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&action=43"><img src="images/upgrade.gif" border="0" title="Change NPC's Level"></a>
-          <a href="index.php?editor=npc&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&action=52"><img src="images/create.gif" border="0" title="Change NPC's AC/Resists"></a>
-          <a href="index.php?editor=npc&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&action=40"><img src="images/zone.gif" border="0" title="Get next npcid for a zone"></a>
-          <a onClick="return confirm('Really delete npcid <?=$npcid?>?');" href="index.php?editor=npc&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&action=24"><img src="images/table.gif" border="0" title="Delete this NPC"></a>
+          <a onClick="document.getElementById('sql_block').style.display='block';document.getElementById('sql_image').style.display='none';"><img id="sql_image" src="images/sql.gif" style="border: 0;" title="Show SQL" alt="Show SQL"></a>
+          <a href="index.php?editor=npc&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&action=42"><img src="images/add.gif" style="border: 0;" title="Add an NPC" alt="Add an NPC"></a>
+          <a href="index.php?editor=npc&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&action=1"><img src="images/c_table.gif" style="border: 0;" title="Edit this NPC" alt="Edit this NPC"></a>
+          <a href="index.php?editor=npc&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&action=43"><img src="images/upgrade.gif" style="border: 0;" title="Change NPC's Level" alt="Change NPC's Level"></a>
+          <a href="index.php?editor=npc&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&action=52"><img src="images/create.gif" style="border: 0;" title="Change NPC's AC/Resists" alt="Change NPC's AC/Resists"></a>
+          <a href="index.php?editor=npc&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&action=40"><img src="images/zone.gif" style="border: 0;" title="Get next npcid for a zone" alt="Get next npcid for a zone"></a>
+          <a onClick="return confirm('Really delete npcid <?=$npcid?>?');" href="index.php?editor=npc&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&action=24"><img src="images/table.gif" style="border: 0;" title="Delete this NPC" alt="Delete this NPC"></a>
         </div>
         <?=$id?> - <?=$name?> <?echo ($lastname != '' ? "($lastname)" : '');?>
       </div>
@@ -28,22 +27,22 @@
           <tr>
             <td>
               <center>
-                <h1><?=$name?><br/>(<?echo ($lastname != '' ? "$lastname" : 'no title');?>)</h1><br/>
+                <h1><?=$name?><br>(<?echo ($lastname != '' ? "$lastname" : 'no title');?>)</h1><br>
                 <table style="font-size: 12px; margin-bottom: 80px;">
                   <tr>
                     <td>
 <?if($isquest == 1) {?>
-                      <a href="index.php?editor=npc&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&action=71"><center><strong>Is Quest NPC</strong></center><br/> </a>
+                      <a href="index.php?editor=npc&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&action=71"><center><strong>Is Quest NPC</strong></center><br> </a>
 <?}?>
-                      <strong>Race:</strong> <?echo "<a title='Race: " . $race . "'>" . $races[$race] . "</a>";?><br/>
-                      <strong>Class:</strong> <?echo "<a title='Class: " . $class . "'>" . $classes[$class] . "</a>";?><br/>
-                      <strong>Level:</strong> <?=$level?><br/>
-                      <strong>Max Level:</strong> <?=$maxlevel?><br/>
-                      <strong>Body Type:</strong> <?echo "<a title='Body Type: " . $bodytype . "'>" . $bodytypes[$bodytype] . "</a>";?><br/>
-                      <strong>Vendor:</strong> <a href="index.php?editor=npc&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&action=22" title="View/Change"><?echo ($merchant_id != 0 ? $merchant_id : "no");?></a><br/>
-                      <strong>Alt Currency:</strong> <a href="index.php?editor=altcur&npcid=<?=$id?>&action=<?echo ($alt_currency_id != 0) ? '10">' . get_currency_name($alt_currency_id) : '8">no';?></a><br/>
-                      <strong>Adventure:</strong> <a href="index.php?editor=npc&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&action=29" title="View/Change"><?echo ($adventure_template_id != 0 ? $adventure_template_id : "no");?></a><br/>
-                      <strong>Trap:</strong> <a href="index.php?editor=npc&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&action=31" title="View/Change"><?echo ($trap_template != 0 ? $trap_template : "no");?></a><br/>
+                      <strong>Race:</strong> <?echo "<a title='Race: " . $race . "'>" . $races[$race] . "</a>";?><br>
+                      <strong>Class:</strong> <?echo "<a title='Class: " . $class . "'>" . $classes[$class] . "</a>";?><br>
+                      <strong>Level:</strong> <?=$level?><br>
+                      <strong>Max Level:</strong> <?=$maxlevel?><br>
+                      <strong>Body Type:</strong> <?echo "<a title='Body Type: " . $bodytype . "'>" . $bodytypes[$bodytype] . "</a>";?><br>
+                      <strong>Vendor:</strong> <a href="index.php?editor=npc&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&action=22" title="View/Change"><?echo ($merchant_id != 0 ? $merchant_id : "no");?></a><br>
+                      <strong>Alt Currency:</strong> <a href="index.php?editor=altcur&npcid=<?=$id?>&action=<?echo ($alt_currency_id != 0) ? '10">' . get_currency_name($alt_currency_id) : '8">no';?></a><br>
+                      <strong>Adventure:</strong> <a href="index.php?editor=npc&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&action=29" title="View/Change"><?echo ($adventure_template_id != 0 ? $adventure_template_id : "no");?></a><br>
+                      <strong>Trap:</strong> <a href="index.php?editor=npc&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&action=31" title="View/Change"><?echo ($trap_template != 0 ? $trap_template : "no");?></a><br>
 <?if($armortint_id > 0) {?>
                       <strong>Tint:</strong> <a href="index.php?editor=npc&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&tint_id=<?=$armortint_id?>&action=33"><?=$armortint_id?></a><br>
 <?} else {?>
@@ -65,13 +64,13 @@
                 </table>
                 <div style="padding: 10px; border: 1px solid grey; margin-right: 10px;">
                   <b>NPC Faction ID</b>: <?=$npc_faction_id?> [<a href="index.php?editor=npc&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&action=3">edit</a>]
-                  [<a href="index.php?editor=npc&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&npcfid=<?=$npc_faction_id?>&action=47">update</a>]<br/>
+                  [<a href="index.php?editor=npc&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&npcfid=<?=$npc_faction_id?>&action=47">update</a>]<br>
 <?if ($npc_faction_id > 0) {?>
-                  "<a href="index.php?editor=npc&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&action=10"><?=$factionname?></a>"<br/><br/>
+                  "<a href="index.php?editor=npc&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&action=10"><?=$factionname?></a>"<br><br>
 <?}?>
-                  <b>Primary Faction</b>: [<a href="index.php?editor=npc&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&action=12">edit</a>]<br/>
-                  <?echo ($primaryfactionname != '') ? "<a title='Faction: " . $primaryfaction . "'>" . $primaryfactionname . "</a>" : "None";?><br/><br/>
-                  <b>Faction Hits:</b> <a href="index.php?editor=npc&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&action=15"><img src="images/add.gif" border="0" title="Add Faction Hit"></a><br/>
+                  <b>Primary Faction</b>: [<a href="index.php?editor=npc&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&action=12">edit</a>]<br>
+                  <?echo ($primaryfactionname != '') ? "<a title='Faction: " . $primaryfaction . "'>" . $primaryfactionname . "</a>" : "None";?><br><br>
+                  <b>Faction Hits:</b> <a href="index.php?editor=npc&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&action=15"><img src="images/add.gif" style="border: 0;" title="Add Faction Hit" alt="Add Faction Hit"></a><br>
 <?if ($faction_hits != '') {?>
                   <table width="100%">
 <?foreach($faction_hits as $hit): extract($hit);?>
@@ -81,14 +80,14 @@
                       <td><?=$faction_values[$npc_value]?></td>
                       <td>(<?=$tmpfacshort[$temp]?>)</td>
                       <td align="right">
-                        <a href="index.php?editor=npc&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&npc_faction_id=<?=$npc_faction_id?>&faction_id=<?=$faction_id?>&action=19"><img src="images/edit2.gif" border="0" title="Edit this Faction Hit"></a>
-                        <a href="index.php?editor=npc&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&npc_faction_id=<?=$npc_faction_id?>&faction_id=<?=$faction_id?>&action=21" onClick="return confirm('Are you sure you want to remove this faction hit?');"><img src="images/remove.gif" border="0" title="Remove this Faction Hit"></a>
+                        <a href="index.php?editor=npc&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&npc_faction_id=<?=$npc_faction_id?>&faction_id=<?=$faction_id?>&action=19"><img src="images/edit2.gif" style="border: 0;" title="Edit this Faction Hit" alt="Edit this Faction Hit"></a>
+                        <a href="index.php?editor=npc&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&npc_faction_id=<?=$npc_faction_id?>&faction_id=<?=$faction_id?>&action=21" onClick="return confirm('Are you sure you want to remove this faction hit?');"><img src="images/remove.gif" style="border: 0;" title="Remove this Faction Hit" alt="Remove this Faction Hit"></a>
                       </td>
                     </tr>
 <?endforeach;?>
                   </table>
 <?} else {?>
-                None<br/>
+                None<br>
 <?}?>
                 </div>
               </center>
@@ -104,8 +103,8 @@
                   </tr>
                   <tr>
                     <td align="left" width="33%">Run: <?=$runspeed?></td>
-                    <td align="left" width="33%">&nbsp;</td>
-                    <td align="left" width="34%">Acy: <?=$Accuracy?></td>
+                    <td align="left" width="33%">Avoidance: <?=$Avoidance?></td>
+                    <td align="left" width="34%">Accuracy: <?=$Accuracy?></td>
                   </tr>
                   <tr>
                     <td align="left" width="34%">ATK: <?=$ATK?></td>
@@ -181,7 +180,7 @@
                   </tr>
                   <tr>
                     <td align="left" width="33%">Aggro: <?=$aggroradius?></td>
-                    <td align="left" width="33%">Atk Speed: <?=$attack_speed?>%</td>
+                    <td align="left" width="33%">&nbsp;</td>
 <?
   $new_special_abilities = '';
     for ($i = 1; $i <= $special_abilities_max; $i++){
@@ -192,8 +191,7 @@
     }
     $new_special_abilities = rtrim($new_special_abilities, ",");
 ?>
-
-                    <td align="left" width="34%">Atk Delay: <?=$attack_delay?>%</td>
+                    <td align="left" width="34%">Atk Delay: <?=$attack_delay?></td>
                   </tr>
                   <tr>
                     <td align="left" width="33%">Assist: <?=$assistradius?></td>
@@ -266,23 +264,23 @@
                   <tr>
                     <td align="left" width="33%">Spawn Limit: <?echo ($spawn_limit > 0) ? $spawn_limit : "None";?></td>
                     <td align="left" width="33%">Unique Spawn: <?=$yesno[$unique_spawn_by_name]?></td>
-                    <td align="left" width="34%">Underwater: <?=$yesno[$underwater]?></td>
+                    <td align="left" width="34%">Ignore Despawn: <?=$yesno[$ignore_despawn]?></td>
                   </tr>
                   <tr>
                     <td align="left" width="33%">Pet: <?=$yesno[$pet]?></td>
                     <td align="left" width="33%">Private Corpse: <?=$yesno[$private_corpse]?></td>
-                    <td align="left" width="34%">Version: <?=$version?></td>
+                    <td align="left" width="34%">Underwater: <?=$yesno[$underwater]?></td>
                   </tr>
                   <tr>
                     <td align="left" width="33%">No Target Hotkey: <?=$yesno[$no_target_hotkey]?></td>
                     <td align="left" width="33%">Raid Target: <?=$yesno[$raid_target]?></td>
-                    <td align="left" width="34%">&nbsp;</td>
+                    <td align="left" width="34%">Version: <?=$version?></td>
                   </tr>
                 </table>
               </fieldset>
             </td>
           </tr>
-        </table><br/><br/>
+        </table><br><br>
         <input type="hidden" name="name" value="<?=$name?>">
         <input type="hidden" name="lastname" value="<?=$lastname?>">
         <input type="hidden" name="level" value="<?=$level?>">
@@ -376,6 +374,7 @@
         <input type="hidden" name="no_target_hotkey" value="<?=$no_target_hotkey?>">
         <input type="hidden" name="raid_target" value="<?=$raid_target?>">
         <input type="hidden" name="light" value="<?=$light?>">
+        <input type="hidden" name="ignore_despawn" value="<?=$ignore_despawn?>">
         <center>
           NEW ID:<input type="text" name="id" size="10" value="<?=$suggestedid?>">
           <input type="submit" value="Copy NPC">

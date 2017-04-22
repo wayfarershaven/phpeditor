@@ -68,7 +68,7 @@ switch ($action) {
      check_authorization();
      $id = $_GET['id'];
      update_spell();
-	 //update_dbstrus(); OFF FOR NOW
+	 update_dbstrus();
      header("Location: index.php?editor=spells&id=$id&action=2");
      exit;
   case 7: // Copy spell
@@ -76,6 +76,10 @@ switch ($action) {
       $id = copy_spell();
       header("Location: index.php?editor=spells&id=$id&action=2");
       exit;
+  case 999: // Dump dbstr_us
+	  check_authorization();
+	  $body = new Template("templates/spells/gendbstrus.php");
+	 break;
 //Spells are complicated enough that one is probably wise to copy from a template anyway, at least for now.
 //  case 8: // Add spell
 //     check_authorization();
@@ -89,10 +93,7 @@ switch ($action) {
 //     header("Location: index.php?editor=spells&id=$id&action=2");
 //     exit;
 	// Natedog Custom shit.. OFF for now
-	//case 11: // Dump dbstr_us
-	// check_authorization();
-	// $body = new Template("templates/spells/gendbstrus.php");
-	// break;
+	
    //case 12: // Dump SkillCaps
 	// check_authorization();
 	// $body = new Template("templates/spells/genskillcaps.php");

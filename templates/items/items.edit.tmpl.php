@@ -539,7 +539,8 @@ if($errors != ''):?>
 		  <td align="left" width="25%"><img id="iconImage" src="icons/item_<?=$icon?>.gif" /><br/></td>
 			<td align="left" width="25%"><br/></td>
 			<td align="left" width="25%"><br/></td>
-			<td align="left" width="25%">HexColor:<br/><input id="hexcolor" type="text" size="9" maxlength="6" value="<?=sprintf( '%06d',dechex((float)$color & 0x00FFFFFF));?>" onchange="updateHexColor()"></td>
+			<script src="colorpicker/jscolor.js"></script>
+			<td align="left" width="25%">HexColor:<br/><input id="hexcolor" type="text" size="9" maxlength="6" class="jscolor" value="<?=sprintf( '%06s',dechex((float)$color & 0x00FFFFFF));?>" onchange="updateHexColor()"></td>
 		  </table>
           <table width="100%" border="0" cellpadding="3" cellspacing="0">
             <tr>

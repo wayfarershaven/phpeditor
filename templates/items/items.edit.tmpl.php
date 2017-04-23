@@ -1,4 +1,5 @@
-<?if($errors != ''):?>
+<?
+if($errors != ''):?>
   <?foreach($errors as $error):?>
     <div class='error'>
       <table width="100%">
@@ -536,14 +537,16 @@
           <legend><strong><font size="4">Appearance</font></strong></legend>
           <table width="100%" border="0" cellpadding="3" cellspacing="0">
 		  <td align="left" width="25%"><img id="iconImage" src="icons/item_<?=$icon?>.gif" /><br/></td>
-			<td align="left" width="75%"><br/></td>
+			<td align="left" width="25%"><br/></td>
+			<td align="left" width="25%"><br/></td>
+			<td align="left" width="25%">HexColor:<br/><input id="hexcolor" type="text" size="9" maxlength="6" value="<?=dechex((float)$color & 0x00FFFFFF);?>" onchange="updateHexColor()"></td>
 		  </table>
           <table width="100%" border="0" cellpadding="3" cellspacing="0">
             <tr>
               <td align="left" width="25%">Icon:<br/><input id="iconField" type="text" name="icon" size="9" value="<?=$icon?>" onchange="changeIcon()"></td>
               <td align="left" width="25%">IDFile:<br/><input type="text" name="idfile" size="9" value="<?=$idfile?>"></td>
               <td align="left" width="25%">Weight:<br/><input type="text" name="weight" size="9" value="<?=$weight?>"></td>
-              <td align="left" width="25%">Color:<br/><input type="text" name="color" size="9" value="<?=$color?>"></td>
+              <td align="left" width="25%">Color:<br/><input id="colorField" type="text" name="color" size="9" value="<?=$color?>"></td>
             </tr>
           </table>
           <table width="100%" border="0" cellpadding="3" cellspacing="0">

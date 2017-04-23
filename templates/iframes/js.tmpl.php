@@ -5,6 +5,13 @@
 	iconImage.src = "icons/item_" + iconField.value + ".gif";
   }
   
+  function updateHexColor() {
+	var hex_color = document.getElementById("hexcolor");
+	var yourNumber = parseInt("FF" + hex_color.value, 16);
+	var colorField = document.getElementById("colorField");
+	colorField.value = yourNumber;
+  }
+  
   function changeSpellIcon() {
 	var iconImage = document.getElementById("iconImage");
 	var iconField = document.getElementById("iconField");

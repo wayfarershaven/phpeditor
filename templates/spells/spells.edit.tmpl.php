@@ -539,14 +539,7 @@
 		   <legend><strong><font size="4">Other</font></strong></legend>
 		    <table width="100%" border="0" cellpadding="3" cellspacing="0">
 			  <tr>
-			    <td>Viral Targets:<br/><input type="text" name="viral_targets" value="<?=$viral_targets?>"></td>
-				<td>Viral Timer:<br/><input type="text" name="viral_timer" value="<?=$viral_timer?>"></td>
-				<td>Viral Range:<br/><input type="text" name="viral_range" value="<?=$viral_range?>"></td>
-			  </tr>
-			  <tr>
-			    <td>Disallow Sit:<br/><input type="text" name="disallow_sit" value="<?=$disallow_sit?>"></td>
 				<td>Powerful:(max duration charm)<br/><input type="text" name="field209" value="<?=$field209?>"></td>
-				<td>SpellGroup:<br/><input type="text" name="spellgroup" value="<?=$spellgroup?>"></td>
 			  </tr>
 			</table>
 		  </fieldset>

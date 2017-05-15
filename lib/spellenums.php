@@ -133,6 +133,7 @@ $sp_deities = array(
 $sp_targets = array(
     0  => "Rag'Zhezum Special",
     1  => "Line of Sight",
+	2  => "AEClientV1",
     3  => "Group v1",
     4  => "PB AE",
     5  => "Single",

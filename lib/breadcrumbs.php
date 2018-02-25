@@ -83,6 +83,13 @@ switch ($editor) {
     break;
   case 'titles':
     $breadcrumbs = "<a href='index.php?editor=" . $editor . "'>Title Editor</a>";
+    break;
+  case 'auras':
+    $breadcrumbs = "<a href='index.php?editor=" . $editor . "'>Auras Editor</a>";
+    break;
+  case 'pvp':
+    $breadcrumbs = "<a href='index.php?editor=" . $editor . "'>PVP Editor</a>";
+    break;
 }
 
 if ($z != '') $breadcrumbs .= " >> " . "<a href='index.php?editor=" . $editor . "&z=" . $z . "&zoneid=" . getZoneIDByName($z) . "'>" . getZoneLongName($z) . "</a>";

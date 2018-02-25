@@ -192,7 +192,7 @@ switch($action) {
     exit;
 }
 
-function spells_info () {
+function spells_info() {
   global $mysql, $npcid, $spellset;
 
   $array = array();
@@ -245,13 +245,29 @@ function update_spellset() {
   check_authorization();
   global $mysql;
 
-  $attack_proc = $_POST['attack_proc'];
-  $proc_chance = $_POST['proc_chance'];
-  $parent_list = $_POST['parent_list'];
   $id = $_POST['id'];
   $name = $_POST['name'];
+  $parent_list = $_POST['parent_list'];
+  $attack_proc = $_POST['attack_proc'];
+  $proc_chance = $_POST['proc_chance'];
+  $range_proc = $_POST['range_proc'];
+  $rproc_chance = $_POST['rproc_chance'];
+  $defensive_proc = $_POST['defensive_proc'];
+  $dproc_chance = $_POST['dproc_chance'];
+  $fail_recast = $_POST['fail_recast'];
+  $engaged_no_sp_recast_min = $_POST['engaged_no_sp_recast_min'];
+  $engaged_no_sp_recast_max = $_POST['engaged_no_sp_recast_max'];
+  $engaged_b_self_chance = $_POST['engaged_b_self_chance'];
+  $engaged_b_other_chance = $_POST['engaged_b_other_chance'];
+  $engaged_d_chance = $_POST['engaged_d_chance'];
+  $pursue_no_sp_recast_min = $_POST['pursue_no_sp_recast_min'];
+  $pursue_no_sp_recast_max = $_POST['pursue_no_sp_recast_max'];
+  $pursue_d_chance = $_POST['pursue_d_chance'];
+  $idle_no_sp_recast_min = $_POST['idle_no_sp_recast_min'];
+  $idle_no_sp_recast_max = $_POST['idle_no_sp_recast_max'];
+  $idle_b_chance = $_POST['idle_b_chance'];
 
-  $query = "UPDATE npc_spells SET name=\"$name\", attack_proc=$attack_proc, proc_chance=$proc_chance, parent_list=$parent_list WHERE id=$id";
+  $query = "UPDATE npc_spells SET name=\"$name\", parent_list=$parent_list, attack_proc=$attack_proc, proc_chance=$proc_chance, range_proc=$range_proc, rproc_chance=$rproc_chance, defensive_proc=$defensive_proc, dproc_chance=$dproc_chance, fail_recast=$fail_recast, engaged_no_sp_recast_min=$engaged_no_sp_recast_min, engaged_no_sp_recast_max=$engaged_no_sp_recast_max, engaged_b_self_chance=$engaged_b_self_chance, engaged_b_other_chance=$engaged_b_other_chance, engaged_d_chance=$engaged_d_chance, pursue_no_sp_recast_min=$pursue_no_sp_recast_min, pursue_no_sp_recast_max=$pursue_no_sp_recast_max, pursue_d_chance=$pursue_d_chance, idle_no_sp_recast_min=$idle_no_sp_recast_min, idle_no_sp_recast_max=$idle_no_sp_recast_max, idle_b_chance=$idle_b_chance WHERE id=$id";
   $mysql->query_no_result($query);
 }
 
@@ -266,10 +282,18 @@ function add_spell() {
   $maxlevel = $_POST['maxlevel'];
   $manacost = $_POST['manacost'];
   $recast_delay = $_POST['recast_delay'];
+  $resist_adjust = $_POST['resist_adjust'];
+  $min_hp = $_POST['min_hp'];
+  $max_hp = $_POST['max_hp'];
   $priority = $_POST['priority'];
 
-  $query = "INSERT INTO npc_spells_entries SET npc_spells_id=$npc_spells_id, spellid=$spellid, type=$type, minlevel=$minlevel, maxlevel=$maxlevel, manacost=$manacost, recast_delay=$recast_delay, priority=$priority";
+  $query = "INSERT INTO npc_spells_entries SET npc_spells_id=$npc_spells_id, spellid=$spellid, type=$type, minlevel=$minlevel, maxlevel=$maxlevel, manacost=$manacost, recast_delay=$recast_delay, priority=$priority, resist_adjust=NULL, min_hp=$min_hp, max_hp=$max_hp";
   $mysql->query_no_result($query);
+
+  if ($resist_adjust != "") {
+    $query = "UPDATE npc_spells_entries SET resist_adjust=\"$resist_adjust\" WHERE id=$id";
+    $mysql->query_no_result($query);
+  }
 }
 
 function delete_spell() {
@@ -320,10 +344,18 @@ function update_spell() {
   $maxlevel = $_POST['maxlevel'];
   $manacost = $_POST['manacost'];
   $recast_delay = $_POST['recast_delay'];
+  $resist_adjust = $_POST['resist_adjust'];
+  $min_hp = $_POST['min_hp'];
+  $max_hp = $_POST['max_hp'];
   $priority = $_POST['priority'];
 
-  $query = "UPDATE npc_spells_entries SET spellid=$spellid, type=$type, minlevel=$minlevel, maxlevel=$maxlevel, manacost=$manacost, recast_delay=$recast_delay, priority=$priority WHERE id=$id";
+  $query = "UPDATE npc_spells_entries SET spellid=$spellid, type=$type, minlevel=$minlevel, maxlevel=$maxlevel, manacost=$manacost, recast_delay=$recast_delay, priority=$priority, resist_adjust=NULL, min_hp=$min_hp, max_hp=$max_hp WHERE id=$id";
   $mysql->query_no_result($query);
+
+  if ($resist_adjust != "") {
+    $query = "UPDATE npc_spells_entries SET resist_adjust=\"$resist_adjust\" WHERE id=$id";
+    $mysql->query_no_result($query);
+  }
 }
 
 function suggest_spellset_id() {
@@ -349,8 +381,24 @@ function add_spellset() {
   $parent_list = $_POST['parent_list'];
   $attack_proc = $_POST['attack_proc'];
   $proc_chance = $_POST['proc_chance'];
+  $range_proc = $_POST['range_proc'];
+  $rproc_chance = $_POST['rproc_chance'];
+  $defensive_proc = $_POST['defensive_proc'];
+  $dproc_chance = $_POST['dproc_chance'];
+  $fail_recast = $_POST['fail_recast'];
+  $engaged_no_sp_recast_min = $_POST['engaged_no_sp_recast_min'];
+  $engaged_no_sp_recast_max = $_POST['engaged_no_sp_recast_max'];
+  $engaged_b_self_chance = $_POST['engaged_b_self_chance'];
+  $engaged_b_other_chance = $_POST['engaged_b_other_chance'];
+  $engaged_d_chance = $_POST['engaged_d_chance'];
+  $pursue_no_sp_recast_min = $_POST['pursue_no_sp_recast_min'];
+  $pursue_no_sp_recast_max = $_POST['pursue_no_sp_recast_max'];
+  $pursue_d_chance = $_POST['pursue_d_chance'];
+  $idle_no_sp_recast_min = $_POST['idle_no_sp_recast_min'];
+  $idle_no_sp_recast_max = $_POST['idle_no_sp_recast_max'];
+  $idle_b_chance = $_POST['idle_b_chance'];
 
-  $query = "INSERT INTO npc_spells SET id=$id, name=\"$name\", parent_list=$parent_list, attack_proc=$attack_proc, proc_chance=$proc_chance";
+  $query = "INSERT INTO npc_spells SET id=$id, name=\"$name\", parent_list=$parent_list, attack_proc=$attack_proc, proc_chance=$proc_chance, range_proc=$range_proc, rproc_chance=$rproc_chance, defensive_proc=$defensive_proc, dproc_chance=$dproc_chance, fail_recast=$fail_recast, engaged_no_sp_recast_min=$engaged_no_sp_recast_min, engaged_no_sp_recast_max=$engaged_no_sp_recast_max, engaged_b_self_chance=$engaged_b_self_chance, engaged_b_other_chance=$engaged_b_other_chance, engaged_d_chance=$engaged_d_chance, pursue_no_sp_recast_min=$pursue_no_sp_recast_min, pursue_no_sp_recast_max=$pursue_no_sp_recast_max, pursue_d_chance=$pursue_d_chance, idle_no_sp_recast_min=$idle_no_sp_recast_min, idle_no_sp_recast_max=$idle_no_sp_recast_max, idle_b_chance=$idle_b_chance";
   $mysql->query_no_result($query);
 }
 
@@ -432,7 +480,7 @@ function get_new_id() {
   return $nss;
 }
 
-function change_spellset_byname () {
+function change_spellset_byname() {
   check_authorization();
   global $mysql, $npcid, $z;
   $zid = getZoneID($z);
@@ -453,7 +501,7 @@ function change_spellset_byname () {
   }
 }
 
-function change_spellset_byclass () {
+function change_spellset_byclass() {
   check_authorization();
   global $mysql, $npcid, $z;
   $zid = getZoneID($z);

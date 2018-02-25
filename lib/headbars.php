@@ -176,6 +176,14 @@ switch ($editor) {
     break;
   case 'titles':
     break;
+  case 'auras':
+    $auras = auras();
+    $searchbar = new Template("templates/searchbar/searchbar.auras.tmpl.php");
+    $searchbar->set('auras', $auras);
+    break;
+  case 'pvp':
+    $searchbar = new Template("templates/searchbar/searchbar.pvp.tmpl.php");
+    break;
 }
 
 function build_tabs () {
@@ -206,6 +214,8 @@ function build_tabs () {
   $tabstatus23 = "off";
   $tabstatus24 = "off";
   $tabstatus25 = "off";
+  $tabstatus26 = "off";
+  $tabstatus27 = "off";
 
   $zoneurl = "";
   $npcurl = "";
@@ -296,6 +306,12 @@ function build_tabs () {
     case 'titles':
       $tabstatus25 = "on";
       break;
+    case 'auras':
+      $tabstatus26 = "on";
+      break;
+    case 'pvp':
+      $tabstatus27 = "on";
+      break;
   }
 
   $admin = '';
@@ -331,6 +347,8 @@ function build_tabs () {
         <div class=\"$tabstatus23\"><a href=\"index.php?editor=keys\">Keys</a></div><br/><br/>
         <div class=\"$tabstatus24\"><a href=\"index.php?editor=quest\">Quests</a></div>
         <div class=\"$tabstatus25\"><a href=\"index.php?editor=titles\">Titles</a></div>
+        <div class=\"$tabstatus26\"><a href=\"index.php?editor=auras\">Auras</a></div>
+        <div class=\"$tabstatus27\"><a href=\"index.php?editor=pvp\">PVP</a></div>
         <div style=\"float: right;\">$admin<a href=\"index.php?logout\">Logout</a></div><br/><br/>
       </div>
 ";
@@ -506,6 +524,15 @@ function aas() {
   global $mysql;
 
   $query = "SELECT id, name FROM aa_ability ORDER BY name, id";
+  $results = $mysql->query_mult_assoc($query);
+
+  return $results;
+}
+
+function auras() {
+  global $mysql;
+
+  $query = "SELECT type, name FROM auras ORDER BY name";
   $results = $mysql->query_mult_assoc($query);
 
   return $results;

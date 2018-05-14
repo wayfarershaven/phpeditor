@@ -731,6 +731,7 @@ function normalize_drops() {
   check_authorization();
   global $mysql, $normalize_amount;
   $ldid = $_GET['ldid'];
+  if(isset($_REQUEST['norm_value_' . $ldid])) { $normalize_amount = $_REQUEST['norm_value_' . $ldid]; }
   
   $query = "UPDATE lootdrop_entries SET chance=$normalize_amount WHERE lootdrop_id=$ldid";
   $mysql->query_no_result($query);

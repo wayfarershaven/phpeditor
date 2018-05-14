@@ -150,8 +150,11 @@
 ?>
           <tr bgcolor="#000000">
             <td colspan="10" align="right">
-              <a title="Set chance for all items on this table to <?=$normalize_amount?>" href="index.php?editor=loot&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&ldid=<?=$lootdrop['id']?>&action=18" style="color:yellow;">Normalize Drops</a>
-            </td>
+			  <form id="<?=$lootdrop['id']?>" name="norm_loot<?=$lootdrop['id']?>" method="post" action="index.php?editor=loot&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&ldid=<?=$lootdrop['id']?>&action=18">
+			  <a style="color:white">Normalize Loot:</a> <input type="number" step="0.01" size="5" id="norm_value_<?=$lootdrop['id']?>" name="norm_value_<?=$lootdrop['id']?>" value="<?=$normalize_amount?>">
+			  <input type="hidden" name="action" value="<?=$lootdrop['id']?>">
+			  <input type="submit" name="submit<?=$lootdrop['id']?>" value=" Submit<?=$lootdrop['id']?>" onclick="javascript: form.action='index.php?editor=loot&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&ldid=<?=$lootdrop['id']?>&action=18';">
+			</td>
           </tr>
 <?
   endif;

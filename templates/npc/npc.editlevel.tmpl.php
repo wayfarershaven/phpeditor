@@ -301,7 +301,7 @@
                 </td>
                 <td valign="top" align="left">
                   <input type="checkbox" name="underwater" value="1"<?echo ($underwater == 1) ? " checked" : "";?>> Underwater NPC<br>
-                  <input type="checkbox" name="34" value="34,1^"<?echo ($specabil[34] == 1) ? "checked" : "";?>>  Destructible Object (34)<br>
+                  <input type="checkbox" name="disable_instance" value="1"<?echo ($disable_instance == 1) ? "checked" : "";?>>  Disable NPC in Instances<br>
                   <input type="checkbox" name="isquest" value="1"<?echo ($isquest == 1) ? " checked" : "";?>> Has Quest File<br>
                 </td>
                 <td valign="top" align="left">

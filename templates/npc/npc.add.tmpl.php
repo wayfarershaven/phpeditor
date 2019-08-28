@@ -340,7 +340,7 @@
                 </td>
                 <td valign="top" align="left">
                   <input type="checkbox" name="underwater" value="1" onChange="underwaterCheck();"> Underwater NPC<br>
-                  <input type="checkbox" name="34" value="34,1"> Destructible Object (34)<br>
+                  <input type="checkbox" name="disable_instance" value="34,1"/> Disable NPC in Instances<br/>
                   <input type="checkbox" name="isquest" value="1"> Has Quest File<br>
                 </td>
                 <td valign="top" align="left">

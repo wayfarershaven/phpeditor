@@ -329,7 +329,7 @@ if ($loottable_id > 0) {
                   </tr>
                   <tr>
                     <td align="left" width="33%">Flymode: <?=$flymodetype[$flymode]?></td>
-                    <td align="left" width="33%">&nbsp;</td>
+                    <td align="left" width="33%">Disable In Instance: <?=$yesno[$disable_instance]?></td>
                     <td align="left" width="34%">&nbsp;</td>
                   </tr>
                 </table>
@@ -424,6 +424,7 @@ if ($loottable_id > 0) {
         <input type="hidden" name="unique_spawn_by_name" value="<?=$unique_spawn_by_name?>">
         <input type="hidden" name="underwater" value="<?=$underwater?>">
         <input type="hidden" name="isquest" value="<?=$isquest?>">
+        <input type="hidden" name="disable_instance" value="<?=$disable_instance?>">
         <input type="hidden" name="emoteid" value="<?=$emoteid?>">
         <input type="hidden" name="spellscale" value="<?=$spellscale?>">
         <input type="hidden" name="healscale" value="<?=$healscale?>">

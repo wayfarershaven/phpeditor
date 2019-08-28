@@ -77,6 +77,8 @@ $sp_formulas = array(
     121 => "Effect Base + Level / 3 **",
     122 => "Splurt",
     123 => "Random (Effect Base, Effect Max) **",
+    128 => "Effect Base + 5 * (Level - 50)",
+    144 => "Effect Base + 10 * Level + 20 * (Level - 40)",
     203 => "Effect Max"
 );
 

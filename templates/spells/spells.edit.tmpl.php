@@ -191,12 +191,12 @@
                       <td width="17%">Spell Affect Index:<br><input type="text" name="SpellAffectIndex" value="<?=$SpellAffectIndex?>" size="6"></td>
                     </tr>
                     <tr>
-                      <td width="16%">Nimbus Effect:<br><input type="text" name="nimbuseffect" value="<?=$nimbuseffect?>" size="6"></td>
-                      <td width="17%">Disallow Sitting:<br><input type="text" name="disallow_sit" value="<?=$disallow_sit?>" size="6"></td>
-                      <td width="17%">Sneaking:<br><input type="text" name="sneaking" value="<?=$sneaking?>" size="6"></td>
-                      <td width="16%">LDoN Trap:<br><input type="text" name="ldon_trap" value="<?=$ldon_trap?>" size="6"></td>
-                      <td width="17%">No Block:<br><input type="text" name="no_block" value="<?=$no_block?>" size="6"></td>
-                      <td width="17%">&nbsp;</td>
+                      <td width="16%">Nimbus Effect:<br/><input type="text" name="nimbuseffect" value="<?=$nimbuseffect?>" size="6"></td>
+                      <td width="17%">Disallow Sitting:<br/><input type="text" name="disallow_sit" value="<?=$disallow_sit?>" size="6"></td>
+                      <td width="17%">Sneaking:<br/><input type="text" name="sneaking" value="<?=$sneaking?>" size="6"></td>
+                      <td width="16%">LDoN Trap:<br/><input type="text" name="ldon_trap" value="<?=$ldon_trap?>" size="6"></td>
+                      <td width="17%">No Block:<br/><input type="text" name="no_block" value="<?=$no_block?>" size="6"></td>
+                      <td width="17%">Spell Priority:<br/><input type="text" name="field235" value="<?=$field235?>" size="6"></td>
                     </tr>
                   </table>
                 </td>

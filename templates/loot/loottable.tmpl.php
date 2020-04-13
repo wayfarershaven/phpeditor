@@ -1,7 +1,7 @@
 <?if (!isset($loottable_id) || !isset($loottable_name)){?>
-    <div class="table_container" style="width: 350px">
+    <div class="table_container" style="width: 350px;">
       <div class="table_header">
-        <div style="float: right">
+        <div style="float: right;">
           <a href="index.php?editor=loot&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&action=11"><img src="images/create.gif" border="0" title="Change LootTable"></a>
         </div>
         No Assigned or Valid Loottable
@@ -13,10 +13,11 @@
           <a href="index.php?editor=loot&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&action=46">Click here to import loot from Magelo</a>
         </center>
       </div>
+    </div>
 <?} else {?>
       <div class="table_container" style="width: 350px">
         <div class="table_header">
-          <div style="float: right">
+          <div style="float: right;">
             <a href="index.php?editor=loot&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&action=11"><img src="images/create.gif" border="0" title="Change LootTable"></a>&nbsp;
             <a href="index.php?editor=loot&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&ltid=<?=$loottable_id?>&action=36"><img src="images/last.gif" border="0" title="Apply LootTable to Multiple NPCs"></a>&nbsp;
             <a href="index.php?editor=loot&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&action=34" onClick="return confirm('Really remove this loottable from the selected NPC?');"><img src="images/minus2.gif" border="0" title="Drop this loottable"></a>
@@ -30,7 +31,6 @@
           LootTable <?=$loottable_id?>: "<a href="index.php?editor=loot&action=1&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>"><?=$new_loottable_name?></a>"
         </div>
         <div class="table_content">
-          Global Loot: <?echo ($global_loot_id != 0) ? "<a href='index.php?editor=loot&id=" . $global_loot_id . "&action=52' title='View Global Loot'>" . $global_loot_id . "</a>" : "None";?><br><br>
           Cash Loot [<a href="index.php?editor=loot&action=1&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>">edit</a>]:<br>
           <div style="padding: 5px 0px 0px 20px;">
             Min Cash: <?=$mincash?><br>
@@ -46,7 +46,7 @@
             <br>&nbsp;&nbsp;&nbsp;<?=$mob['id']?>: <?=$mob['name']?>
 <?endforeach;?>
 <? } ?>
-          </div>
+        </div>
           <div style="padding: 5px 0px 0px 0px;">
             LootDrops associated with this LootTable: <?=$lootdrop_count?> <a href="index.php?editor=loot&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&action=22&ltid=<?=$loottable_id?>"><img src="images/add.gif" border="0" title="Add a LootDrop to this LootTable"></a>
           </div>
@@ -54,12 +54,11 @@
             <center><a href="index.php?editor=loot&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&action=46">Click here to import loot from Magelo</a></center>
           </div>
         </div>
-      </div>
+      </div><br>
 <?
   if ($lootdrops != ''):
     foreach ($lootdrops as $lootdrop):
 ?>
-      <br>
       <div class="table_container">
         <div class="table_header">
           <table width="100%" cellpadding="0" cellspacing="0">
@@ -123,7 +122,7 @@
       $chance = $chance; // <- TRUE...
 ?>
           <tr bgcolor="#<? echo ($x % 2 == 0) ? "BBBBBB" : "AAAAAA";?>">
-            <td align="center"><a href="index.php?editor=items&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&id=<?=$item_id?>&action=2"><?=$item_id?></td>
+            <td align="center"><a href="index.php?editor=items&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&id=<?=$item_id?>&action=2"><?=$item_id?></a></td>
             <td align="center"><?echo (get_item_name($item_id) != "") ? get_item_name($item_id) : "<a title='Item not in database!'>UNKNOWN</a>";?> <span>[<a href="http://lucy.allakhazam.com/item.html?id=<?=$item_id?>" target="_blank">lucy</a>]</span></td>
             <td align="center" width="100"><? echo (($equip_item == 0)) ? "No" : "Yes"; ?></td>
             <td align="center"><?=$item_charges?></td>
@@ -156,17 +155,18 @@
 			  <input type="submit" name="submit<?=$lootdrop['id']?>" value=" Submit<?=$lootdrop['id']?>" onclick="javascript: form.action='index.php?editor=loot&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&ldid=<?=$lootdrop['id']?>&action=18';">
 			</td>
           </tr>
+        </table>
+      </div><br>
 <?
   endif;
 ?>
 <? if(!isset($lootdrop['items'])):?>
           <tr>
-            <td align="left" width="100" style="padding: 10px;">No items currently assigned to this lootdrop</td>
+            <td align="left" style="padding: 10px;">No items currently assigned to this lootdrop</td>
           </tr>
-<? endif;?>
         </table>
-      </div>
+      </div><br>
+<? endif;?>
 <? endforeach; ?>
-    </div>
 <? endif;?>
 <? } /*endelse*/?>

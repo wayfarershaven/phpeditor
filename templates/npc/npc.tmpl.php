@@ -8,6 +8,32 @@
       <button type="button" id="hide_sql" onClick="document.getElementById('sql_block').style.display='none';document.getElementById('sql_image').style.display='inline';">Hide SQL</button>
     </center><br>
   </div>
+<?if (isGlobalLoot($loottable_id)):?>
+  <div class="error">
+    <table width="100%">
+      <tr>
+        <td valign="middle" width="30px"><img src="images/caution.gif"></td>
+        <td style="padding:0px 5px;">This NPC's loottable is a global loottable.</td>
+      </tr>
+    </table>
+  </div>
+<?endif;?>
+<?
+if ($loottable_id > 0) {
+  if (!isValidLoot($loottable_id)) {
+?>
+  <div class="error">
+    <table width="100%">
+      <tr>
+        <td valign="middle" width="30px"><img src="images/caution.gif"></td>
+        <td style="padding:0px 5px;">This NPC's loottable is an orphaned loottable.</td>
+      </tr>
+    </table>
+  </div>
+<?
+  }
+}
+?>
   <form name="npc" method="post" action="index.php?editor=npc&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&action=28">
     <div class="table_container">
       <div class="table_header">
@@ -200,7 +226,7 @@
                   </tr>
                   <tr>
                     <td align="left" width="33%">Aggro: <?=$aggroradius?></td>
-                    <td align="left" width="33%">&nbsp;</td>
+                    <td align="left" width="33%">Always Aggro: <?=$always_aggro?></td>
 <?
   $new_special_abilities = '';
     for ($i = 1; $i <= $special_abilities_max; $i++){
@@ -269,7 +295,7 @@
                   <tr>
                    <td align="left" width="33%">Melee1 Type: <?=$prim_melee_type?></td>
                    <td align="left" width="33%">Melee2 Type: <?=$sec_melee_type?></td>
-                   <td align="left" width="34%">&nbsp;</td>
+                   <td align="left" width="34%">Model: <?echo ($model != 0) ? $model : "None";?></td>
                   </tr>
                 </table>
               </fieldset>
@@ -299,6 +325,11 @@
                   <tr>
                     <td align="left" width="33%">Skip Global Loot: <?=$yesno[$skip_global_loot]?></td>
                     <td align="left" width="33%">Rare Spawn: <?=$yesno[$rare_spawn]?></td>
+                    <td align="left" width="34%">Stuck Behavior: <?=$stuck_behavior?></td>
+                  </tr>
+                  <tr>
+                    <td align="left" width="33%">Flymode: <?=$flymodetype[$flymode]?></td>
+                    <td align="left" width="33%">&nbsp;</td>
                     <td align="left" width="34%">&nbsp;</td>
                   </tr>
                 </table>
@@ -409,6 +440,10 @@
         <input type="hidden" name="charm_avoidance_rating" value="<?=$charm_avoidance_rating?>">
         <input type="hidden" name="skip_global_loot" value="<?=$skip_global_loot?>">
         <input type="hidden" name="rare_spawn" value="<?=$rare_spawn?>">
+        <input type="hidden" name="stuck_behavior" value="<?=$stuck_behavior?>">
+        <input type="hidden" name="model" value="<?=$model?>">
+        <input type="hidden" name="flymode" value="<?=$flymode?>">
+        <input type="hidden" name="always_aggro" value="<?=$always_aggro?>">
         <center>
           NEW ID:<input type="text" name="id" size="10" value="<?=$suggestedid?>">
           <input type="submit" value="Copy NPC">

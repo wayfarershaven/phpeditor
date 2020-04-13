@@ -1,8 +1,8 @@
 <div class="table_container">
   <div class="table_header">
     <div style="float:right">
-      <a onClick="javascript:alert('Not yet!');"><img src="images/c_table.gif" border="0" title="Edit this Guild" /></a>
-      <a onClick="javascript:alert('Not yet!');"><img src="images/table.gif" border="0" title="Delete this Guild" /></a>
+      <a onClick="javascript:alert('Not yet!');"><img src="images/c_table.gif" border="0" title="Edit this Guild"></a>
+      <a onClick="javascript:alert('Not yet!');"><img src="images/table.gif" border="0" title="Delete this Guild"></a>
     </div>
     <?=$id?> - <?echo trim($name)?>
   </div>
@@ -15,20 +15,20 @@
               <td width="35%">
                 <fieldset>
                   <legend><strong>Guild Info</strong></legend>
-                  Name: <?=$name?><br/>
-                  Guild ID: <?=$id?><br/>
-                  Leader: <?=getPlayerName($leader)?><br/>
-                  Min Status: <?=$minstatus?><br/>
-                  URL: <?=$url?><br/>
-                  Tribute: <?=$tribute?><br/>
-                  Channel: <?=$channel?><br/>
+                  Name: <?=$name?><br>
+                  Guild ID: <?=$id?><br>
+                  Leader: <?=getPlayerName($leader)?><br>
+                  Min Status: <?=$minstatus?><br>
+                  URL: <?=$url?><br>
+                  Tribute: <?=$tribute?><br>
+                  Channel: <?=$channel?><br>
                 </fieldset>
               </td>
               <td width="65%">
                 <fieldset>
                   <legend><strong>Message of the Day</strong></legend>
-                  Set By: <?=$motd_setter?><br/>
-                  Message: <?=$motd?><br/>
+                  Set By: <?=$motd_setter?><br>
+                  Message: <?=$motd?><br>
                 </fieldset>
               </td>
             </tr>
@@ -97,7 +97,7 @@
     echo '<td align="center">' . $yesno[$guild_member['tribute_enable']] . '</td>';
     echo '<td align="center">' . $yesno[$guild_member['banker']] . '</td>';
     echo '<td align="center">' . $yesno[$guild_member['alt']] . '</td>';
-    echo '<td align="center"><img src="images\note.gif" title="' . (($guild_member['public_note'] != '') ? $guild_member['public_note'] : 'No Public Note') . '"/></td>';
+    echo '<td align="center"><img src="images\note.gif" title="' . (($guild_member['public_note'] != '') ? $guild_member['public_note'] : 'No Public Note') . '"></td>';
     echo '</tr>';
   }
 ?>
@@ -127,7 +127,7 @@
       echo '<tr>';
       echo '<td align="center">' . (($guild_item['area'] == 0) ? 'Deposit' : 'Bank') . '</td>';
       echo '<td align="center">' . $guild_item['slot'] . '</td>';
-      echo '<td align="center">' . $guild_item['itemname'] . ' <a href="index.php?editor=items&id=' . $guild_item['itemid'] . '&action=2">' . $guild_item['itemid'] . '</a> [<a href="http://lucy.allakhazam.com/item.html?id=' . $guild_item['itemid'] . '" target="_new">lucy</a>]</td>';
+      echo '<td align="center">' . get_item_name($guild_item['itemid']) . ' <a href="index.php?editor=items&id=' . $guild_item['itemid'] . '&action=2">' . $guild_item['itemid'] . '</a> [<a href="http://lucy.allakhazam.com/item.html?id=' . $guild_item['itemid'] . '" target="_new">lucy</a>]</td>';
       echo '<td align="center">' . $guild_item['qty'] . '</td>';
       echo '<td align="center">' . $permissions[$guild_item['permissions']] . '</td>';
       echo '<td align="center">' . $guild_item['donator'] . '</td>';

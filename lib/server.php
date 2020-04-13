@@ -63,7 +63,7 @@ switch ($action) {
     $body = new Template("templates/server/bugs.tmpl.php");
     $body->set("bugstatus", $bugstatus);
     $bugs = get_open_bugs($curr_page, $curr_size, $curr_sort);
-    $page_stats = getPageInfo("bugs", $curr_page, $curr_size, $_GET['sort'], "status = 0");
+    $page_stats = getPageInfo("bugs", FALSE, $curr_page, $curr_size, $_GET['sort'], "status = 0");
     if ($bugs) {
       foreach ($bugs as $key=>$value) {
         $body->set($key, $value);
@@ -108,7 +108,7 @@ switch ($action) {
     $body = new Template("templates/server/bugs.resolved.tmpl.php");
     $body->set("bugstatus", $bugstatus);
     $bugs = get_resolved_bugs($curr_page, $curr_size, $curr_sort);
-    $page_stats = getPageInfo("bugs", $curr_page, $curr_size, $_GET['sort'], "status != 0");
+    $page_stats = getPageInfo("bugs", FALSE, $curr_page, $curr_size, $_GET['sort'], "status != 0");
     if ($bugs) {
       foreach ($bugs as $key=>$value) {
         $body->set($key, $value);
@@ -138,7 +138,7 @@ switch ($action) {
       $filter = build_filter();
     }
     $body = new Template("templates/server/hackers.tmpl.php");
-    $page_stats = getPageInfo("hackers", $curr_page, $curr_size, $_GET['sort'], $filter['sql']);
+    $page_stats = getPageInfo("hackers", FALSE, $curr_page, $curr_size, $_GET['sort'], $filter['sql']);
     if ($filter) {
       $body->set('filter', $filter);
     }
@@ -176,7 +176,7 @@ switch ($action) {
      }
     break;
    case 9: // Preview Reports
-    check_admin_authorization();
+    check_authorization();
     $breadcrumbs .= " >> Reports";
     $body = new Template("templates/server/reports.tmpl.php");
     $reports = get_reports();
@@ -192,7 +192,7 @@ switch ($action) {
     header("Location: index.php?editor=server&action=9");
     exit;
    case 11: // View Report
-    check_admin_authorization();
+    check_authorization();
     $breadcrumbs .= " >> " . "<a href='index.php?editor=server&action=9'>" . "Reports</a> >> Report Details";
     $body = new Template("templates/server/reports.view.tmpl.php");
     $reports = view_reports();
@@ -203,7 +203,7 @@ switch ($action) {
      }
     break;
   case 12: // View Petitions
-    check_admin_authorization();
+    check_authorization();
     $breadcrumbs .= " >> Petitions";
     $body = new Template("templates/server/petition.tmpl.php");
     $petitions = get_petitions();
@@ -214,7 +214,7 @@ switch ($action) {
      }
     break;
   case 13: // View Petition
-    check_admin_authorization();
+    check_authorization();
     $breadcrumbs .= " >> " . "<a href='index.php?editor=server&action=12'>" . "Petitions</a> >> Petition Details";
     $body = new Template("templates/server/petition.view.tmpl.php");
     $body->set('yesno', $yesno);
@@ -228,12 +228,12 @@ switch ($action) {
      }
     break;
   case 14: // Update Petition
-    check_admin_authorization();
+    check_authorization();
     update_petition();
     header("Location: index.php?editor=server&action=12");
     exit;
   case 15: // Delete Petition
-    check_admin_authorization();
+    check_authorization();
     delete_petition();
     header("Location: index.php?editor=server&action=12");
     exit;
@@ -277,7 +277,7 @@ switch ($action) {
     $body = new Template("templates/server/rules.add.tmpl.php");
     $body->set('ruleset_id', $_GET['ruleset_id']);
     break;
-  case 20: // Add Rule
+  case 20: // Insert Rule
     check_admin_authorization();
     add_rule();
     $ruleset_id = $_POST['ruleset_id'];
@@ -417,7 +417,7 @@ switch ($action) {
     $body = new Template("templates/server/zones.add.tmpl.php");
     $body->set('suggestlauncher', suggest_launcher());
     break;
-  case 37: // Add Zone
+  case 37: // Insert Zone
     check_admin_authorization();
     add_zone();
     header("Location: index.php?editor=server&action=32");
@@ -448,7 +448,7 @@ switch ($action) {
     $breadcrumbs .= " >> " . "<a href='index.php?editor=server&action=32'>" . "Zone Launcher Setup</a> >> Add Launcher";
     $body = new Template("templates/server/launcher.add.tmpl.php");
     break;
-  case 42: // Add launcher
+  case 42: // Insert launcher
     check_admin_authorization();
     add_launcher();
     header("Location: index.php?editor=server&action=32");
@@ -569,6 +569,46 @@ switch ($action) {
       $body->set('classes', $classes);
     }
     break;
+  case 58: // View Name Filters
+    check_authorization();
+    $breadcrumbs .= " >> Name Filters";
+    $body = new Template("templates/server/namefilter.tmpl.php");
+    $nfdata = getNFData();
+    if ($nfdata) {
+      $body->set('nfdata', $nfdata);
+    }
+    break;
+  case 59: // Edit Name Filter
+    check_authorization();
+    $breadcrumbs .= " >> <a href='index.php?editor=server&action=58'>Name Filters</a> >> Edit Name Filter";
+    $body = new Template("templates/server/namefilter.edit.tmpl.php");
+    $nf = getNF($_GET['id']);
+    if ($nf) {
+      $body->set('nf', $nf);
+    }
+    break;
+  case 60: // Update Name Filter
+    check_authorization();
+    update_nf();
+    header("Location: index.php?editor=server&action=58");
+    exit;
+  case 61: // Add Name Filter
+    check_authorization();
+    $breadcrumbs .= " >> <a href='index.php?editor=server&action=58'>Name Filters</a> >> Add Name Filter";
+    $body = new Template("templates/server/namefilter.add.tmpl.php");
+    $nfid = getNextNFID();
+    $body->set('id', $nfid);
+    break;
+  case 62: // Insert Name Filter
+    check_authorization();
+    insert_nf();
+    header("Location: index.php?editor=server&action=58");
+    exit;
+  case 63: // Delete Name Filter
+    check_authorization();
+    delete_nf();
+    header("Location: index.php?editor=server&action=58");
+    exit;
 }
 
 function get_open_bugs($page_number, $results_per_page, $sort_by) {
@@ -812,7 +852,7 @@ function view_zone() {
   $zone = $_GET['zone'];
   $launcher = $_GET['launcher'];
 
-  $query = "SELECT * FROM launcher_zones where launcher = \"$launcher\" and zone = \"$zone\"";
+  $query = "SELECT * FROM launcher_zones WHERE launcher=\"$launcher\" AND zone=\"$zone\"";
   $result = $mysql->query_assoc($query);
   
   return $result;
@@ -823,7 +863,7 @@ function view_launcher() {
 
   $name = $_GET['name'];
 
-  $query = "SELECT * FROM launcher where name = \"$name\"";
+  $query = "SELECT * FROM launcher WHERE name=\"$name\"";
   $result = $mysql->query_assoc($query);
   
   return $result;
@@ -834,7 +874,7 @@ function view_variable() {
 
   $varname = $_GET['varname'];
 
-  $query = "SELECT * FROM variables where varname = \"$varname\"";
+  $query = "SELECT * FROM variables WHERE varname=\"$varname\"";
   $result = $mysql->query_assoc($query);
   
   return $result;
@@ -899,7 +939,7 @@ function update_zone() {
   $zone = $_POST['zone'];
   $port = $_POST['port'];
 
-  $query = "UPDATE launcher_zones SET launcher=\"$launcher1\", zone=\"$zone1\", port=\"$port\" WHERE launcher=\"$launcher\" and zone=\"$zone\"";
+  $query = "UPDATE launcher_zones SET launcher=\"$launcher1\", zone=\"$zone1\", port=\"$port\" WHERE launcher=\"$launcher\" AND zone=\"$zone\"";
   $mysql->query_no_result($query);
 }
 
@@ -1091,7 +1131,7 @@ function suggest_ruleset_id() {
 function suggest_launcher() {
   global $mysql;
 
-  $query = "SELECT name FROM launcher limit 1";
+  $query = "SELECT name FROM launcher LIMIT 1";
   $result = $mysql->query_assoc($query);
   
   return $result['name'];
@@ -1118,7 +1158,6 @@ function notify_status($new_status) {
 }
 
 function build_filter() {
-  global $mysql;
   $filter1 = $_GET['filter1'];
   $filter2 = $_GET['filter2'];
   $filter3 = $_GET['filter3'];
@@ -1199,7 +1238,7 @@ function view_bannedips() {
 
   $ip_address = $_GET['ip'];
 
-  $query = "SELECT ip_address,notes FROM Banned_IPs where ip_address = \"$ip_address\"";
+  $query = "SELECT ip_address,notes FROM Banned_IPs where ip_address=\"$ip_address\"";
   $result = $mysql->query_assoc($query);
   
   return $result;
@@ -1210,7 +1249,7 @@ function delete_bannedip() {
 
   $ip_address = $_GET['ip'];
 
-  $query = "DELETE FROM Banned_IPs where ip_address = \"$ip_address\"";
+  $query = "DELETE FROM Banned_IPs where ip_address=\"$ip_address\"";
   $mysql->query_no_result($query);
 }
 
@@ -1220,15 +1259,15 @@ function update_bannedip() {
   $ip_address = $_POST['ip_address'];
   $notes = $_POST['notes']; 
 
-  $query = "UPDATE Banned_IPs SET notes=\"$notes\" WHERE ip_address = \"$ip_address\"";
+  $query = "UPDATE Banned_IPs SET notes=\"$notes\" WHERE ip_address=\"$ip_address\"";
   $mysql->query_no_result($query);
 }
 
 function getCharCreateComboList() {
-  global $mysql;
+  global $mysql_content_db;
 
   $query = "SELECT * FROM char_create_combinations ORDER BY race, class, deity, start_zone";
-  $results = $mysql->query_mult_assoc($query);
+  $results = $mysql_content_db->query_mult_assoc($query);
 
   return $results;
 }
@@ -1260,9 +1299,23 @@ function repair_orphaned_rules() {
 }
 
 function getCharBaseData() {
-  global $mysql;
+  global $mysql_content_db;
 
   $query = "SELECT * FROM base_data";
+  $results = $mysql_content_db->query_mult_assoc($query);
+
+  if ($results) {
+    return $results;
+  }
+  else {
+    return null;
+  }
+}
+
+function getNFData() {
+  global $mysql;
+
+  $query = "SELECT * FROM name_filter ORDER BY id";
   $results = $mysql->query_mult_assoc($query);
 
   if ($results) {
@@ -1271,5 +1324,58 @@ function getCharBaseData() {
   else {
     return null;
   }
+}
+
+function getNF($nfid) {
+  global $mysql;
+
+  $query = "SELECT * FROM name_filter WHERE id=$nfid";
+  $result = $mysql->query_assoc($query);
+
+  if ($result) {
+    return $result;
+  }
+  else {
+    return null;
+  }
+}
+
+function update_nf() {
+  global $mysql;
+
+  $old_id = $_POST['old_id'];
+  $id = $_POST['id'];
+  $name = $_POST['name'];
+
+  $query = "UPDATE name_filter SET id=$id, `name`=\"$name\" WHERE id=$old_id";
+  $mysql->query_no_result($query);
+}
+
+function insert_nf() {
+  global $mysql;
+
+  $id = $_POST['id'];
+  $name = $_POST['name'];
+
+  $query = "INSERT INTO name_filter SET id=$id, `name`=\"$name\"";
+  $mysql->query_no_result($query);
+}
+
+function delete_nf() {
+  global $mysql;
+
+  $id = $_GET['id'];
+
+  $query = "DELETE FROM name_filter WHERE id=$id";
+  $mysql->query_no_result($query);
+}
+
+function getNextNFID() {
+  global $mysql;
+
+  $query = "SELECT MAX(id) AS id FROM name_filter";
+  $result = $mysql->query_assoc($query);
+
+  return $result['id'] + 1;
 }
 ?>

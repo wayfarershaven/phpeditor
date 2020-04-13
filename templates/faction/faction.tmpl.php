@@ -1,21 +1,21 @@
   <center>
     <table style="border: 1px solid black; background-color: #CCC;">
       <tr><td colspan="3"><b>Legend:</b></td></tr>
-      <tr><td align="right">1101 and Above</td><td>&nbsp;</td><td align="left">Ally</td></tr>
-      <tr><td align="right">701 to 1100</td><td>&nbsp;</td><td align="left">Warmly</td></tr>
-      <tr><td align="right">401 to 700</td><td>&nbsp;</td><td align="left">Kindly</td></tr>
-      <tr><td align="right">101 to 400</td><td>&nbsp;</td><td align="left">Amiably</td></tr>
-      <tr><td align="right">0 to 100</td><td>&nbsp;</td><td align="left">Indifferently</td></tr>
-      <tr><td align="right">-100 to -1</td><td>&nbsp;</td><td align="left">Apprehensively</td></tr>
-      <tr><td align="right">-700 to -101</td><td>&nbsp;</td><td align="left">Dubiously</td></tr>
-      <tr><td align="right">-999 to -701</td><td>&nbsp;</td><td align="left">Threateningly</td></tr>
-      <tr><td align="right">-1000 and Below</td><td>&nbsp;</td><td align="left">Ready to attack</td></tr>
-    </table><br/><br/>
+      <tr><td align="right">1100 and Above</td><td>&nbsp;</td><td align="left">Ally</td></tr>
+      <tr><td align="right">750 to 1099</td><td>&nbsp;</td><td align="left">Warmly</td></tr>
+      <tr><td align="right">500 to 749</td><td>&nbsp;</td><td align="left">Kindly</td></tr>
+      <tr><td align="right">100 to 499</td><td>&nbsp;</td><td align="left">Amiable</td></tr>
+      <tr><td align="right">0 to 99</td><td>&nbsp;</td><td align="left">Indifferent</td></tr>
+      <tr><td align="right">-100 to -1</td><td>&nbsp;</td><td align="left">Apprehensive</td></tr>
+      <tr><td align="right">-500 to -101</td><td>&nbsp;</td><td align="left">Dubious</td></tr>
+      <tr><td align="right">-750 to -501</td><td>&nbsp;</td><td align="left">Threatening</td></tr>
+      <tr><td align="right">-751 and Below</td><td>&nbsp;</td><td align="left">KOS</td></tr>
+    </table><br><br>
   </center>
   <div style="border: 1px solid black; width: 500px; margin: auto;">
     <div class="edit_form_header" style="height: 16px; line-height: 16px;">
       <div style="float: right;">
-	    <a href="index.php?editor=faction&fid=<?=$faction_info['id']?>&action=16"><img src="images/view_all.gif" title="Search for NPCs using this faction" border="0" /></a>
+	    <a href="index.php?editor=faction&fid=<?=$faction_info['id']?>&action=16"><img src="images/view_all.gif" title="Search for NPCs using this faction" border="0"></a>
       </div>
       Faction Data for <?=$faction_info['name']?> (<?=$faction_info['id']?>)
     </div>
@@ -48,8 +48,8 @@
             <th width="15%">Type</th>
             <th width="30%">Name</th>
             <th width="15%">Mod</th>
-            <th width="15%">Effective<br/>Faction</th>
-            <th width="10%"><a href="index.php?editor=faction&fid=<?=$faction_info['id']?>&action=20"><img src="images/add.gif" border="0" title="Create a new faction mod" /></a><br/></th>
+            <th width="15%">Effective<br>Faction</th>
+            <th width="10%"><a href="index.php?editor=faction&fid=<?=$faction_info['id']?>&action=20"><img src="images/add.gif" border="0" title="Create a new faction mod"></a><br></th>
           </tr>
 <?
     foreach ($faction_mods as $mod) {
@@ -74,7 +74,7 @@
         <table width="100%">
           <tr>
             <td width="90%" align="left">No faction mods</td>
-            <td width="10%" align="right"><a href="index.php?editor=faction&fid=<?=$faction_info['id']?>&action=20"><img src="images/add.gif" border="0" title="Create a new faction mod" /></a></td>
+            <td width="10%" align="right"><a href="index.php?editor=faction&fid=<?=$faction_info['id']?>&action=20"><img src="images/add.gif" border="0" title="Create a new faction mod"></a></td>
           </tr>
         </table>
 <?

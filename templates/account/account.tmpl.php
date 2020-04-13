@@ -1,12 +1,12 @@
   <div class="table_container">
     <div class="table_header">
       <div style="float:right">
-        <a onClick="javascript:alert('Not yet!');"><img src="images/c_table.gif" border="0" title="Edit this Account" /></a>
+        <a onClick="javascript:alert('Not yet!');"><img src="images/c_table.gif" border="0" title="Edit this Account"></a>
 <?if ($character_array) {
-    echo '<a onClick="javascript:alert(\'Unable to delete account yet. Delete all characters associated with this account first!\');"><img src="images/table.gif" border="0" title="Characters Still Exist on this Account!" /></a>';
+    echo '<a onClick="javascript:alert(\'Unable to delete account yet. Delete all characters associated with this account first!\');"><img src="images/table.gif" border="0" title="Characters Still Exist on this Account!"></a>';
   }
   else {
-    echo '<a onClick="return confirm(\'Really delete account ' . trim($name) . ' (' . $acctid . ')?\');" href="index.php?editor=account&acctid=' . $acctid . '&action=4"><img src="images/table.gif" border="0" title="Delete this Account" /></a>';
+    echo '<a onClick="return confirm(\'Really delete account ' . trim($name) . ' (' . $acctid . ')?\');" href="index.php?editor=account&acctid=' . $acctid . '&action=4"><img src="images/table.gif" border="0" title="Delete this Account"></a>';
   }
 ?>
       </div>
@@ -22,21 +22,21 @@
                 <td width="45%">
                   <fieldset>
                     <legend><strong>Account Info</strong></legend>
-                    Account ID: <?=$id?><br/>
-                    LS Name: <?=$name?><br/>
-                    LS ID: <?=$lsaccount_id?><br/>
-                    Password: <?=$password?><br/>
-                    <a href="index.php?editor=account&acctid=<?=$id?>&action=7" title="Edit Account Status">Status</a>: <?=$status?><br/>
-                    GM Speed: <?=$yesno[$gmspeed]?><br/>
-                    Hide Me: <?=$yesno[$hideme]?><br/>
-                    Revoked: <?=$yesno[$revoked]?><br/>
-                    Karma: <?=$karma?><br/>
-                    Rules Flag: <?=$rulesflag?><br/>
-                    Shared Platinum: <?=$sharedplat?><br/>
-                    Minilogin IP: <?=$minilogin_ip?><br/>
-                    Suspended: <?echo ($suspendeduntil > 0) ? $suspendeduntil : "N/A";?><br/>
-                    Suspend Reason <?echo ($suspend_reason != "") ? $suspend_reason : "N/A";?><br/>
-                    Ban Reason: <?echo ($ban_reason != "") ? $ban_reason : "N/A";?><br/>
+                    Account ID: <?=$id?><br>
+                    Login Server: <?=$ls_id?><br>
+                    Login Server Account: <?=$name?> (<?=$lsaccount_id?>)<br>
+                    Password: <?=$password?><br>
+                    <a href="index.php?editor=account&acctid=<?=$id?>&action=7" title="Edit Account Status">Status</a>: <?=$status?><br>
+                    GM Speed: <?=$yesno[$gmspeed]?><br>
+                    Hide Me: <?=$yesno[$hideme]?><br>
+                    Revoked: <?=$yesno[$revoked]?><br>
+                    Karma: <?=$karma?><br>
+                    Rules Flag: <?=$rulesflag?><br>
+                    Shared Platinum: <?=$sharedplat?><br>
+                    Minilogin IP: <?=$minilogin_ip?><br>
+                    Suspended: <?echo ($suspendeduntil > 0) ? $suspendeduntil : "N/A";?><br>
+                    Suspend Reason: <?echo ($suspend_reason != "") ? $suspend_reason : "N/A";?><br>
+                    Ban Reason: <?echo ($ban_reason != "") ? $ban_reason : "N/A";?><br>
                     Account Created: <?=get_real_time($time_creation)?>
                   </fieldset>
                 </td>
@@ -85,11 +85,11 @@
     echo '</table>';
   }
   else {
-    echo '<br/><br/><center>NO CHARACTERS ON THIS ACCOUNT</center><br/>';
+    echo '<br><br><center>NO CHARACTERS ON THIS ACCOUNT</center><br>';
   }
-  echo '<br/>';
+  echo '<br>';
 ?>
-                    Last Character Used: <?echo ($charname != '') ? $charname : 'Never Logged a Character';?><br/>
+                    Last Character Used: <?echo ($charname != '') ? $charname : 'Never Logged a Character';?><br>
                   </fieldset>
                 </td>
               </tr>

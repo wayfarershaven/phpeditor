@@ -16,9 +16,10 @@
                   Title:    <br><input type="text" name="lastname" size="40" value=""><br><br>
                   Level:    <br><input type="text" name="level" size="10" value="<?=$level?>"><br><br>
                   Max Level:<br><input type="text" name="maxlevel" size="10" value="0"><br><br>
-                  <td valign="top">
+                </td>
+                <td valign="top">
                     Race:<br>
-                    <select name="race" style="width: 265px;">
+                    <select name="race" style="width: 265px;" onChange="raceCheck();">
 <?foreach($races as $key=>$value):?>
                       <option value="<?=$key?>"<?echo ($key == 1)? " selected" : "";?>><?=$key?>: <?=$value?></option>
 <?endforeach;?>
@@ -41,7 +42,6 @@
                       <option value="<?=$key?>"><?=$value?></option>
 <?endforeach;?>
                     </select>
-                  </td>
                 </td>
               </tr>
             </table>
@@ -161,7 +161,7 @@
               <td align="left" width="14%">Max Dmg:     <br><input type="text" name="maxdmg" size="5" value="<?=$maxdmg?>"></td>
               <td align="left" width="14%">MP Regen:    <br><input type="text" name="mana_regen_rate" size="5" value="0"></td>
               <td align="left" width="14%">Assistradius:<br><input type="text" name="assistradius" size="5" value="0"></td>
-              <td align="left" width="14%">&nbsp;</td>
+              <td align="left" width="14%">Always Aggro:<br><input type="text" name="always_aggro" size="5" value="0"></td>
               <td align="left" width="14%">Atk Delay:   <br><input type="text" name="attack_delay" size="5" value="<?=$attack_delay?>"></td>
               <td align="left" width="14%">Spells ID:   <br><input type="text" name="npc_spells_id" size="5" value="0"></td>
               <td align="left" width="15%">Heal Scale:  <br><input type="text" name="healscale" size="5" value="100">%</td>
@@ -177,8 +177,8 @@
                   AE Rampage (4):<br><input type="text" name="4" size="10"><br>
                   Flurry (5):<br><input type="text" name="5" size="10"><br>
                   Tunnel Vision (29):<br><input type="text" name="29" size="10"><br>
-                  Leashed (32):<br><input type="text" name="32" size="10"><br>
-                  Tethered (33):<br><input type="text" name="33" size="10"><br>
+                  Leashed (32):<br><input type="text" name="32" size="10" onChange="tetherCheck();"><br>
+                  Tethered (33):<br><input type="text" name="33" size="10" onChange="tetherCheck();"><br>
                   Flee Percent (37):<br><input type="text" name="37" size="10"><br>
                   Chase Distance (40):<br><input type="text" name="40" size="10"><br>
                   Casting Resist Diff (43):<br><input type="text" name="43" size="10"><br>
@@ -264,7 +264,7 @@
             <tr>
               <td align="left" width="17%">Hero's Forge Model:<br><input type="text" name="herosforgemodel" size="10" value="0"></td>
               <td align="left" width="17%">Light Source:<br><input type="text" name="light" size="10" value="0"></td>
-              <td align="left" width="17%">&nbsp;</td>
+              <td align="left" width="17%">Model:<br><input type="text" name="model" size="10" value="0"></td>
               <td align="left" width="17%">&nbsp;</td>
               <td align="left" width="16%">&nbsp;</td>
               <td align="left" width="16%">&nbsp;</td>
@@ -296,10 +296,32 @@
           <table width="100%" border="0" cellpadding="3" cellspacing="0">
             <tr>
               <td align="left" width="17%">Spawn Limit:     <br><input type="text" name="spawn_limit" size="10" value="0"></td>
-              <td align="left" width="17%">Version:         <br><input type="text" name="version" size="10" value="0"></td>
+              <td align="left" width="17%">Version:         <br><input type="text" name="version" size="10" value="<?=$version?>"></td>
               <td align="left" width="17%">Emote:           <br><input type="text" name="emoteid" size="10" value="0"></td>
               <td align="left" width="17%">No Target Hotkey:<br><input type="text" name="no_target_hotkey" size="10" value="0"></td>
               <td align="left" width="16%">Raid Target:     <br><input type="text" name="raid_target" size="5" value="0"></td>
+              <td align="left" width="16%">
+                Stuck Behavior:<br>
+                <select name="stuck_behavior" onChange="underwaterCheck();">
+<?foreach ($stuck as $key=>$value):?>
+                  <option value="<?=$key?>"><?=$key?>: <?=$value?></option>
+<?endforeach;?>
+                </select>
+              </td>
+            </tr>
+            <tr>
+              <td align="left" width="17%">
+                Flymode<br>
+                <select name="flymode">
+<?foreach ($flymodetype as $key=>$value):?>
+                  <option value="<?=$key?>"<?echo ($key == -1) ? " selected" : "";?>><?=$key?>: <?=$value?></option>
+<?endforeach;?>
+                </select>
+              </td>
+              <td align="left" width="17%">&nbsp;</td>
+              <td align="left" width="17%">&nbsp;</td>
+              <td align="left" width="17%">&nbsp;</td>
+              <td align="left" width="16%">&nbsp;</td>
               <td align="left" width="16%">&nbsp;</td>
             </tr>
           </table><br>
@@ -308,8 +330,8 @@
               <tr>
                 <td valign="top" align="left">
                   <input type="checkbox" name="qglobal" value="1"> Enable Quest Globals<br>
-                  <input type="checkbox" name="findable" value="1"> NPC is Findable<br>
-                  <input type="checkbox" name="trackable" value="1" checked/> NPC is Trackable<br>
+                  <input type="checkbox" name="findable" value="1" onChange="raceCheck();"> NPC is Findable<br>
+                  <input type="checkbox" name="trackable" value="1" checked onChange="raceCheck();"> NPC is Trackable<br>
                 </td>
                 <td valign="top" align="left">
                   <input type="checkbox" name="pet" value="1"> NPC is a Pet<br>
@@ -317,7 +339,7 @@
                   <input type="checkbox" name="unique_spawn_by_name" value="1"> Unique by Name<br>
                 </td>
                 <td valign="top" align="left">
-                  <input type="checkbox" name="underwater" value="1"> Underwater NPC<br>
+                  <input type="checkbox" name="underwater" value="1" onChange="underwaterCheck();"> Underwater NPC<br>
                   <input type="checkbox" name="34" value="34,1"> Destructible Object (34)<br>
                   <input type="checkbox" name="isquest" value="1"> Has Quest File<br>
                 </td>

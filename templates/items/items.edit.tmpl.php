@@ -552,21 +552,22 @@ if($errors != ''):?>
           </table>
           <table width="100%" border="0" cellpadding="3" cellspacing="0">
             <tr>
-              <td align="left" width="33%">Size:<br>
+              <td align="left" width="25%">Size:<br>
                 <select class="left" name="size">
 <?foreach($itemsize as $k => $v):?>
                   <option value="<?=$k?>"<? echo ($k == $size) ? " selected" : ""?>><?=$v?></option>
 <?endforeach;?>
                 </select>
               </td>
-              <td align="left" width="33%">Material:<br>
+              <td align="left" width="25%">Material:<br>
                 <select class="left" name="material">
 <?foreach($itemmaterial as $k => $v):?>
                   <option value="<?=$k?>"<? echo ($k == $material) ? " selected" : ""?>><?=$k?>: <?=$v?></option>
 <?endforeach;?>
                 </select>
               </td>
-              <td align="left" width="33%">Elite Material:<br><input type="text" name="elitematerial" size="9" value="<?=$elitematerial?>"></td>
+              <td align="left" width="25%">Elite Material:<br><input type="text" name="elitematerial" size="9" value="<?=$elitematerial?>"></td>
+			  <td align="left" width="25%">Hero Model:<br><input type="text" name="herosforgemodel" size="9" value="<?=$herosforgemodel?>"></td>
             </tr>
           </table>
         </fieldset><br>

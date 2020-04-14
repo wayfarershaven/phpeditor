@@ -697,6 +697,7 @@ function update_item() {
   if ($item['source'] != $_POST['source']) $fields .= "source=\"" . $_POST['source'] . "\", ";
   if ($item['comment'] != $_POST['comment']) $fields .= "comment=\"" . $_POST['comment'] . "\", ";
   if ($fields != '') $fields .= "updated=\"" . $_POST['updated'] . "\", ";
+  if ($item['herosforgemodel'] != $_POST['herosforgemodel']) $fields .= "herosforgemodel=\"" . $_POST['herosforgemodel'] . "\", ";
   $fields =  rtrim($fields, ", ");
 
   if ($fields != '') {

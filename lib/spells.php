@@ -78,7 +78,9 @@ switch ($action) {
       exit;
   case 999: // Dump dbstr_us
 	  check_authorization();
-	  $body = new Template("templates/spells/gendbstrus.php");
+	  $body = new Template("templates/spells/spells.gendbstrus.tmpl.php");
+	  $response = generateDBSTRUSFile();
+	  $body->set('response', $response);
 	 break;
 //Spells are complicated enough that one is probably wise to copy from a template anyway, at least for now.
 //  case 8: // Add spell
@@ -525,6 +527,37 @@ function generateSpellsFile() {
     while ($spelldata = $results->fetch_assoc()) {
       fwrite($fileOut, implode("^", $spelldata) . "\n");
       $lastid = $spelldata['id'];
+      $count++;
+    }
+
+    fclose($fileOut);
+  }
+
+  $success = ($count > 0) ? true : false;
+  $response = array("success" => $success, "count" => $count, "lastid" => $lastid, "spellsfile" => $spellsfile);
+
+  return $response;
+}
+
+function generateDBSTRUSFile() {
+  global $mysql_content_db;
+  $spellsfile = "dbstr_us.txt";
+  $count = 0;
+  $lastid = 0;
+  $success = false;
+
+  $query = "SELECT * FROM dbstr_us ORDER BY descnum ASC, type_ ASC";
+  $results = $mysql_content_db->query($query, MYSQLI_USE_RESULT);
+
+  if ($results) {
+    $fileOut = fopen($spellsfile, 'w');
+    if(!$fileOut) {
+      die("Error opening $spellsfile for writing. Make sure the path is writable.");
+    }
+
+    while ($spelldata = $results->fetch_assoc()) {
+      fwrite($fileOut, implode("^", $spelldata) . "\n");
+      $lastid = $spelldata['descnum'];
       $count++;
     }
 

@@ -312,18 +312,33 @@ function update_spell() {
 
 function copy_spell() {
   global $mysql_content_db, $sp_fields;
-
+  
+  $next_id_array = array();
+  $newid = 0;
   $id = $_GET['id'];
-
-  $query1 = "SELECT max(id) AS iid FROM spells_new";
-  $result = $mysql_content_db->query_assoc($query1);
-  $newid = $result['iid'] + 1;
-
+  
+  $query1 = "SELECT id FROM spells_new";
+  $result = $mysql_content_db->query($query1);
+  
+  while ($z = $result->fetch_assoc()) {
+		$next_id_array[$z['id']] = 1;
+  }
+  
+  for ($x = 3; $x <= 50000; $x++) {
+		if ($next_id_array[$x] != 1) {
+			$newid = $x;
+			break;
+		}
+  }
+  //$query1 = "SELECT max(id) AS iid FROM spells_new";
+  //$result = $mysql_content_db->query_assoc($query1);
+  //$newid = $result['iid'] + 1;
+  //
   $fields = implode(", ", $sp_fields);
   
   $query2 = "INSERT INTO spells_new ($fields, id) SELECT $fields, $newid AS id FROM spells_new WHERE id = '$id'";
   $mysql_content_db->query_no_result($query2);
-
+  
   $query3 = "UPDATE spells_new SET name = concat(name, ' - Copy') WHERE id = $newid";
   $mysql_content_db->query_no_result($query3);
 

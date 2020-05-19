@@ -106,7 +106,7 @@
             </tr>
           </table>
         </fieldset><br>
-          <fieldset>
+          <!-- <fieldset>
             <legend><strong><font size="4">Charmed Stats</font></strong></legend>
             <table width="100%" border="0" cellpadding="3" cellspacing="0">
               <tr>
@@ -122,7 +122,7 @@
                 <td align="left" width="15%">Avoidance:<br><input type="text" name="charm_avoidance_rating" size="5" value="0"></td>
               </tr>
             </table>
-          </fieldset><br>
+          </fieldset><br> -->
         <fieldset>
           <legend><strong><font size="4">Resists</font></strong></legend>
             <table width="100%" border="0" cellpadding="3" cellspacing="0">
@@ -345,8 +345,8 @@
                 </td>
                 <td valign="top" align="left">
                   <input type="checkbox" name="ignore_despawn" value="1"> Ignore Despawn<br>
-                  <input type="checkbox" name="skip_global_loot" value="1"> Skip Global Loot<br>
-                  <input type="checkbox" name="rare_spawn" value="1"> Rare Spawn<br>
+                  <!-- <input type="checkbox" name="skip_global_loot" value="1"> Skip Global Loot<br>
+                  <input type="checkbox" name="rare_spawn" value="1"> Rare Spawn<br>  -->
                 </td>
               </tr>
             </table>

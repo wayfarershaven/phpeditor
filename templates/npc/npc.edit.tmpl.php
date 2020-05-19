@@ -79,7 +79,7 @@
               </tr>
             </table>
           </fieldset><br>
-          <fieldset>
+          <!-- <fieldset>
             <legend><strong><font size="4">Charmed Stats</font></strong></legend>
             <table width="100%" border="0" cellpadding="3" cellspacing="0">
               <tr>
@@ -95,7 +95,7 @@
                 <td align="left" width="15%">Avoidance:<br><input type="text" name="charm_avoidance_rating" size="5" value="<?=$charm_avoidance_rating?>"></td>
               </tr>
             </table>
-          </fieldset><br>
+          </fieldset><br> -->
           <fieldset>
             <legend><strong><font size="4">Resists</font></strong></legend>
             <table width="100%" border="0" cellpadding="3" cellspacing="0">
@@ -350,13 +350,13 @@
                 </td>
                 <td valign="top" align="left">
                   <input type="checkbox" name="underwater" value="1"<?echo ($underwater == 1) ? " checked" : "";?> onChange="underwaterCheck();"> Underwater NPC<br>
-                  <input type="checkbox" name="disable_instance" value="1"<?echo ($disable_instance == 1) ? "checked" : "";?>>  Destructible Object (34)<br/>
+                  <input type="checkbox" name="disable_instance" value="1"<?echo ($disable_instance == 1) ? "checked" : "";?>>  Disable NPC in Instances<br/>
                   <input type="checkbox" name="isquest" value="1"<?echo ($isquest == 1) ? " checked" : "";?>> Has Quest File<br>
                 </td>
                 <td valign="top" align="left">
                   <input type="checkbox" name="ignore_despawn" value="1"<?echo ($ignore_despawn == 1) ? " checked" : "";?>> Ignore Despawn<br>
-                  <input type="checkbox" name="skip_global_loot" value="1"<?echo ($skip_global_loot == 1) ? " checked" : "";?>> Skip Global Loot<br>
-                  <input type="checkbox" name="rare_spawn" value="1"<?echo ($rare_spawn == 1) ? " checked" : "";?>> Rare Spawn<br>
+                  <!-- <input type="checkbox" name="skip_global_loot" value="1"<?echo ($skip_global_loot == 1) ? " checked" : "";?>> Skip Global Loot<br>
+                  <input type="checkbox" name="rare_spawn" value="1"<?echo ($rare_spawn == 1) ? " checked" : "";?>> Rare Spawn<br> -->
                 </td>
               </tr>
             </table>

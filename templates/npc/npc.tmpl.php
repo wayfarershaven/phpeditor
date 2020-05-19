@@ -163,7 +163,7 @@ if ($loottable_id > 0) {
                       <td align="left" width="34%">&nbsp;</td>
                     </tr>
                   </table>
-                  <fieldset>
+                  <!-- <fieldset>
                     <legend><strong>Charmed Stats</strong></legend>
                       <table width="100%" border="0" cellpadding="3" cellspacing="0">
                         <tr>
@@ -182,7 +182,7 @@ if ($loottable_id > 0) {
                           <td align="left" width="33%">&nbsp;</td>
                         </tr>
                       </table>
-                  </fieldset>
+                  </fieldset> -->
               </fieldset>
               <fieldset>
                 <legend><strong>Resists</strong></legend>
@@ -323,8 +323,8 @@ if ($loottable_id > 0) {
                     <td align="left" width="34%">Version: <?=$version?></td>
                   </tr>
                   <tr>
-                    <td align="left" width="33%">Skip Global Loot: <?=$yesno[$skip_global_loot]?></td>
-                    <td align="left" width="33%">Rare Spawn: <?=$yesno[$rare_spawn]?></td>
+                    <!-- <td align="left" width="33%">Skip Global Loot: <?=$yesno[$skip_global_loot]?></td>
+                    <td align="left" width="33%">Rare Spawn: <?=$yesno[$rare_spawn]?></td> -->
                     <td align="left" width="34%">Stuck Behavior: <?=$stuck_behavior?></td>
                   </tr>
                   <tr>
@@ -432,7 +432,7 @@ if ($loottable_id > 0) {
         <input type="hidden" name="raid_target" value="<?=$raid_target?>">
         <input type="hidden" name="light" value="<?=$light?>">
         <input type="hidden" name="ignore_despawn" value="<?=$ignore_despawn?>">
-        <input type="hidden" name="charm_ac" value="<?=$charm_ac?>">
+        <!-- <input type="hidden" name="charm_ac" value="<?=$charm_ac?>">
         <input type="hidden" name="charm_min_dmg" value="<?=$charm_min_dmg?>">
         <input type="hidden" name="charm_max_dmg" value="<?=$charm_max_dmg?>">
         <input type="hidden" name="charm_atk" value="<?=$charm_atk?>">
@@ -440,9 +440,9 @@ if ($loottable_id > 0) {
         <input type="hidden" name="charm_accuracy_rating" value="<?=$charm_accuracy_rating?>">
         <input type="hidden" name="charm_avoidance_rating" value="<?=$charm_avoidance_rating?>">
         <input type="hidden" name="skip_global_loot" value="<?=$skip_global_loot?>">
-        <input type="hidden" name="rare_spawn" value="<?=$rare_spawn?>">
+        <input type="hidden" name="rare_spawn" value="<?=$rare_spawn?>"> -->
         <input type="hidden" name="stuck_behavior" value="<?=$stuck_behavior?>">
-        <input type="hidden" name="model" value="<?=$model?>">
+        <!-- <input type="hidden" name="model" value="<?=$model?>"> -->
         <input type="hidden" name="flymode" value="<?=$flymode?>">
         <center>
           NEW ID:<input type="text" name="id" size="10" value="<?=$suggestedid?>">

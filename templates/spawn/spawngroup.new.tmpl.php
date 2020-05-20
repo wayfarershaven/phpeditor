@@ -80,10 +80,6 @@
               despawn timer:<br>
               <input type="text" name="despawn_timer" size="5" value="100">
             </td>
-            <td>
-              wp_spawns:<br>
-              <input type="text" name="wp_spawns" size="5" value="0">
-            </td>
           </tr>
         </table><br><br>
         <center>

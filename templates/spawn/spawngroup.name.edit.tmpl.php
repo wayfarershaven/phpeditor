@@ -64,10 +64,6 @@
               despawn timer:<br>
               <input type="text" name="despawn_timer" size="5" value="<?=$despawn_timer?>">
             </td>
-            <td>
-              wp_spawns:<br>
-              <input type="text" name="wp_spawns" size="5" value="<?=$wp_spawns?>">
-            </td>
           </tr>
         </table><br><br>
         <center><input type="submit" name="submit" value="Submit Changes"></center>

@@ -37,7 +37,11 @@
       <strong>Quest Controlled:</strong> <?=$yesno[$quest]?><br>
       <strong>Learn Flag:</strong> <?echo ($must_learn) ? "Yes" : "No";?><br>
       <strong>Enabled:</strong> <?=$yesno[$enabled]?><br>
-      <strong>Notes:</strong> <?=$notes?>
+      <strong>Min Expansion:</strong> <?=$min_expansion?><br>
+      <strong>Max Expansion:</strong> <?=$max_expansion?><br>
+      <strong>Content Flags:</strong> <?echo ($content_flags != "") ? "Yes" : "No";?><br>
+      <strong>Content Flags Disabled:</strong> <?echo ($content_flags_disabled != "") ? "Yes" : "No";?><br>
+      <strong>Notes:</strong> <?echo ($notes != "") ? $notes : "None";?>
     </div>
   </div><br>
   <div class="table_container">
@@ -66,7 +70,7 @@
 <?endif;?>
             </td>
             <td width="15%">
-              [<a href="http://lucy.allakhazam.com/item.html?id=<?=$item_id?>">Lucy</a>]
+              [<a href="https://lucy.allakhazam.com/item.html?id=<?=$item_id?>" target="_blank">Lucy</a>]
             </td>
             <td align="center" width="15%">&nbsp;</td>
             <td align="center" width="15%">&nbsp;</td>
@@ -92,7 +96,7 @@
               <?=$name?> (<a href="index.php?editor=items&ts=<?=$ts?>&rec=<?=$rec?>&tsid=<?=$id?>&id=<?=$item_id?>&action=2"><?=$item_id?></a>)
             </td>
             <td width="15%">
-              [<a href="http://lucy.allakhazam.com/item.html?id=<?=$item_id?>">Lucy</a>]
+              [<a href="https://lucy.allakhazam.com/item.html?id=<?=$item_id?>" target="_blank">Lucy</a>]
             </td>
             <td align="center" width="10%">
               Qty: <?=$componentcount?>
@@ -125,7 +129,7 @@
               <?=$name?> (<a href="index.php?editor=items&ts=<?=$ts?>&rec=<?=$rec?>&tsid=<?=$id?>&id=<?=$item_id?>&action=2"><?=$item_id?></a>)
             </td>
             <td width="15%">
-              [<a href="http://lucy.allakhazam.com/item.html?id=<?=$item_id?>">Lucy</a>]
+              [<a href="https://lucy.allakhazam.com/item.html?id=<?=$item_id?>" target="_blank">Lucy</a>]
             </td>
             <td align="center" width="15%">
               Qty: <?=$successcount?>

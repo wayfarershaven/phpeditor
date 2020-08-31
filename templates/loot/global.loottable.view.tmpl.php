@@ -23,13 +23,20 @@
           <td colspan="6"><strong>Races:</strong> <?echo ($global_loot['race'] != "") ? $global_loot['race'] : "ALL";?></td>
         </tr>
         <tr>
-          <td colspan="6"><strong>Classes: </strong> <?echo ($global_loot['class'] != "") ? $global_loot['class'] : "ALL"?></td>
+          <td><strong>Classes: </strong> <?echo ($global_loot['class'] != "") ? $global_loot['class'] : "ALL"?></td>
+          <td>&nbsp;</td>
+          <td colspan="2"><strong>Min Expansion:</strong>  <?=$global_loot['min_expansion']?></td>
+          <td colspan="2"><strong>Max Expansion:</strong> <?=$global_loot['max_expansion']?></td>
         </tr>
         <tr>
-          <td colspan="6"><strong>Bodytypes:</strong> <?echo ($global_loot['bodytype'] != "") ? $global_loot['bodytype'] : "ALL"?></td>
+          <td><strong>Bodytypes:</strong> <?echo ($global_loot['bodytype'] != "") ? $global_loot['bodytype'] : "ALL"?></td>
+          <td>&nbsp;</td>
+          <td colspan="4"><strong>Content Flags:</strong>  <?echo ($global_loot['content_flags'] != "") ? $global_loot['content_flags'] : "None"?></td>
         </tr>
         <tr>
-          <td colspan="6"><strong>Zones: </strong> <?echo ($global_loot['zone'] != "") ? $global_loot['zone'] : "ALL"?></td>
+          <td><strong>Zones: </strong> <?echo ($global_loot['zone'] != "") ? $global_loot['zone'] : "ALL"?></td>
+          <td>&nbsp;</td>
+          <td colspan="4"><strong>Content Flags Disabled:</strong>  <?echo ($global_loot['content_flags_disabled'] != "") ? $global_loot['content_flags_disabled'] : "None"?></td>
         </tr>
       </table>
     </div>
@@ -44,13 +51,13 @@
       Loottable: <?=$id?> - "<?=$name?>"
     </div>
     <div class="table_content">
-      Cash Loot:<br>
+      <strong>Cash Loot:</strong><br>
       <div style="padding: 5px 0px 0px 20px;">
-        Min Cash: <?=$mincash?><br>
-        Max Cash: <?=$maxcash?><br>
+        <strong>Min Cash:</strong> <?=$mincash?><br>
+        <strong>Max Cash:</strong> <?=$maxcash?><br>
       </div>
       <div style="padding: 5px 0px 0px 0px;">
-        Lootdrops associated with this loottable: <?=$lootdrop_count?> <a href="index.php?editor=loot&id=<?=$global_loot['id']?>&ltid=<?=$id?>&action=60"><img src="images/add.gif" border="0" title="Add a Lootdrop to this Loottable"></a>
+        <strong>Lootdrops associated with this loottable:</strong> <?=$lootdrop_count?> <a href="index.php?editor=loot&id=<?=$global_loot['id']?>&ltid=<?=$id?>&action=60"><img src="images/add.gif" border="0" title="Add a Lootdrop to this Loottable"></a>
       </div>
     </div>
   </div>
@@ -88,11 +95,11 @@
           <tr>
             <th align="center" width="8%">Item ID</th>
             <th align="center" width="36%">Item Name</th>
-            <th align="center" width="7%">Equipped?</th>
+            <th align="center" width="7%">Equip</th>
             <th align="center" width="7%">Charges</th>
-            <th align="center" width="7%">MinLevel</th>
-            <th align="center" width="7%">MaxLevel</th>
-            <th align="center" width="8%">Multiplier</th>
+            <th align="center" width="7%">Trivial<br>Min</th>
+            <th align="center" width="7%">Trivial<br>Max</th>
+            <th align="center" width="8%">Mult</th>
             <th align="center" width="8%">Chance</th>
             <th width="13%"></th>
           </tr>
@@ -109,11 +116,11 @@
 ?>
           <tr bgcolor="#<? echo ($x % 2 == 0) ? "BBBBBB" : "AAAAAA";?>">
             <td align="center"><a href="index.php?editor=items&id=<?=$item_id?>&action=2"><?=$item_id?></a></td>
-            <td align="center"><?echo (get_item_name($item_id) != "") ? get_item_name($item_id) : "<a title='Item not in database!'>UNKNOWN</a>";?> <span>[<a href="http://lucy.allakhazam.com/item.html?id=<?=$item_id?>" target="_blank">lucy</a>]</span></td>
+            <td align="center"><?echo (get_item_name($item_id) != "") ? get_item_name($item_id) : "<a title='Item not in database!'>UNKNOWN</a>";?> <span>[<a href="https://lucy.allakhazam.com/item.html?id=<?=$item_id?>" target="_blank">Lucy</a>]</span></td>
             <td align="center" width="100"><?echo ($equip_item == 0) ? "No" : "Yes";?></td>
             <td align="center"><?=$item_charges?></td>
-            <td align="center"><?=$minlevel?></td>
-            <td align="center"><?=$maxlevel?></td>
+            <td align="center"><?=$trivial_min_level?></td>
+            <td align="center"><?=$trivial_max_level?></td>
             <td align="center"><?=$multiplier?></td>
             <td align="center"><?=$chance?></td>
             <td align="right">

@@ -18,7 +18,7 @@ if($errors != ''):?>
   <form name="item_edit" method="post" action="index.php?editor=items&id=<?=$id?>&action=6">
     <div class="edit_form">
       <div class="edit_form_header">
-        Edit Item - <?=$id?> (<a href="http://lucy.allakhazam.com/item.html?id=<?=$id?>" target="_blank">Lucy</a>)
+        Edit Item - <?=$id?> (<a href="https://lucy.allakhazam.com/item.html?id=<?=$id?>" target="_blank">Lucy</a>)
         <div style="float:right">
 		  <a href="index.php?editor=items&id=<?=$id?>&action=999"><img src="images/upgrade.gif" border="0" title="Add Tiered Item"></a>
           <a href="index.php?editor=items&action=8"><img src="images/add.gif" border="0" title="Add an Item"></a>
@@ -90,7 +90,7 @@ if($errors != ''):?>
             <tr>
               <td align="left" width="33%">Power Source Capacity:<br><input type="text" name="powersourcecapacity" size="10" value="<?=$powersourcecapacity?>"></td>
               <td align="left" width="33%">Potion Belt Slots:<br><input type="text" name="potionbeltslots" size="10" value="<?=$potionbeltslots?>"></td>
-              <td align="left" width="33%">&nbsp;</td>
+              <td align="left" width="33%">Subtype:<br><input type="text" name="subtype" size="10" value="<?=$subtype?>"></td>
             </tr>
           </table>
           <table width="100%" border="0" cellpadding="3" cellspacing="0">

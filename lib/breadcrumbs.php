@@ -1,4 +1,4 @@
-<?php
+<?
 
 switch ($editor) {
   case '':
@@ -92,6 +92,9 @@ switch ($editor) {
     break;
   case 'databuckets':
     $breadcrumbs = "<a href='index.php?editor=" . $editor . "'>Data Buckets</a>";
+    break;
+  case 'content':
+    $breadcrumbs = "<a href='index.php?editor=" . $editor . "'>Content Flags</a>";
     break;
 }
 

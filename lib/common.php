@@ -472,8 +472,6 @@ function getPageInfo($table, $is_content_table, $page, $size, $sort, $where = ""
 function delete_player($playerid) {
   global $mysql;
 
-  $query = "DELETE FROM aa_timers WHERE charid=$playerid";
-  $mysql->query_no_result($query);
   $query = "DELETE FROM adventure_members WHERE charid=$playerid";
   $mysql->query_no_result($query);
   $query = "DELETE FROM adventure_stats WHERE player_id=$playerid";
@@ -487,8 +485,6 @@ function delete_player($playerid) {
   $query = "DELETE FROM character_alt_currency WHERE char_id=$playerid";
   $mysql->query_no_result($query);
   $query = "DELETE FROM character_auras WHERE id=$playerid";
-  $mysql->query_no_result($query);
-  $query = "DELETE FROM character_backup WHERE charid=$playerid";
   $mysql->query_no_result($query);
   $query = "DELETE FROM character_bandolier WHERE id=$playerid";
   $mysql->query_no_result($query);
@@ -509,8 +505,6 @@ function delete_player($playerid) {
   $query = "DELETE FROM character_languages WHERE id=$playerid";
   $mysql->query_no_result($query);
   $query = "DELETE FROM character_leadership_abilities WHERE id=$playerid";
-  $mysql->query_no_result($query);
-  $query = "DELETE FROM character_lookup WHERE id=$playerid";
   $mysql->query_no_result($query);
   $query = "DELETE FROM character_memmed_spells WHERE id=$playerid";
   $mysql->query_no_result($query);

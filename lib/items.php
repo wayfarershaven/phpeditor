@@ -672,6 +672,7 @@ function update_item() {
   if ($item['bardlevel'] != $_POST['bardlevel']) $fields .= "bardlevel=\"" . $_POST['bardlevel'] . "\", ";
   if ($item['bardlevel2'] != $_POST['bardlevel2']) $fields .= "bardlevel2=\"" . $_POST['bardlevel2'] . "\", ";
   if ($item['bardname'] != $_POST['bardname']) $fields .= "bardname=\"" . $_POST['bardname'] . "\", ";
+  if ($item['subtype'] != $_POST['subtype']) $fields .= "subtype=\"" . $_POST['subtype'] . "\", ";
   if ($item['augslot1visible'] != $_POST['augslot1visible']) $fields .= "augslot1visible=\"" . $_POST['augslot1visible'] . "\", ";
   if ($item['augslot2visible'] != $_POST['augslot2visible']) $fields .= "augslot2visible=\"" . $_POST['augslot2visible'] . "\", ";
   if ($item['augslot3visible'] != $_POST['augslot3visible']) $fields .= "augslot3visible=\"" . $_POST['augslot3visible'] . "\", ";
@@ -1016,6 +1017,7 @@ function add_item() {
   $fields .= "bardlevel=\"" . $_POST['bardlevel'] . "\", ";
   $fields .= "bardlevel2=\"" . $_POST['bardlevel2'] . "\", ";
   $fields .= "bardname=\"" . $_POST['bardname'] . "\", ";
+  $fields .= "subtype=\"" . $_POST['subtype'] . "\", ";
   $fields .= "augslot1visible=\"" . $_POST['augslot1visible'] . "\", ";
   $fields .= "augslot2visible=\"" . $_POST['augslot2visible'] . "\", ";
   $fields .= "augslot3visible=\"" . $_POST['augslot3visible'] . "\", ";
@@ -1086,9 +1088,23 @@ function update_starting_item() {
   $item_charges = $_POST['item_charges'];
   $gm = $_POST['gm'];
   $slot = $_POST['slot'];
+  $min_expansion = $_POST['min_expansion'];
+  $max_expansion = $_POST['max_expansion'];
+  $content_flags = $_POST['content_flags'];
+  $content_flags_disabled = $_POST['content_flags_disabled'];
 
-  $query = "UPDATE starting_items SET class=$class, deityid=$deityid, zoneid=$zoneid, itemid=$itemid, item_charges=$item_charges, gm=$gm, slot=$slot WHERE id=$id AND race=$race";
+  $query = "UPDATE starting_items SET class=$class, deityid=$deityid, zoneid=$zoneid, itemid=$itemid, item_charges=$item_charges, gm=$gm, slot=$slot, min_expansion=$min_expansion, max_expansion=$max_expansion, content_flags=NULL, content_flags_disabled=NULL WHERE id=$id AND race=$race";
   $mysql_content_db->query_no_result($query);
+
+  if ($content_flags != "") {
+    $query = "UPDATE starting_items SET content_flags=\"$content_flags\" WHERE id=$id AND race=$race";
+    $mysql_content_db->query_no_result($query);
+  }
+
+  if ($content_flags_disabled != "") {
+    $query = "UPDATE starting_items SET content_flags_disabled=\"$content_flags_disabled\" WHERE id=$id AND race=$race";
+    $mysql_content_db->query_no_result($query);
+  }
 }
 
 function insert_starting_item() {
@@ -1103,9 +1119,23 @@ function insert_starting_item() {
   $item_charges = $_POST['item_charges'];
   $gm = $_POST['gm'];
   $slot = $_POST['slot'];
+  $min_expansion = $_POST['min_expansion'];
+  $max_expansion = $_POST['max_expansion'];
+  $content_flags = $_POST['content_flags'];
+  $content_flags_disabled = $_POST['content_flags_disabled'];
 
-  $query = "INSERT INTO starting_items SET id=$id, race=$race, class=$class, deityid=$deityid, zoneid=$zoneid, itemid=$itemid, item_charges=$item_charges, gm=$gm, slot=$slot";
+  $query = "INSERT INTO starting_items SET id=$id, race=$race, class=$class, deityid=$deityid, zoneid=$zoneid, itemid=$itemid, item_charges=$item_charges, gm=$gm, slot=$slot, min_expansion=$min_expansion, max_expansion=$max_expansion, content_flags=NULL, content_flags_disabled=NULL";
   $mysql_content_db->query_no_result($query);
+
+  if ($content_flags != "") {
+    $query = "UPDATE starting_items SET content_flags=\"$content_flags\" WHERE id=$id AND race=$race";
+    $mysql_content_db->query_no_result($query);
+  }
+
+  if ($content_flags_disabled != "") {
+    $query = "UPDATE starting_items SET content_flags_disabled=\"$content_flags_disabled\" WHERE id=$id AND race=$race";
+    $mysql_content_db->query_no_result($query);
+  }
 }
 
 function next_starting_item_id() {

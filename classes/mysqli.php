@@ -9,8 +9,17 @@ class mysql extends mysqli {
     }
   }
 
+  function add_query_signature($query) {
+    global $_SESSION;
+
+    return sprintf("%s /* peq-editor user: %s */", $query, $_SESSION['login']);
+  }
+
   function query_no_result($query) {
     global $log_error;
+    $query = mysql::add_query_signature($query);
+
+    $user = $_SESSION['login'];
     if (mysqli_query($this, quote_smart($query))) {
       logSQL($query);
       return true;
@@ -26,6 +35,7 @@ class mysql extends mysqli {
 
   function query_assoc($query) {
     global $log_all, $log_error;
+    $query = mysql::add_query_signature($query);
     if ($result = mysqli_query($this, quote_smart($query))) {
       $row = $result->fetch_assoc();
       if ($log_all == 1) {
@@ -43,6 +53,7 @@ class mysql extends mysqli {
   // Used to return multi-dimensional arrays
   function query_mult_assoc($query) {
     global $log_all, $log_error;
+    $query = mysql::add_query_signature($query);
     if ($result = mysqli_query($this, quote_smart($query))) {
       while ($row = $result->fetch_assoc()) {
         $array[] = $row;
@@ -60,6 +71,7 @@ class mysql extends mysqli {
   }
 
   function generate_insert_query($query) {
+    $query = mysql::add_query_signature($query);
     preg_match("/FROM (.*?) /i", $query, $matches);
     $table = $matches[1];
 
@@ -67,9 +79,9 @@ class mysql extends mysqli {
     $where = $matches[1];
 
     $query2 = "SELECT * FROM " . $table . " WHERE " . $where;
-    
+
     $row = mysql::query_assoc($query2);
-    
+
     foreach ($row as $key=>$value) {
       $values[] = "$key=\"$value\"";
     }
@@ -85,7 +97,7 @@ class mysql extends mysqli {
 
     exit;
   }
-  
+
   function error($error) {
     echo "Query failed:<br> $error<br><br>";
   }
@@ -106,30 +118,11 @@ else {
 // Quote variable to make safe
 function quote_smart($value) {
 
-  // Stripslashes
-  if (get_magic_quotes_gpc()) {
-    //$value = stripslashes($value);
-  }
-
-  // Quote if not integer
-  if (!is_numeric($value)) {
-    //$value = "'" . mysql_real_escape_string($value) . "'";
-  }
-
   // Deter UNION SQL Injection
-  if (function_exists("stripos")) { //PHP5+ installed
-    if (stripos($value, 'union all') || stripos($value, 'union select')) {
-      logSQL("SQL injection monitored by user at IP: '" . getIP() . "' using the query: '" . $value . "'.");
-      header("Location: index.php");
-      exit;
-    }
-  }
-  else { //PHP<5 installed
-    if (strpos(strtolower($value), 'union all') || strpos(strtolower($value), 'union select')) {
-      logSQL("SQL injection monitored by user at IP: '" . getIP() . "' using the query: '" . $value . "'.");
-      header("Location: index.php");
-      exit;
-    }
+  if (stripos($value, 'union all') || stripos($value, 'union select')) {
+    logSQL("SQL injection monitored by user at IP: '" . getIP() . "' using the query: '" . $value . "'.");
+    header("Location: index.php");
+    exit;
   }
 
   return $value;

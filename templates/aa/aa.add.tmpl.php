@@ -190,6 +190,13 @@
                             <b>Drakkin Heritage:</b><br>
                             <input name="drakkin_heritage" type="text" size="3" value="127">
                           </td>
+						  <td>
+                            <b>Reset on Death:</b><br>
+                            <select name="reset_on_death">
+                              <option value="0"<?echo ($base['reset_on_death'] == 0) ? " selected" : "";?>>No</option>
+                              <option value="1"<?echo ($base['reset_on_death'] == 1) ? " selected" : "";?>>Yes</option>
+                            </select>
+                          </td>
                         </tr>
                       </table>
                       <center>

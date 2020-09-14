@@ -421,8 +421,9 @@ function update_item() {
   if (isset($_POST['slot_Legs'])) $slots = $slots+262144;
   if (isset($_POST['slot_Feet'])) $slots = $slots+524288;
   if (isset($_POST['slot_Waist'])) $slots = $slots+1048576;
-  if (isset($_POST['slot_Ammo'])) $slots = $slots+2097152;
-  if (isset($_POST['slot_Powersource'])) $slots = $slots+4194304;
+  if (isset($_POST['slot_Powersource'])) $slots = $slots+2097152;
+  if (isset($_POST['slot_Ammo'])) $slots = $slots+4194304;
+  
 
   $races = 0;
   if (isset($_POST['race_Human'])) $races = $races+1;
@@ -744,9 +745,24 @@ function copy_item() {
 function get_max_id() {
   global $mysql_content_db;
 
-  $query = "SELECT MAX(id) AS iid FROM items"; 
-  $result = $mysql_content_db->query_assoc($query);
-  $newid = $result['iid'] + 1;
+  #$query = "SELECT MAX(id) AS iid FROM items";
+  $query ="SELECT id FROM items";
+  $result = $mysql_content_db->query($query);
+  
+  $next_id_array = array();
+  while ($z = $result->fetch_assoc()) {
+	   $next_id_array[$z['id']] = 1;
+  }
+  for ($x = 1001; $x <= 500000; $x++) {
+		if ($next_id_array[$x] != 1) {
+			$newid = $x;
+			break;
+		}
+  }
+  
+  
+  #$result = $mysql_content_db->query_assoc($query);
+  #$newid = $result['iid'] + 1;
 
   return $newid;
 }
@@ -777,8 +793,8 @@ function add_item() {
   if (isset($_POST['slot_Legs'])) $slots = $slots+262144;
   if (isset($_POST['slot_Feet'])) $slots = $slots+524288;
   if (isset($_POST['slot_Waist'])) $slots = $slots+1048576;
-  if (isset($_POST['slot_Ammo'])) $slots = $slots+2097152;
-  if (isset($_POST['slot_Powersource'])) $slots = $slots+4194304;
+  if (isset($_POST['slot_Powersource'])) $slots = $slots+2097152;
+  if (isset($_POST['slot_Ammo'])) $slots = $slots+4194304;
 
   $races = 0;
   if (isset($_POST['race_Human'])) $races = $races+1;
@@ -1195,8 +1211,9 @@ function tiered_add_item () {
   if (isset($_POST['slot_Legs'])) $slots = $slots+262144;
   if (isset($_POST['slot_Feet'])) $slots = $slots+524288;
   if (isset($_POST['slot_Waist'])) $slots = $slots+1048576;
-  if (isset($_POST['slot_Ammo'])) $slots = $slots+2097152;
-  if (isset($_POST['slot_Powersource'])) $slots = $slots+4194304;
+  if (isset($_POST['slot_Powersource'])) $slots = $slots+2097152;
+  if (isset($_POST['slot_Ammo'])) $slots = $slots+4194304;
+  
 
   $races = 0;
   if (isset($_POST['race_Human'])) $races = $races+1;

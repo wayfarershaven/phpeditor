@@ -123,9 +123,16 @@ switch ($action) {
     header("Location: index.php?editor=aa&aaid=$id");
     exit;
   case 16: //Edit AA Effect
+	exit; #NYI
   case 17: //Update AA Effect
+	check_authorization();
+	$id = $_POST['id'];
+	update_aa_effects();
+	header("Location: index.php?editor=aa&aaid=$id");
+    exit;
   case 18: //Edit Prerequisite AA
   case 19: //Update Prerequisite AA
+	exit; #NYI
   case 20: //Delete AA
     check_authorization();
     deleteAA();
@@ -410,6 +417,22 @@ function update_aa_rank() {
   $next_id = $_POST['next_id'];
 
   $query = "UPDATE aa_ranks SET upper_hotkey_sid=$upper_hotkey_sid, lower_hotkey_sid=$lower_hotkey_sid, title_sid=$title_sid, desc_sid=$desc_sid, cost=$cost, level_req=$level_req, spell=$spell, spell_type=$spell_type, recast_time=$recast_time, expansion=$expansion, prev_id=$prev_id, next_id=$next_id WHERE id=$id";
+  $mysql_content_db->query_no_result($query);
+}
+
+#action 17
+function update_aa_effects() {
+  global $mysql_content_db;
+  
+  $id = $_GET['aaid'];
+
+  $rank_id = $_POST['rank_id'];
+  $slot = $_POST['slot'];
+  $effect_id = $_POST['effect_id'];
+  $base1 = $_POST['base1'];
+  $base2 = $_POST['base2'];
+
+  $query = "UPDATE aa_rank_effects SET effect_id=$effect_id, base1=$base1, base2=$base2 WHERE rank_id=$rank_id and slot=$slot";
   $mysql_content_db->query_no_result($query);
 }
 

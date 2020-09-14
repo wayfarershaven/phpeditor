@@ -255,8 +255,8 @@
               </td>
               <td valign="top" align="left"><br/>
                 <input type="checkbox" name="slot_Waist" value="1048576" <?echo (isset($slots) && $slots & 1048576) ? "checked" : ""?>> Waist<br/>
-                <input type="checkbox" name="slot_Ammo" value="2097152" <?echo (isset($slots) && $slots & 2097152) ? "checked" : ""?>> Ammo<br/>
-                <input type="checkbox" name="slot_Powersource" value="4194304" <?echo (isset($slots) && $slots & 4194304) ? "checked" : ""?>> Powersource<br/>
+                <input type="checkbox" name="slot_Ammo" value="4194304" <?echo (isset($slots) && $slots & 4194304) ? "checked" : ""?>> Ammo<br/>
+                <input type="checkbox" name="slot_Powersource" value="2097152" <?echo (isset($slots) && $slots & 2097152) ? "checked" : ""?>> Powersource<br/>
                 <input type="checkbox" name="all_none" value="yes" onClick="Check(document.item_edit)"> <b>All/None</b><br/>
               </td>
             </tr>

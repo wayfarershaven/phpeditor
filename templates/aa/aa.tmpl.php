@@ -394,6 +394,7 @@ if ($effects) {
                           <br>
                           <input type="hidden" name="rank_id" value="<?=$effect_detail['rank_id']?>">
                           <input type="hidden" name="slot" value="<?=$effect_detail['slot']?>">
+						  <input type="hidden" name="id" value="<?=$base['id']?>">
                           <input type="submit" value="Update Effect (<?=$effect_detail['rank_id']?>) - Slot <?=$effect_detail['slot']?>">
                         </center>
                       </form>

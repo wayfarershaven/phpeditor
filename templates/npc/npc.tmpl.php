@@ -221,12 +221,12 @@ if ($loottable_id > 0) {
                   </tr>
                   <tr>
                     <td align="left" width="33%">Loottable ID: <?=$loottable_id?></td>
-                    <td align="left" width="33%">HP Regen: <?=$hp_regen_rate?></td>
+                    <td align="left" width="33%">OOC HP Regen: <?=$hp_regen_rate?></td>
                     <td align="left" width="34%">MP Regen: <?=$mana_regen_rate?></td>
                   </tr>
                   <tr>
                     <td align="left" width="33%">Aggro: <?=$aggroradius?></td>
-                    <td align="left" width="33%">&nbsp;</td>
+                    <td align="left" width="33%">Combat Regen: <?=$combat_hp_regen?></td>
 <?
   $new_special_abilities = '';
     for ($i = 1; $i <= $special_abilities_max; $i++){

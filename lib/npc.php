@@ -1296,6 +1296,7 @@ function update_npc() {
   if ($herosforgemodel != $_POST['herosforgemodel']) $fields .= "herosforgemodel=\"" . $_POST['herosforgemodel'] . "\", ";
   if ($size != $_POST['size']) $fields .= "size=\"" . $_POST['size'] . "\", ";
   if ($hp_regen_rate != $_POST['hp_regen_rate']) $fields .= "hp_regen_rate=\"" . $_POST['hp_regen_rate'] . "\", ";
+  if ($combat_hp_regen != $_POST['combat_hp_regen']) $fields .= "combat_hp_regen=\"" . $_POST['combat_hp_regen'] . "\", ";
   if ($mana_regen_rate != $_POST['mana_regen_rate']) $fields .= "mana_regen_rate=\"" . $_POST['mana_regen_rate'] . "\", ";
   if ($loottable_id != $_POST['loottable_id']) $fields .= "loottable_id=\"" . $_POST['loottable_id'] . "\", ";
   //merchant_id
@@ -1452,6 +1453,7 @@ function add_npc() {
   $fields .= "herosforgemodel=\"" . $_POST['herosforgemodel'] . "\", ";
   $fields .= "size=\"" . $_POST['size'] . "\", ";
   $fields .= "hp_regen_rate=\"" . $_POST['hp_regen_rate'] . "\", ";
+  $fields .= "combat_hp_regen=\"" . $_POST['combat_hp_regen'] . "\", ";
   $fields .= "mana_regen_rate=\"" . $_POST['mana_regen_rate'] . "\", ";
   $fields .= "loottable_id=\"" . $_POST['loottable_id'] . "\", ";
   //merchant_id
@@ -1586,6 +1588,7 @@ function copy_npc() {
   $fields .= "herosforgemodel=\"" . $_POST['herosforgemodel'] . "\", ";
   $fields .= "size=\"" . $_POST['size'] . "\", ";
   $fields .= "hp_regen_rate=\"" . $_POST['hp_regen_rate'] . "\", ";
+  $fields .= "combat_hp_regen=\"" . $_POST['combat_hp_regen'] . "\", ";
   $fields .= "mana_regen_rate=\"" . $_POST['mana_regen_rate'] . "\", ";
   $fields .= "loottable_id=\"" . $_POST['loottable_id'] . "\", ";
   $fields .= "merchant_id=\"" . $_POST['merchant_id'] . "\", ";

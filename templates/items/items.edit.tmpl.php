@@ -112,6 +112,29 @@ if($errors != ''):?>
                 </select>
               </td>
             </tr>
+            <tr>
+              <td>
+                Heirloom:<br>
+                <select name="heirloom">
+                  <option value="0"<?echo ($heirloom == 0) ? " selected" : "";?>>No</option>
+                  <option value="1"<?echo ($heirloom == 1) ? " selected" : "";?>>Yes</option>
+                </select>
+              </td>
+              <td>
+                Placeable:<br>
+                <select name="placeable">
+                  <option value="0"<?echo ($placeable == 0) ? " selected" : "";?>>No</option>
+                  <option value="1"<?echo ($placeable == 1) ? " selected" : "";?>>Yes</option>
+                </select>
+              </td>
+              <td>
+                Epic Item:<br>
+                <select name="epicitem">
+                  <option value="0"<?echo ($epicitem == 0) ? " selected" : "";?>>No</option>
+                  <option value="1"<?echo ($epicitem == 1) ? " selected" : "";?>>Yes</option>
+                </select>
+              </td>
+            </tr>
           </table>
         </fieldset>
         <fieldset>
@@ -242,8 +265,8 @@ if($errors != ''):?>
               </td>
               <td valign="top" align="left"><br>
                 <input type="checkbox" name="slot_Waist" value="1048576" <?echo ($slots & 1048576) ? "checked" : ""?>> Waist<br>
-                <input type="checkbox" name="slot_Ammo" value="4194304" <?echo ($slots & 4194304) ? "checked" : ""?>> Ammo<br>
                 <input type="checkbox" name="slot_Powersource" value="2097152" <?echo ($slots & 2097152) ? "checked" : ""?>> Powersource<br>
+                <input type="checkbox" name="slot_Ammo" value="4194304" <?echo ($slots & 4194304) ? "checked" : ""?>> Ammo<br>
                 <input type="checkbox" name="all_none" value="yes" onClick="Check(document.item_edit)"> <b>All/None</b><br>
               </td>
             </tr>

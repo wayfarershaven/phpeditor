@@ -100,6 +100,29 @@
                 </select>
               </td>
             </tr>
+            <tr>
+              <td>
+                Heirloom:<br>
+                <select name="heirloom">
+                  <option value="0">No</option>
+                  <option value="1">Yes</option>
+                </select>
+              </td>
+              <td>
+                Placeable:<br>
+                <select name="placeable">
+                  <option value="0">No</option>
+                  <option value="1">Yes</option>
+                </select>
+              </td>
+              <td>
+                Epic Item:<br>
+                <select name="epicitem">
+                  <option value="0">No</option>
+                  <option value="1">Yes</option>
+                </select>
+              </td>
+            </tr>
           </table>
         </fieldset>
         <fieldset>
@@ -260,8 +283,8 @@
               <td valign="top" align="left">
                 <br>
                 <input type="checkbox" name="slot_Waist" value="1048576"> Waist<br>
-                <input type="checkbox" name="slot_Ammo" value="4194304"> Ammo<br>2097152
                 <input type="checkbox" name="slot_Powersource" value="2097152"> Powersource<br>
+                <input type="checkbox" name="slot_Ammo" value="4194304"> Ammo<br>
                 <input type="checkbox" name="all_none" value="yes" onClick="Check(document.item_edit)"> <b>All/None</b><br>
               </td>
             </tr>

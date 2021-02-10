@@ -140,14 +140,12 @@ switch ($action) {
     header("Location: index.php?editor=loot&z=$z&zoneid=$zoneid&npcid=$npcid");
     exit;
   case 14: // Search Loottables
-    check_authorization();
     $body = new Template("templates/loot/loottable.search.tmpl.php");
     $body->set('currzone', $z);
     $body->set('currzoneid', $zoneid);
     $body->set('npcid', $npcid);
     break;
   case 15: // Display Search Results
-    check_authorization();
     $body = new Template("templates/loot/loottable.searchresults.tmpl.php");
     $body->set('currzone', $z);
     $body->set('currzoneid', $zoneid);
@@ -211,7 +209,6 @@ switch ($action) {
     header("Location: index.php?editor=loot&z=$z&zoneid=$zoneid&npcid=$npcid");
     exit;
   case 25: // Search Loot Item
-    check_authorization();
     $body = new Template("templates/loot/lootdrop.search.tmpl.php");
     $body->set('currzone', $z);
     $body->set('currzoneid', $zoneid);
@@ -229,7 +226,6 @@ switch ($action) {
     header("Location: index.php?editor=loot&z=$z&zoneid=$zoneid&npcid=$npcid");
     exit;
   case 28: // Display Search Results
-    check_authorization();
     $body = new Template("templates/loot/lootdrop.searchresults.tmpl.php");
     $body->set('currzone', $z);
     $body->set('currzoneid', $zoneid);
@@ -266,7 +262,6 @@ switch ($action) {
     header("Location: index.php?editor=loot&z=$z&zoneid=$zoneid&npcid=$npcid");
     exit;
   case 32:  // Search npc by item
-    check_authorization();
     $body = new Template("templates/loot/loot.searchresults.tmpl.php");
     $results = search_loot_by_item();
     $body->set("results", $results);
@@ -1227,7 +1222,7 @@ function insert_global_loot() {
   $content_flags = $_POST['content_flags'];
   $content_flags_disabled = $_POST['content_flags_disabled'];
 
-  $query = "INSERT INTO global_loot SET id=$id, description=\"$description\", loottable_id=$loottable_id, enabled=$enabled, min_level=$min_level, max_level=$max_level, rare=NULL, raid=NULL, race=NULL, class=NULL, bodytype=NULL, zone=NULL, hot_zone=$hot_zone, min_expansion=$min_expansion, max_expansion=$max_expansion, content_flags=NULL, content_flags_disabled=NULL";
+  $query = "INSERT INTO global_loot SET id=$id, description=\"$description\", loottable_id=$loottable_id, enabled=$enabled, min_level=$min_level, max_level=$max_level, rare=NULL, raid=NULL, race=NULL, class=NULL, bodytype=NULL, zone=NULL, hot_zone=NULL, min_expansion=$min_expansion, max_expansion=$max_expansion, content_flags=NULL, content_flags_disabled=NULL";
   $mysql_content_db->query_no_result($query);
 
   if ($rare != "") {
@@ -1257,6 +1252,11 @@ function insert_global_loot() {
 
   if ($zone != "") {
     $query = "UPDATE global_loot SET zone=\"$zone\" WHERE id=$id";
+    $mysql_content_db->query_no_result($query);
+  }
+
+  if ($hot_zone != -1) {
+    $query = "UPDATE global_loot SET hot_zone=$hot_zone WHERE id=$id";
     $mysql_content_db->query_no_result($query);
   }
 
@@ -1294,7 +1294,7 @@ function update_global_loot() {
   $content_flags = $_POST['content_flags'];
   $content_flags_disabled = $_POST['content_flags_disabled'];
 
-  $query = "UPDATE global_loot SET description=\"$description\", loottable_id=$loottable_id, enabled=$enabled, min_level=$min_level, max_level=$max_level, rare=NULL, raid=NULL, race=NULL, class=NULL, bodytype=NULL, zone=NULL, hot_zone=$hot_zone, min_expansion=$min_expansion, max_expansion=$max_expansion, content_flags=NULL, content_flags_disabled=NULL WHERE id=$id";
+  $query = "UPDATE global_loot SET description=\"$description\", loottable_id=$loottable_id, enabled=$enabled, min_level=$min_level, max_level=$max_level, rare=NULL, raid=NULL, race=NULL, class=NULL, bodytype=NULL, zone=NULL, hot_zone=NULL, min_expansion=$min_expansion, max_expansion=$max_expansion, content_flags=NULL, content_flags_disabled=NULL WHERE id=$id";
   $mysql_content_db->query_no_result($query);
 
   if ($rare != "") {
@@ -1324,6 +1324,11 @@ function update_global_loot() {
 
   if ($zone != "") {
     $query = "UPDATE global_loot SET zone=\"$zone\" WHERE id=$id";
+    $mysql_content_db->query_no_result($query);
+  }
+
+  if ($hot_zone != -1) {
+    $query = "UPDATE global_loot SET hot_zone=$hot_zone WHERE id=$id";
     $mysql_content_db->query_no_result($query);
   }
 

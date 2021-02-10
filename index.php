@@ -1,7 +1,7 @@
 <?php
 
-$current_revision = "20 August 2020";
-$current_db_version = 9156;
+$current_revision = "31 January 2021";
+$current_db_version = 9159;
 
 require_once("config.php");
 require_once("lib/logging.php");
@@ -142,6 +142,9 @@ switch ($editor) {
     break;
   case 'content':
     require_once('lib/content.php');
+    break;
+  case 'expeditions':
+    require_once('lib/expeditions.php');
     break;
 }
 

@@ -1,4 +1,4 @@
-    <div class="edit_form" id="filter_box" style="width: 350px; display: <?echo ($filter['status'] == 'on') ? 'block' : 'none'?>">
+    <div class="edit_form" id="filter_box" style="width: 350px; display: <?echo (isset($filter) && $filter['status'] == 'on') ? 'block' : 'none'?>">
       <div class="edit_form_header">
         <table width="100%" cellpadding="0" cellspacing="0">
           <tr>
@@ -11,17 +11,17 @@
         <form name="filter" id="filter" method="get" action="index.php">
           <input type="hidden" name="editor" value="faction">
           <input type="hidden" name="action" value="9">
-<?echo (($sort != '') ? '<input type="hidden" name="sort" value="' . $sort . '">' : '')?>
+<?echo ((isset($sort) && $sort != '') ? '<input type="hidden" name="sort" value="' . $sort . '">' : '')?>
           <input type="hidden" name="filter" id="filter_status" value="on">
           <table class="table_content" width="100%">
             <tr>
               <td width="50%">
                 Character Name:<br>
-                <input type="text" name="filter1" id="filter1" value="<?=$filter['filter1']?>">
+                <input type="text" name="filter1" id="filter1" value="<?echo (isset($filter)) ? $filter['filter1'] : "";?>">
               </td>
               <td width="50%">
                 Faction ID:<br>
-                <input type="text" name="filter2" id="filter2" value="<?=$filter['filter2']?>">
+                <input type="text" name="filter2" id="filter2" value="<?echo (isset($filter)) ? $filter['filter2'] : "";?>">
               </td>
             </tr>
             <tr>
@@ -31,7 +31,7 @@
         </form>
       </div>
     </div><br>
-        <div class="table_container" style="width: 500px;">
+        <div class="table_container" style="width: 700px;">
           <div class="table_header">
             <table width="100%" cellpadding="0" cellspacing="0">
               <tr>
@@ -50,17 +50,17 @@
           <table class="table_content2" width="100%">
 <?if (isset($player_factions)):?>
             <tr>
-              <td align="center" width="20%"><strong><?echo ($sort == 1) ? "Character <img src='images/sort_red.bmp' border='0' width='8' height='8'>" : "<a href='index.php?editor=faction&action=9&sort=1" . (($filter['status'] == "on") ? $filter['url'] : "") . "'>Character <img src='images/sort_green.bmp' border='0' width='8' height='8' title='Sort by Character'></a>";?></strong></td>
-              <td align="center" width="20%"><strong><?echo ($sort == 2) ? "Faction <img src='images/sort_red.bmp' border='0' width='8' height='8'>" : "<a href='index.php?editor=faction&action=9&sort=2" . (($filter['status'] == "on") ? $filter['url'] : "") . "'>Faction <img src='images/sort_green.bmp' border='0' width='8' height='8' title='Sort by Faction'></a>";?></strong></td>
+              <td align="center" width="30%"><strong><?echo ($sort == 1) ? "Character <img src='images/sort_red.bmp' border='0' width='8' height='8'>" : "<a href='index.php?editor=faction&action=9&sort=1" . ((isset($filter) && $filter['status'] == "on") ? $filter['url'] : "") . "'>Character <img src='images/sort_green.bmp' border='0' width='8' height='8' title='Sort by Character'></a>";?></strong></td>
+              <td align="center" width="40%"><strong><?echo ($sort == 2) ? "Faction <img src='images/sort_red.bmp' border='0' width='8' height='8'>" : "<a href='index.php?editor=faction&action=9&sort=2" . ((isset($filter) && $filter['status'] == "on") ? $filter['url'] : "") . "'>Faction <img src='images/sort_green.bmp' border='0' width='8' height='8' title='Sort by Faction'></a>";?></strong></td>
               <td align="center" width="20%"><strong>Value</strong></td>
               <td width="10%">&nbsp;</td>
             </tr>
 <?$x=0; foreach($player_factions as $player_faction):?>
             <tr bgcolor="#<? echo ($x % 2 == 0) ? "BBBBBB" : "AAAAAA";?>">
-              <td align="center" width="20%"><a title="Character ID: <?=$player_faction['char_id']?>"><?=getPlayerName($player_faction['char_id']);?></a></td>
-              <td align="center" width="20%"><a title="Faction: <?=getFactionName($player_faction['faction_id'])?>"><?=$player_faction['faction_id']?></a></td>
-              <td align="center" width="20%"><?=$player_faction['current_value']?></td>
-              <td align="right"><a href="index.php?editor=faction&char_id=<?=$player_faction['char_id']?>&faction_id=<?=$player_faction['faction_id']?>&action=10"><img src="images/edit2.gif" border="0" title="Edit Faction Entry"></a>&nbsp;<a onClick="return confirm('Really Delete this Faction Entry?');" href="index.php?editor=faction&char_id=<?=$player_faction['char_id']?>&faction_id=<?=$player_faction['faction_id']?>&action=14"><img src="images/remove3.gif" border="0" title="Delete this faction entry"></a></td>
+              <td align="center" width="30%"><?=getPlayerName($player_faction['char_id']);?> (<?=$player_faction['char_id']?>)</td>
+              <td align="center" width="40%"><?=getFactionName($player_faction['faction_id'])?> (<?=$player_faction['faction_id']?>)</td>
+              <td align="center" width="20%"><?=get_faction_standing($player_faction['current_value'])?> (<?=$player_faction['current_value']?>)</td>
+              <td align="right" width="10%"><a href="index.php?editor=faction&char_id=<?=$player_faction['char_id']?>&faction_id=<?=$player_faction['faction_id']?>&action=10"><img src="images/edit2.gif" border="0" title="Edit Faction Entry"></a>&nbsp;<a onClick="return confirm('Really Delete this Faction Entry?');" href="index.php?editor=faction&char_id=<?=$player_faction['char_id']?>&faction_id=<?=$player_faction['faction_id']?>&action=14"><img src="images/remove3.gif" border="0" title="Delete this faction entry"></a></td>
             </tr>
 <?$x++; endforeach;?>
 <?endif;?>

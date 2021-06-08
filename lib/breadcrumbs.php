@@ -101,7 +101,7 @@ switch ($editor) {
     break;
 }
 
-if (isset($z) && $z != '') $breadcrumbs .= " >> " . "<a href='index.php?editor=" . $editor . "&z=" . $z . "&zoneid=" . $zoneid . "'>" . getZoneLongName($z) . "</a>";
+if (isset($z) && $z != '') $breadcrumbs .= " >> " . "<a href='index.php?editor=" . $editor . "&z=" . $z . "&zoneid=" . $zoneid . "'>" . getZoneLongName($z, getZoneVersion($zoneid)) . "</a>";
 if (isset($npcid) && intval($npcid) > 0 && $editor != 'altcur' && $editor != 'qglobal') $breadcrumbs .= " >> " . getNPCName($npcid) . " ($npcid)";
 if (isset($fid) && intval($fid) > 0) $breadcrumbs .= " >> " . getFactionName($fid);
 if (isset($tskid) && intval($tskid) > 0) $breadcrumbs .= " >> " . getTaskTitle($tskid);
@@ -110,7 +110,7 @@ if (isset($rec) && intval($rec) > 0) $breadcrumbs .= " >> " . getRecipeName($rec
 if (isset($spellset) && intval($spellset) > 0) $breadcrumbs .= " >> " . getSpellsetName($spellset);
 if (isset($playerid) && intval($playerid) > 0) $breadcrumbs .= " >> <a href='index.php?editor=" . $editor . "&playerid=" . $playerid . "'>" . getPlayerName($playerid) . " ($playerid)</a>";
 if (isset($acctid) && intval($acctid) > 0) $breadcrumbs .= " >> " . getAccountName($acctid) . " ($acctid)";
-if (isset($guildid) && intval($guildid) > 0) $breadcrumbs .= " >> " . getGuildName($guildid) . " ($guildid)";
+if (isset($guildid) && intval($guildid) > 0) $breadcrumbs .= " >> <a href='index.php?editor=" . $editor . "&guildid=" . $guildid . "'>" . getGuildName($guildid) . " ($guildid)</a>";
 if (isset($aaid) && intval($aaid) > 0) $breadcrumbs .= " >> " . getAAName($aaid) . " ($aaid)";
 if (isset($nseid) && intval($nseid) > 0) $breadcrumbs .= " >> <a href='index.php?editor=" . $editor . "&action=11'>NPC Spells Effects</a>";
 

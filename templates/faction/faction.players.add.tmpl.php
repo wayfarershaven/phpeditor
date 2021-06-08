@@ -1,4 +1,18 @@
-  <div class="edit_form" style="width: 500px">
+  <center>
+    <table style="border: 1px solid black; background-color: #CCC;">
+      <tr><td colspan="3"><b>Legend:</b></td></tr>
+      <tr><td align="right">1100 and Above</td><td>&nbsp;</td><td align="left">Ally</td></tr>
+      <tr><td align="right">750 to 1099</td><td>&nbsp;</td><td align="left">Warmly</td></tr>
+      <tr><td align="right">500 to 749</td><td>&nbsp;</td><td align="left">Kindly</td></tr>
+      <tr><td align="right">100 to 499</td><td>&nbsp;</td><td align="left">Amiable</td></tr>
+      <tr><td align="right">0 to 99</td><td>&nbsp;</td><td align="left">Indifferent</td></tr>
+      <tr><td align="right">-100 to -1</td><td>&nbsp;</td><td align="left">Apprehensive</td></tr>
+      <tr><td align="right">-500 to -101</td><td>&nbsp;</td><td align="left">Dubious</td></tr>
+      <tr><td align="right">-750 to -501</td><td>&nbsp;</td><td align="left">Threatening</td></tr>
+      <tr><td align="right">-751 and Below</td><td>&nbsp;</td><td align="left">KOS</td></tr>
+    </table><br><br>
+  </center>
+  <div class="edit_form" style="width: 550px">
     <div class="edit_form_header">Add Faction Entry</div>
       <div class="edit_form_content">
         <form name="player_factions" method="post" action="index.php?editor=faction&action=13">
@@ -14,7 +28,7 @@
                 <select name="faction_id">
                   <option value="">Select a Faction</option>
 <? foreach ($factions as $faction) {?>
-                  <option value="<?=$faction['id']?>"><?=$faction['name']?></option>
+                  <option value="<?=$faction['id']?>"><?=$faction['name']?> (<?=$faction['id']?>)</option>
 <? }?>
                 </select>
               </td>

@@ -222,7 +222,11 @@ function spell_dbstrus() {
 
   $query2 = "SELECT txtfile FROM dbstr_us WHERE descnum=$descnum and type_=6";
   $result2 = $mysql_content_db->query_assoc($query2);
-  $txtfile = $result2['txtfile'];
+  if(isset($result2['txtfile'])) {
+	$txtfile = $result2['txtfile'];
+  } else {
+	  $txtfile = "";
+  }
 
   return $txtfile;
 }

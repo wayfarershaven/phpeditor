@@ -123,4 +123,6 @@ $quest_path = "/path/to/quests";
 $perl_path     = "perl";
 $perl_log_file = $logs_dir . "/perl_log_$filetime.log";
 
+$my_root_dbstrus = $_SERVER['DOCUMENT_ROOT'] . '/peqphpeditor'; #change /peqphpeditor to base folder of project
+
 ?>

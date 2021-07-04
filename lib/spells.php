@@ -82,6 +82,12 @@ switch ($action) {
 	  $response = generateDBSTRUSFile();
 	  $body->set('response', $response);
 	 break;
+  case 9999: // Import dbstr_us
+	  check_authorization();
+	  $body = new Template("templates/spells/spells.importdbstrus.tmpl.php");
+	  $response = importDBSTRUSFile();
+	  $body->set('response', $response);
+	 break;
 //Spells are complicated enough that one is probably wise to copy from a template anyway, at least for now.
 //  case 8: // Add spell
 //     check_authorization();
@@ -585,6 +591,37 @@ function generateDBSTRUSFile() {
 
   $success = ($count > 0) ? true : false;
   $response = array("success" => $success, "count" => $count, "lastid" => $lastid, "spellsfile" => $spellsfile);
+
+  return $response;
+}
+
+function importDBSTRUSFile() {
+  global $mysql_content_db;
+  global $my_root_dbstrus;
+  $dbstr_us = "dbstr_us.txt";
+  $success = false;
+
+  #Delete table contents for upload...
+  $query = "TRUNCATE TABLE dbstr_us";
+  $mysql_content_db->query_no_result($query);
+
+  $fileOut = fopen($dbstr_us, 'r');
+  if(!$fileOut) {
+    die("Error opening $dbstr_us for writing. Make sure the path is writable.");
+  }
+  
+  $query_out = 
+    "LOAD DATA INFILE '$my_root_dbstrus/$dbstr_us'
+     INTO TABLE dbstr_us
+     FIELDS TERMINATED BY '^'
+     LINES TERMINATED BY '\n'
+    (descnum,type_,txtfile,unknown)";
+	$mysql_content_db->query_no_result($query_out);
+
+    fclose($fileOut);
+	
+  $success = true;
+  $response = array("success" => $success);
 
   return $response;
 }

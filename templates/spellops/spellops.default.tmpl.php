@@ -11,7 +11,8 @@
             <a href="index.php?editor=spells">View Spells</a><br>
             <a href="index.php?editor=spells&action=11">View NPC Spells Effects</a><br>
             <a onClick="return confirm('This can take a long time. Are you sure you want to run this process now? (Oh, and do not use the back button!)');" href="index.php?editor=spells&action=10">Generate spells_us.txt</a><br>
-			<a onClick="return confirm('This can take a long time. Are you sure you want to run this process now? (Oh, and do not use the back button!)');" href="index.php?editor=spells&action=999">Generate dbstr_us.txt</a>
+			<a onClick="return confirm('This can take a long time. Are you sure you want to run this process now? (Oh, and do not use the back button!)');" href="index.php?editor=spells&action=999">Generate dbstr_us.txt</a><br>
+			<a onClick="return confirm('This can take a long time. Are you sure you want to run this process now? (Oh, and do not use the back button!)');" href="index.php?editor=spells&action=9999">Import dbstr_us.txt</a> (Place file in base directory)
           </center>
         </td>
       </tr>

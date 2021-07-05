@@ -29,4 +29,14 @@ For Linux users, note the following.
 
 7) Open up index.php in your web browser and have fun!
 
+### DBSTR_US importer
 
+1) Run file located in 'sql/dbstr_us.sql'
+
+2) Place dbstr_us.txt file in base folder of editor. example mine is "F:\Website\peqphpeditor"
+
+3) Edit config.php near bottom. Variable is $my_root_dbstrus = $_SERVER['DOCUMENT_ROOT'] . '/peqphpeditor';
+
+4) Change '/peqphpeditor' to whatever you named your folder 
+
+5) Open editor in brower and go to 'Spells' then click on 'Import dbstr_us.txt'

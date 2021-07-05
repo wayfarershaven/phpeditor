@@ -5,6 +5,23 @@
 	iconImage.src = "icons/item_" + iconField.value + ".gif";
   }
   
+  function changeIconValue(x) {
+	var iconImage = document.getElementById("iconImage");
+	var iconField = document.getElementById("iconField");
+	iconField.value = x;
+	iconImage.src = "icons/item_" + iconField.value + ".gif";
+  }
+  
+  function showIcons() {
+	document.getElementById("iconframe").style.display = "block";
+    document.getElementById("iconbutton").style.display = "block";
+  }
+  
+  function hideIcons() {
+	document.getElementById("iconframe").style.display = "none";
+    document.getElementById("iconbutton").style.display = "none";
+  }
+  
   function updateHexColor() {
 	var hex_color = document.getElementById("hexcolor");
 	var yourNumber = parseInt("FF" + hex_color.value, 16);

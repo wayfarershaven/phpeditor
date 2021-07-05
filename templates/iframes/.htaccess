@@ -29,3 +29,7 @@
 <Files spellsetsearch.php>
   Require all granted
 </Files>
+
+<Files iconsearch.php>
+  Require all granted
+</Files>

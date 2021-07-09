@@ -33,3 +33,7 @@
 <Files iconsearch.php>
   Require all granted
 </Files>
+
+<Files spelliconsearch.php>
+  Require all granted
+</Files>

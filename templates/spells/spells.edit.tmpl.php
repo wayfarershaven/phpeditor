@@ -146,6 +146,11 @@
 					<td width="16%"><br/></td>
 					  <td width="17%"><img id="iconImage" src="icons/<?=$new_icon?>.gif" /><br/></td>
 					  <td width="66%"><br/></td>
+					  (<a href="javascript:showIcons();">Icon Search</a>)<br><br>
+					<center>
+						<iframe id='iconframe' src='templates/iframes/spelliconsearch.php'></iframe>
+						<input id="iconbutton" type="button" value='Hide Icon Search' onclick='hideIcons();' style='display:none; margin-bottom: 20px;'>
+					</center>
 					</tr>
 				  </table>
                   <table border="0" cellspacing="0" cellpadding="2" width="100%">

@@ -12,6 +12,13 @@
 	iconImage.src = "icons/item_" + iconField.value + ".gif";
   }
   
+  function changeSpellIconValue(x) {
+	var iconImage = document.getElementById("iconImage");
+	var iconField = document.getElementById("iconField");
+	iconField.value = x;
+	iconImage.src = "icons/" + iconField.value + ".gif";
+  }
+  
   function showIcons() {
 	document.getElementById("iconframe").style.display = "block";
     document.getElementById("iconbutton").style.display = "block";

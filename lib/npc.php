@@ -1317,6 +1317,7 @@ function update_npc() {
   if (!isset($_POST['unique_spawn_by_name'])) $_POST['unique_spawn_by_name'] = 0;
   if (!isset($_POST['underwater'])) $_POST['underwater'] = 0;
   if (!isset($_POST['isquest'])) $_POST['isquest'] = 0;
+  if (!isset($_POST['disable_instance'])) $_POST['disable_instance'] = 0;
   if (!isset($_POST['ignore_despawn'])) $_POST['ignore_despawn'] = 0;
   if (!isset($_POST['skip_global_loot'])) $_POST['skip_global_loot'] = 0;
   if (!isset($_POST['rare_spawn'])) $_POST['rare_spawn'] = 0;
@@ -1426,6 +1427,7 @@ function update_npc() {
   if ($unique_spawn_by_name != $_POST['unique_spawn_by_name']) $fields .= "unique_spawn_by_name=\"" . $_POST['unique_spawn_by_name'] . "\", ";
   if ($underwater != $_POST['underwater']) $fields .= "underwater=\"" . $_POST['underwater'] . "\", ";
   if ($isquest != $_POST['isquest']) $fields .= "isquest=\"" . $_POST['isquest'] . "\", ";
+  if ($disable_instance != $_POST['disable_instance']) $fields .= "disable_instance=\"" . $_POST['disable_instance'] . "\", ";
   if ($emoteid != $_POST['emoteid']) $fields .= "emoteid=\"" . $_POST['emoteid'] . "\", ";
   if ($spellscale != $_POST['spellscale']) $fields .= "spellscale=\"" . $_POST['spellscale'] . "\", ";
   if ($healscale != $_POST['healscale']) $fields .= "healscale=\"" . $_POST['healscale'] . "\", ";
@@ -1480,6 +1482,7 @@ function add_npc() {
   if ($_POST['unique_spawn_by_name'] != 1) $_POST['unique_spawn_by_name'] = 0;
   if ($_POST['underwater'] != 1) $_POST['underwater'] = 0;
   if ($_POST['isquest'] != 1) $_POST['isquest'] = 0;
+  if ($_POST['disable_instance'] != 1) $_POST['disable_instance'] = 0;
   if ($_POST['ignore_despawn'] != 1) $_POST['ignore_despawn'] = 0;
   if ($_POST['skip_global_loot'] != 1) $_POST['skip_global_loot'] = 0;
   if ($_POST['rare_spawn'] != 1) $_POST['rare_spawn'] = 0;
@@ -1582,6 +1585,7 @@ function add_npc() {
   $fields .= "unique_spawn_by_name=\"" . $_POST['unique_spawn_by_name'] . "\", ";
   $fields .= "underwater=\"" . $_POST['underwater'] . "\", ";
   $fields .= "isquest=\"" . $_POST['isquest'] . "\", ";
+  $fields .= "disable_instance=\"" . $_POST['disable_instance'] . "\", ";
   $fields .= "emoteid=\"" . $_POST['emoteid'] . "\", ";
   $fields .= "spellscale=\"" . $_POST['spellscale'] . "\", ";
   $fields .= "healscale=\"" . $_POST['healscale'] . "\", ";
@@ -1717,6 +1721,7 @@ function copy_npc() {
   $fields .= "unique_spawn_by_name=\"" . $_POST['unique_spawn_by_name'] . "\", ";
   $fields .= "underwater=\"" . $_POST['underwater'] . "\", ";
   $fields .= "isquest=\"" . $_POST['isquest'] . "\", ";
+  $fields .= "disable_instance=\"" . $_POST['disable_instance'] . "\", ";
   $fields .= "emoteid=\"" . $_POST['emoteid'] . "\", ";
   $fields .= "spellscale=\"" . $_POST['spellscale'] . "\", ";
   $fields .= "healscale=\"" . $_POST['healscale'] . "\", ";

@@ -360,7 +360,7 @@
                 </td>
                 <td valign="top" align="left">
                   <input type="checkbox" name="trackable" value="1" checked onChange="raceCheck();"> NPC is Trackable<br>
-                  &nbsp;<br>
+                  <input type="checkbox" name="disable_instance" value="1"/> Disable NPC in Instances<br/>
                   &nbsp;<br>
                 </td>
               </tr>

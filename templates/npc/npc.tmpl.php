@@ -220,9 +220,9 @@ if ($loottable_id > 0) {
                     <td align="left" width="34%">Attack Count: <?=$attack_count?></td>
                   </tr>
                   <tr>
-                    <td align="left" width="33%">HP Regen: <?=$hp_regen_rate?></td>
+                    <td align="left" width="33%">OOC HP Regen: <?=$hp_regen_rate?></td>
                     <td align="left" width="33%">MP Regen: <?=$mana_regen_rate?></td>
-                    <td align="left" width="34%">&nbsp;</td>
+                    <td align="left" width="33%">Combat Regen: <?=$combat_hp_regen?></td>
                   </tr>
                   <tr>
                     <td align="left" width="33%">Aggro: <?=$aggroradius?></td>

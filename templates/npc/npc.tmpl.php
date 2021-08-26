@@ -361,6 +361,7 @@ if ($loottable_id > 0) {
         <input type="hidden" name="herosforgemodel" value="<?=$herosforgemodel?>">
         <input type="hidden" name="size" value="<?=$size?>">
         <input type="hidden" name="hp_regen_rate" value="<?=$hp_regen_rate?>">
+        <input type="hidden" name="combat_hp_regen" value="<?=$combat_hp_regen?>">
         <input type="hidden" name="mana_regen_rate" value="<?=$mana_regen_rate?>">
         <input type="hidden" name="loottable_id" value="<?=$loottable_id?>">
         <input type="hidden" name="merchant_id" value="<?=$merchant_id?>">

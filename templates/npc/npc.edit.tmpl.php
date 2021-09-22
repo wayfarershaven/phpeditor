@@ -181,8 +181,8 @@
   }
 ?>
                 <td valign="top" align="left">
-                  Summon (1):<br><input type="text" name="1" size="10" value="<?=$specabilcont[1]?>"><br>
-                  Enrage (2):<br><input type="text" name="2" size="10" value="<?=$specabilcont[2]?>"><br>
+                  Summon (1):<br><input type="text" name="1" size="10" value="<?=$specabilcont[1]?>" title="Summon: 1, type, cooldownMS, hp% &#013;example: 1,1,10000,95 (summon target to NPC) &#013;example 1,2,10000,95 (move NPC to target)"><br>
+                  Enrage (2):<br><input type="text" name="2" size="10" value="<?=$specabilcont[2]?>" title="Enrage: 2, hp%, durationMS, cooldownMS &#013;example: 2,10,1000,30000"><br>
                   Rampage (3):<br><input type="text" name="3" size="10" value="<?=$specabilcont[3]?>"><br>
                   AE Rampage (4):<br><input type="text" name="4" size="10" value="<?=$specabilcont[4]?>"><br>
                   Flurry (5):<br><input type="text" name="5" size="10" value="<?=$specabilcont[5]?>"><br>

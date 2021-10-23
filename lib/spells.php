@@ -35,6 +35,7 @@ switch ($action) {
     $body->set("traveltypes", $sp_traveltypes);
     //$body->set("spellcats", $sp_categories); //Wtf is this?
 	$body->set("castanims", $sp_animationlist);
+	$body->set("restrictions", $sp_restrictions);
 	$body->set("targetanims", $sp_animationlist);
 
     $vars = spell_info();
@@ -304,6 +305,21 @@ function update_spell() {
   if ($_POST['spell_category'] == -100) {
     $_POST['spell_category'] = $_POST[spcat];
   }
+  
+    //Fix the 'use text field' elements
+  if ($_POST['field220'] == -100) {
+    $_POST['field220'] = $_POST[f220text];
+  }
+  
+  if ($_POST['CastRestriction'] == -100) {
+    $_POST['CastRestriction'] = $_POST[CastRestrictionText];
+  }
+  
+   //Fix the 'use text field' elements
+ // if ($_POST['field220'] >= 10000 && $_POST['field220'] <= 11000) {
+ //   $_POST['field220'] = $_POST[f220text];
+ // }
+  
 
   $fields = '';
   foreach(array_keys($vars) as $f) {

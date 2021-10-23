@@ -3,3 +3,4 @@ clientfiles
 .idea
 config.php
 logs/
+/spells_us.txt

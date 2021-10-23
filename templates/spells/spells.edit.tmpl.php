@@ -357,7 +357,13 @@
                 <td width="17%">Cone Start Angle:<br><input type="text" name="ConeStartAngle" value="<?=$ConeStartAngle?>" size="5"></td>
                 <td width="17%">Cone Stop Angle:<br><input type="text" name="ConeStopAngle" value="<?=$ConeStopAngle?>" size="5"></td>
                 <td width="16%">Rank:<br><input type="text" name="rank" value="<?=$rank?>" size="5"></td>
-                <td width="17%">Cast Restriction:<br><input type="text" name="CastRestriction" value="<?=$CastRestriction?>" size="5"></td>
+               <td width="17%">Cast Restriction:<br>
+				<select name="CastRestriction" style="width:100px;">
+				<?foreach($restrictions as $k => $v):?>
+                    <option value="<?=$k?>"<? echo ($k == $CastRestriction) ? " selected" : ""?>><?=$k?>: <?=$v?></option>
+				<?endforeach;?>
+				</select><br><input type="text" name="CastRestrictionText" size="3" value="<?=$CastRestriction?>">
+				</td>
                 <td width="17%">Max Targets:<br><input type="text" name="maxtargets" value="<?=$maxtargets?>" size="5"></td>
                 <td width="16%">AE Max Targets:<br><input type="text" name="aemaxtargets" size="5" value="<?=$aemaxtargets?>"></td>
               </tr>
@@ -375,6 +381,13 @@
                 <td>Viral Range:<br><input type="text" name="viral_range" size="5" value="<?=$viral_range?>"></td>
                 <td>Min Resist:<br><input type="text" name="MinResist" value="<?=$MinResist?>" size="5"></td>
                 <td>Max Resist:<br><input type="text" name="MaxResist" value="<?=$MaxResist?>" size="5"></td>
+				<td width="17%">Caster Required:<br>
+				<select name="field220" style="width:100px;">
+				<?foreach($restrictions as $k => $v):?>
+                    <option value="<?=$k?>"<? echo ($k == $field220) ? " selected" : ""?>><?=$k?>: <?=$v?></option>
+				<?endforeach;?>
+				</select><br><input type="text" name="f220text" size="3" value="<?=$field220?>">
+				</td>
                 <td>&nbsp;</td>
               </tr>
             </table>

@@ -357,8 +357,9 @@
                 <td width="17%">Cone Start Angle:<br><input type="text" name="ConeStartAngle" value="<?=$ConeStartAngle?>" size="5"></td>
                 <td width="17%">Cone Stop Angle:<br><input type="text" name="ConeStopAngle" value="<?=$ConeStopAngle?>" size="5"></td>
                 <td width="16%">Rank:<br><input type="text" name="rank" value="<?=$rank?>" size="5"></td>
-                <td width="17%">Max Targets:<br><input type="text" name="maxtargets" value="<?=$maxtargets?>" size="5"></td>
-                <td>AE Max Targets:<br><input type="text" name="aemaxtargets" size="5" value="<?=$aemaxtargets?>"></td>
+                <td width="17%">No Heal/DMG Mod:<br><input type="text" name="maxtargets" value="<?=$maxtargets?>" size="5"></td>
+                <td width="16%">AE Max Targets:<br><input type="text" name="aemaxtargets" size="5" value="<?=$aemaxtargets?>"></td>
+				<td width="16%">No Resist:<br><input type="text" name="field209" size="5" value="<?=$field209?>"></td>
               </tr>
               <tr>
                 <td>Min Dist:<br><input type="text" name="min_dist" size="5" value="<?=$min_dist?>"></td>
@@ -563,7 +564,10 @@
 		   <legend><strong><font size="4">Other</font></strong></legend>
 		    <table width="100%" border="0" cellpadding="3" cellspacing="0">
 			  <tr>
-				<td>Powerful:(max duration charm)<br/><input type="text" name="field209" value="<?=$field209?>"></td>
+				<td>Override Crit Chance:<br/><input type="text" name="field217" value="<?=$field217?>"></td>
+				<td>No Remove(click off):<br/><input type="text" name="field232" value="<?=$field232?>"></td>
+				<td>Spell Class:<br/><input type="text" name="field221" value="<?=$field221?>"></td>
+				<td>Spell Sub-Class:<br/><input type="text" name="field222" value="<?=$field222?>"></td>
 			  </tr>
 			</table>
 		  </fieldset>

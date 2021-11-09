@@ -105,6 +105,11 @@ switch ($action) {
     exit;
   case 7: //Insert AA Rank
   case 8: //Add AA Effect
+	check_authorization();
+    insert_aa_rank_effects();
+    $id = $_POST['aaid'];
+	$rank_id = $_POST['rankid'];
+    header("Location: index.php?editor=aa&aaid=$id");
   case 9: //Insert AA Effect
   case 10: //Add Prerequisite AA
   case 11: //Insert Prerequisite AA
@@ -157,6 +162,8 @@ function aa_info() {
   $all_ranks = array();
   $aa_effects = array();
   $aa_prereqs = array();
+  $aa_titles = array();
+  
   $first = 0;
   $rank = 0;
 
@@ -186,7 +193,6 @@ function aa_info() {
       if ($prereq_result) {
         $aa_prereqs[$rank] = $prereq_result;
       }
-
 
       while ($next_id > 0) {
         $query = "SELECT * FROM aa_ranks WHERE id=$next_id";
@@ -398,6 +404,19 @@ function insert_aa_rank() {
   }
 }
 
+function insert_aa_rank_effects() {
+  global $mysql_content_db;
+  $rank_id = $_POST['id'];
+  
+  $query_test = "SELECT max(slot) as new_slot FROM aa_rank_effects WHERE rank_id =$rank_id";
+  $result = $mysql_content_db->query_assoc($query_test);
+  $slot = $result['new_slot']+1; 
+  if ($slot >=1 && $slot <= 12) {
+	$query = "INSERT INTO aa_rank_effects SET rank_id=$rank_id, slot=$slot, effect_id=254, base1=0, base2=0";
+	$mysql_content_db->query_no_result($query);
+  }
+}
+
 function update_aa_rank() {
   global $mysql_content_db;
 
@@ -467,23 +486,33 @@ function delete_aa_rank() {
 function suggest_ability_id() {
   global $mysql_content_db;
 
-  $query = "SELECT MAX(id) AS id FROM aa_ability";
+  $query = "SELECT max(id) as id FROM aa_ability WHERE id < 30000";
   $result = $mysql_content_db->query_assoc($query);
-
   return $result['id'] + 1;
 }
 
 function suggest_rank_id() {
   global $mysql_content_db;
 
-  $query = "SELECT MAX(id) AS id FROM aa_ranks";
-  $result = $mysql_content_db->query_assoc($query);
+ // $query = "SELECT MAX(id) AS id FROM aa_ranks";
+ // $result = $mysql_content_db->query_assoc($query);
+ 
+  $query = "SELECT id FROM aa_ranks";
+  $result = $mysql_content_db->query($query);
+  
+  while ($z = $result->fetch_assoc()) {
+		$next_id_array[$z['id']] = 1;
+  }
+  
+  for ($x = 2; $x <= 50000; $x++) {
+		if ($next_id_array[$x] != 1) {
+			$newid = $x;
+			break;
+		}
+  }
+ 
 
-  return $result['id'] + 1;
-}
-
-function insert_rank_effect() {
-
+  return $newid;
 }
 
 function update_rank_effect() {

@@ -321,6 +321,11 @@ if ($ranks) {
                           <input type="submit" value="Update Rank (<?=$count?>)" style="width: 150px;">
                         </center>
                       </form>
+					    <form name="new_aa_effect<?=$count?>" method="POST" action="index.php?editor=aa&aaid=<?=$base['id']?>&rankid=<?=$rank['id']?>&action=8">
+						<input type="hidden" name="id" value="<?=$rank['id']?>">
+                        <input type="hidden" name="aaid" value="<?=$base['id']?>">
+						<input type="submit" value="Add Effect Rank (<?=$rank['id']?>)" style="width: 150px;">
+						</form>
                     </fieldset><br>
 <?
     $count++;
@@ -340,6 +345,7 @@ else {
                         <input type="hidden" name="prev_id" value="<?echo (count($ranks) > 0) ? end($ranks)['id'] : -1;?>">
                         <input type="submit" value="New Rank (<?echo count($ranks) + 1;?>)" style="width: 150px;">
                       </form>
+					  
                     </center>
                   </fieldset><br>
                 </td>

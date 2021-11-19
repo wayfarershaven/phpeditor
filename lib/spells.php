@@ -556,7 +556,7 @@ function generateSpellsFile() {
   $lastid = 0;
   $success = false;
 
-  $query = "SELECT * FROM spells_new ORDER BY id";
+  $query = "SELECT * FROM spells_new WHERE id <= 44999 ORDER BY id";
   $results = $mysql_content_db->query($query, MYSQLI_USE_RESULT);
 
   if ($results) {

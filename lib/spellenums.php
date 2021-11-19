@@ -1171,7 +1171,8 @@ $sp_effects = array(
     523 => "Instant Endurance Percent",
     524 => "Duration HP Percent",
     525 => "Duration Mana Percent",
-    526 => "Duration Endurance Percent"
+    526 => "Duration Endurance Percent",
+	999 => "Smart Heal"
 );
 
 $sp_fields = array(

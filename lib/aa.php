@@ -494,25 +494,9 @@ function suggest_ability_id() {
 function suggest_rank_id() {
   global $mysql_content_db;
 
- // $query = "SELECT MAX(id) AS id FROM aa_ranks";
- // $result = $mysql_content_db->query_assoc($query);
- 
-  $query = "SELECT id FROM aa_ranks";
-  $result = $mysql_content_db->query($query);
-  
-  while ($z = $result->fetch_assoc()) {
-		$next_id_array[$z['id']] = 1;
-  }
-  
-  for ($x = 2; $x <= 50000; $x++) {
-		if ($next_id_array[$x] != 1) {
-			$newid = $x;
-			break;
-		}
-  }
- 
-
-  return $newid;
+  $query = "SELECT MAX(id) AS id FROM aa_ranks WHERE id < 30000";
+  $result = $mysql_content_db->query_assoc($query);
+	return $result['id'] + 1;
 }
 
 function update_rank_effect() {

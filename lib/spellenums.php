@@ -1172,6 +1172,7 @@ $sp_effects = array(
     524 => "Duration HP Percent",
     525 => "Duration Mana Percent",
     526 => "Duration Endurance Percent",
+	998 => "Smart Heal Percentage",
 	999 => "Smart Heal"
 );
 

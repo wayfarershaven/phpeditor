@@ -2,21 +2,21 @@
   function changeIcon() {
 	var iconImage = document.getElementById("iconImage");
 	var iconField = document.getElementById("iconField");
-	iconImage.src = "icons/item_" + iconField.value + ".gif";
+	iconImage.src = "icons_new/item_" + iconField.value + ".png";
   }
   
   function changeIconValue(x) {
 	var iconImage = document.getElementById("iconImage");
 	var iconField = document.getElementById("iconField");
 	iconField.value = x;
-	iconImage.src = "icons/item_" + iconField.value + ".gif";
+	iconImage.src = "icons_new/item_" + iconField.value + ".png";
   }
   
   function changeSpellIconValue(x) {
 	var iconImage = document.getElementById("iconImage");
 	var iconField = document.getElementById("iconField");
 	iconField.value = x;
-	iconImage.src = "icons/" + iconField.value + ".gif";
+	iconImage.src = "icons_new/" + iconField.value + ".png";
   }
   
   function showIcons() {
@@ -39,7 +39,7 @@
   function changeSpellIcon() {
 	var iconImage = document.getElementById("iconImage");
 	var iconField = document.getElementById("iconField");
-	iconImage.src = "icons/" + iconField.value + ".gif";
+	iconImage.src = "icons_new/" + iconField.value + ".png";
   }
 
   function showSearch() {

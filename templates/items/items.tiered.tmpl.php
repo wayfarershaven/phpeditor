@@ -584,7 +584,7 @@
           <legend><strong><font size="4">Appearance</font></strong></legend>
 		   <table width="100%" border="0" cellpadding="3" cellspacing="0">
 		   <? if(!isset($icon)) { $icon = 0;} ?>
-		  <td align="left" width="25%"><img id="iconImage" src="icons/item_<?=$icon?>.gif" /><br/></td>
+		  <td align="left" width="25%"><img id="iconImage" src="icons_new/item_<?=$icon?>.png" /><br/></td>
 			<td align="left" width="75%"><br/></td>
 		  </table>
           <table width="100%" border="0" cellpadding="3" cellspacing="0">

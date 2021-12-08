@@ -144,7 +144,7 @@
                   <table border="0" cellspacing="0" cellpadding="2" width="100%">
                     <tr>
 					<td width="16%"><br/></td>
-					  <td width="17%"><img id="iconImage" src="icons/<?=$new_icon?>.gif" /><br/></td>
+					  <td width="17%"><img id="iconImage" src="icons_new/<?=$new_icon?>.png" /><br/></td>
 					  <td width="66%"><br/></td>
 					  (<a href="javascript:showIcons();">Icon Search</a>)<br><br>
 					<center>

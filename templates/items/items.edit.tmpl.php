@@ -563,7 +563,7 @@
             <iframe id='iconframe' src='templates/iframes/iconsearch.php'></iframe>
             <input id="iconbutton" type="button" value='Hide Icon Search' onclick='hideIcons();' style='display:none; margin-bottom: 20px;'>
 		  </center>
-		  <td align="left" width="25%"><img id="iconImage" src="icons/item_<?=$icon?>.gif" /><br/></td>
+		  <td align="left" width="25%"><img id="iconImage" src="icons_new/item_<?=$icon?>.png" /><br/></td>
 			
 			<td align="left" width="25%"><br/></td>
 			<td align="left" width="25%"><br/></td>

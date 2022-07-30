@@ -58,9 +58,15 @@
                     <a href="index.php?editor=tasks&tskid=<?=$id?>&action=12"><?=$rewardid?></a>
 <?endif;?>
                   </td>
-                  <td align="left" width="20%">Reward Cash: <?=$cashreward?></td>
-                  <td align="left" width="20%">Reward XP: <?=$xpreward?></td>
-                  <td align="left" width="20%">Reward Faction: <?=$faction_reward?></td>
+                  <td align="left" width="25%">Reward Cash: <?=$cashreward?></td>
+                  <td align="left" width="25%">Reward XP: <?=$xpreward?></td>
+                  <td align="left" width="25%">Reward Faction: <?=$faction_reward?></td>
+                </tr>
+                <tr>
+                  <td align="left" width="25%">Reward Points: <?=$reward_points?></td>
+                  <td align="left" width="25%">Reward Point Type: <?=$reward_point_types[$reward_point_type]?> (<?=$reward_point_type?>)</td>
+                  <td align="left" width="25%">Replay Timer: <?=$replay_timer_seconds?></td>
+                  <td align="left" width="25%">Request Timer: <?=$request_timer_seconds?></td>
                 </tr>
                 <tr>
                   <td align="left" width="100%" colspan="4">Completion Emote: "<?=$completion_emote?>"</td>

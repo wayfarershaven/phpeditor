@@ -70,6 +70,17 @@
               <td align="left" width="25%">Reward Cash:<br><input type="text" name="cashreward" size="7" value="0"></td>
               <td align="left" width="25%">Reward Faction:<br><input type="text" name="faction_reward" size="7" value="0"></td>
             </tr>
+            <tr>
+              <td align="left" width="25%">Reward Points:<br><input type="text" name="reward_points" size="7" value="0"></td>
+              <td align="left" width="25%">
+                Reward Point Type:<br>
+                <select name="reward_point_type">
+<?foreach ($reward_point_types as $key=>$value):?>
+                  <option value="<?=$key?>"><?=$key?>: <?=$value?></option>
+<?endforeach;?>
+              <td align="left" width="25%">Replay Timer:<br><input type="text" name="replay_timer_seconds" size="7" value="0"></td>
+              <td align="left" width="25%">Request Timer:<br><input type="text" name="request_timer_seconds" size="7" value="0"></td>
+            </tr>
           </table>
           <table width="100%" border="0" cellpadding="3" cellspacing="0">
             <tr>

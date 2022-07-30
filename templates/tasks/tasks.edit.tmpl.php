@@ -58,8 +58,8 @@
               <td align="left" width="50%" colspan="2">
                 Reward Method:<br>
                 <select name="rewardmethod" style="width: 180px;">
-<?foreach($rewardmethods as $key=>$value):?>
-                  <option value="<?=$key?>"<?echo ($key == $rewardmethod)? " selected" : "";?>><?=$key?>: <?=$value?></option>
+<?foreach ($rewardmethods as $key=>$value):?>
+                  <option value="<?=$key?>"<?echo ($key == $rewardmethod) ? " selected" : "";?>><?=$key?>: <?=$value?></option>
 <?endforeach;?>
                 </select>
               </td>
@@ -69,6 +69,19 @@
               <td align="left" width="25%">Reward XP:<br><input type="text" name="xpreward" size="7" value="<?=$xpreward?>"></td>
               <td align="left" width="25%">Reward Cash:<br><input type="text" name="cashreward" size="7" value="<?=$cashreward?>"></td>
               <td align="left" width="25%">Reward Faction:<br><input type="text" name="faction_reward" size="7" value="<?=$faction_reward?>"></td>
+            </tr>
+            <tr>
+              <td align="left" width="25%">Reward Points:<br><input type="text" name="reward_points" size="7" value="<?=$reward_points?>"></td>
+              <td align="left" width="25%">
+                Reward Point Type:<br>
+                <select name="reward_point_type">
+<?foreach ($reward_point_types as $key=>$value):?>
+                  <option value="<?=$key?>"<?echo ($key == $reward_point_type) ? " selected" : "";?>><?=$key?>: <?=$value?></option>
+<?endforeach;?>
+                </select>
+              </td>
+              <td align="left" width="25%">Replay Timer:<br><input type="text" name="replay_timer_seconds" size="7" value="<?=$replay_timer_seconds?>"></td>
+              <td align="left" width="25%">Request Timer:<br><input type="text" name="request_timer_seconds" size="7" value="<?=$request_timer_seconds?>"></td>
             </tr>
           </table>
           <table width="100%" border="0" cellpadding="3" cellspacing="0">

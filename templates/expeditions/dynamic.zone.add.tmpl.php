@@ -33,7 +33,36 @@ foreach ($dynamic_zone_type as $k=>$v) {
             <td width="10%">&nbsp;</td>
           </tr>
           <tr>
-            <td colspan="5">
+            <td colspan="3">
+              <strong>UUID:</strong><br>
+              <input type="text" name="uuid" size="77" value="">
+            </td>
+            <td>
+              <strong>Min Players:</strong><br>
+              <input type="text" name="min_players" size="10" value="0">
+            </td>
+          </tr>
+          <tr>
+            <td colspan="3">
+              <strong>Name:</strong><br>
+              <input type="text" name="name" size="77" value="">
+            </td>
+            <td>
+              <strong>Max Players:</strong><br>
+              <input type="text" name="max_players" size="10" value="0">
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <strong>DZ Switch ID:</strong><br>
+              <input type="text" name="dz_switch_id" size="10" value="0">
+            </td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+          </tr>
+          <tr>
+            <td colspan="4">
               <fieldset>
                 <legend><strong>Compass</strong></legend>
                 <table width="100%" cellpadding="3" cellspacing="3">

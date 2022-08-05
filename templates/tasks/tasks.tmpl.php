@@ -24,7 +24,14 @@
                   <td align="left" width="20%">Min Level: <?=$minlevel?></td>
                   <td align="left" width="20%">Max Level:  <?=$maxlevel?></td>              
                   <td align="left" width="20%">Repeatable: <?=$yesno[$repeatable]?></td>
-                </tr> 
+                </tr>
+                <tr>
+                  <td align="left" width="20%">Level Spread: <?=$level_spread?></td>
+                  <td align="left" width="20%">Min Players: <?=$min_players?></td>
+                  <td align="left" width="20%">Max Players: <?=$max_players?></td>
+                  <td align="left" width="20%">DZ Template ID: <?echo ($dz_template_id > 0) ? "<a href='index.php?editor=expeditions&id=" . $dz_template_id . "&action=34'>" . $dz_template_id . "</a>" : $dz_template_id;?></td>
+                  <td align="left" width="20%">&nbsp;</td>
+                </tr>
               </table>
             </fieldset><br>
             <fieldset>

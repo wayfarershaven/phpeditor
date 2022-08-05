@@ -29,6 +29,7 @@ foreach ($dynamic_zone_type as $k=>$v) {
 <?
 }
 ?>
+              </select>
             </td>
             <td width="10%">&nbsp;</td>
           </tr>

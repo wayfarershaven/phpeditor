@@ -36,7 +36,14 @@
                   <option value="1" selected>Yes</option>
                 </select>
               </td>
-            </tr> 
+            </tr>
+            <tr>
+              <td align="left" width="20%">Level Spread:<br><input type="text" name="level_spread" size="7" value="0"></td>
+              <td align="left" width="20%">Min Players:<br><input type="text" name="min_players" size="7" value="0"></td>
+              <td align="left" width="20%">Max Players:<br><input type="text" name="max_players" size="7" value="0"></td>
+              <td align="left" width="20%">DZ Template ID:<br><input type="text" name="dz_template_id" size="7" value="0"></td>
+              <td align="left" width="20%">&nbsp;</td>
+            </tr>
           </table>
         </fieldset><br>
         <fieldset>

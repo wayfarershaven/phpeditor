@@ -139,6 +139,15 @@
                 <td align="left" width="14%">Attack Count:<br><input type="text" name="attack_count" size="5" value="<?=$attack_count?>"></td>
                 <td align="left" width="15%">Heal Scale:  <br><input type="text" name="healscale" size="5" value="<?=$healscale?>">%</td>
               </tr>
+              <tr>
+                <td align="left" width="14%">Heroic Strikethrough:<br><input type="text" name="heroic_strikethrough" size="5" value="<?=$heroic_strikethrough?>"></td>
+                <td align="left" width="14%">&nbsp;</td>
+                <td align="left" width="14%">&nbsp;</td>
+                <td align="left" width="14%">&nbsp;</td>
+                <td align="left" width="14%">&nbsp;</td>
+                <td align="left" width="14%">&nbsp;</td>
+                <td align="left" width="15%">&nbsp;</td>
+              </tr>
             </table>
             <center>
               <table cellpadding="20px">

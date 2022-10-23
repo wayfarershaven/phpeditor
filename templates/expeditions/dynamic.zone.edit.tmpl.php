@@ -28,6 +28,7 @@ foreach ($dynamic_zone_type as $k=>$v) {
 <?
 }
 ?>
+              </select>
             </td>
             <td width="25%">
               <strong>Leader ID:</strong><br>
@@ -53,6 +54,15 @@ foreach ($dynamic_zone_type as $k=>$v) {
               <strong>Max Players:</strong><br>
               <input type="text" name="max_players" size="10" value="<?=$dynamic_zone['max_players']?>">
             </td>
+          </tr>
+          <tr>
+            <td>
+              <strong>DZ Switch ID:</strong><br>
+              <input type="text" name="dz_switch_id" size="10" value="<?=$dynamic_zone['dz_switch_id']?>">
+            </td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
           </tr>
           <tr>
             <td colspan="4">

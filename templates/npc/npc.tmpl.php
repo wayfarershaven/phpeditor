@@ -90,7 +90,7 @@ if ($loottable_id > 0) {
                 </table>
                 <div style="padding: 10px; border: 1px solid grey; margin-right: 10px;">
                   <b>NPC Faction ID</b>: <?=$npc_faction_id?> [<a href="index.php?editor=npc&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&action=3">edit</a>]
-                  [<a href="index.php?editor=npc&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&npcfid=<?=$npc_faction_id?>&action=47">update</a>]<br>
+                  [<a href="index.php?editor=npc&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&npcfid=<?=$npc_faction_id?>&action=47">update</a>]<br><br>
 <?if ($npc_faction_id > 0) {?>
                   "<a href="index.php?editor=npc&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&npcid=<?=$npcid?>&action=10"><?=$factionname?></a>"<br><br>
 <?}?>
@@ -115,6 +115,7 @@ if ($loottable_id > 0) {
 <?} else {?>
                 None<br>
 <?}?>
+                  <br><b>Faction Amount: </b><?=$faction_amount?>
                 </div>
               </center>
             </td>
@@ -221,8 +222,8 @@ if ($loottable_id > 0) {
                   </tr>
                   <tr>
                     <td align="left" width="33%">HP Regen: <?=$hp_regen_rate?></td>
-                    <td align="left" width="33%">MP Regen: <?=$mana_regen_rate?></td>
-                    <td align="left" width="34%">&nbsp;</td>
+                    <td align="left" width="33%">HP Regen: <?=$hp_regen_per_second?>/sec</td>
+                    <td align="left" width="34%">MP Regen: <?=$mana_regen_rate?></td>
                   </tr>
                   <tr>
                     <td align="left" width="33%">Aggro: <?=$aggroradius?></td>
@@ -248,6 +249,11 @@ if ($loottable_id > 0) {
                     <td align="left" width="33%">Slow Mit: <?=$slow_mitigation?> (<?=$slotmit?>%)</td>
                     <td align="left" width="33%">Heal Scale: <?=$healscale?>%</td>
                     <td align="left" width="34%">NPC Aggro: <?=$npc_aggro?></td>
+                  </tr>
+                  <tr>
+                    <td align="left" width="33%">Heroic Strikethrough: <?=$heroic_strikethrough?></td>
+                    <td align="left" width="33%">&nbsp;</td>
+                    <td align="left" width="34%">&nbsp;</td>
                   </tr>
                   <tr>
                     <td colspan="3">Special Abilities: <?echo ($new_special_abilities) ? $new_special_abilities : "None";?></td>
@@ -361,6 +367,7 @@ if ($loottable_id > 0) {
         <input type="hidden" name="herosforgemodel" value="<?=$herosforgemodel?>">
         <input type="hidden" name="size" value="<?=$size?>">
         <input type="hidden" name="hp_regen_rate" value="<?=$hp_regen_rate?>">
+        <input type="hidden" name="hp_regen_per_second" value="<?=$hp_regen_per_second?>">
         <input type="hidden" name="mana_regen_rate" value="<?=$mana_regen_rate?>">
         <input type="hidden" name="loottable_id" value="<?=$loottable_id?>">
         <input type="hidden" name="merchant_id" value="<?=$merchant_id?>">
@@ -455,6 +462,8 @@ if ($loottable_id > 0) {
         <input type="hidden" name="flymode" value="<?=$flymode?>">
         <input type="hidden" name="always_aggro" value="<?=$always_aggro?>">
         <input type="hidden" name="exp_mod" value="<?=$exp_mod?>">
+        <input type="hidden" name="heroic_strikethrough" value="<?=$heroic_strikethrough?>">
+        <input type="hidden" name="faction_amount" value="<?=$faction_amount?>">
         <center>
           NEW ID:<input type="text" name="id" size="10" value="<?=$suggestedid?>">
           <input type="submit" value="Copy NPC">

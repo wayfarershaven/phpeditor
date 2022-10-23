@@ -134,6 +134,7 @@ switch ($action) {
     break;
   case 3: //Book Text
     $body = new Template("templates/items/items.book.tmpl.php");
+    $breadcrumbs .= " >> Book Text";
     $body->set('id', $_GET['id']);
     $body->set('name', $_GET['name']);
     $vars = book_info();
@@ -142,12 +143,18 @@ switch ($action) {
         $body->set($key, $value);
       }
     }
+    $body->set("langtypes", $langtypes);
     break;
   case 4: //Update Book Text
     check_authorization();
-    $id = $_POST['id'];
     update_book();
-    header("Location: index.php?editor=items&id=$id&action=2");
+    $id = $_POST['id'];
+    if ($id) {
+      header("Location: index.php?editor=items&id=$id&action=2");
+    }
+    else {
+      header("Location: index.php?editor=items&action=16");
+    }
     exit;
   case 5: //Delete Item
     check_authorization();
@@ -342,6 +349,15 @@ switch ($action) {
 	 
      header("Location: index.php?editor=items&id=$id&action=999&hp_scale=$hp_scale&manaend_scale=$manaend_scale&basestats_scale=$basestats_scale&ac_scale=$ac_scale&haste_scale=$haste_scale&regens_scale=$regens_scale&resists_scale=$resists_scale&damage_scale=$damage_scale&backstab_scale=$backstab_scale&elemdmg_scale=$elemdmg_scale&attack_scale=$attack_scale&spelldmg_scale=$spelldmg_scale&healamt_scale=$healamt_scale&mods_scale=$mods_scale");
 	exit;
+  case 16: //View Books
+    $body = new Template("templates/items/items.books.tmpl.php");
+    $breadcrumbs .= " >> Books";
+    $books = get_books();
+    if ($books) {
+      $body->set("books", $books);
+    }
+    $body->set("langtypes", $langtypes);
+    break;
 }
 
 function item_info() {
@@ -357,6 +373,20 @@ function item_info() {
 
   $result = $result+$result2;
   return $result;
+}
+
+function get_books() {
+  global $mysql_content_db;
+
+  $query = "SELECT * FROM books";
+  $results = $mysql_content_db->query_mult_assoc($query);
+
+  if ($results) {
+    return $results;
+  }
+  else {
+    return null;
+  }
 }
 
 function book_info() {
@@ -375,8 +405,9 @@ function update_book() {
 
   $name = $_POST['name'];
   $txtfile = $_POST['txtfile'];
+  $language = $_POST['language'];
 
-  $query = "REPLACE INTO books SET txtfile=\"$txtfile\", name=\"$name\"";
+  $query = "REPLACE INTO books SET txtfile=\"$txtfile\", name=\"$name\", language=$language";
   $mysql_content_db->query_no_result($query);
 }
 

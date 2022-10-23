@@ -149,22 +149,31 @@
           <legend><strong><font size="4">Combat</font></strong></legend>
           <table width="100%" border="0" cellpadding="3" cellspacing="0">
             <tr>
-              <td align="left" width="14%">Min Dmg:     <br><input type="text" name="mindmg" size="5" value="<?=$mindmg?>"></td>
-              <td align="left" width="14%">HP Regen:    <br><input type="text" name="hp_regen_rate" size="5" value="0"></td>
-              <td align="left" width="14%">Aggroradius: <br><input type="text" name="aggroradius" size="5" value="70"></td>
-              <td align="left" width="14%">Attack Count:<br><input type="text" name="attack_count" size="5" value="-1"></td>
-              <td align="left" width="14%">Atk Delay:   <br><input type="text" name="attack_delay" size="5" value="<?=$attack_delay?>"></td>
-              <td align="left" width="15%">Spells ID:   <br><input type="text" name="npc_spells_id" size="5" value="0"></td>
-              <td align="left" width="15%">Spell Scale: <br><input type="text" name="spellscale" size="5" value="100">%</td>
+              <td align="left" width="14%">Min Dmg:      <br><input type="text" name="mindmg" size="5" value="<?=$mindmg?>"></td>
+              <td align="left" width="14%">HP Regen:     <br><input type="text" name="hp_regen_rate" size="5" value="0"></td>
+              <td align="left" width="14%">HP Reg (/sec):<br><input type="text" name="hp_regen_per_second" size="5" value="0"></td>
+              <td align="left" width="14%">Attack Count: <br><input type="text" name="attack_count" size="5" value="-1"></td>
+              <td align="left" width="14%">Atk Delay:    <br><input type="text" name="attack_delay" size="5" value="<?=$attack_delay?>"></td>
+              <td align="left" width="15%">Spells ID:    <br><input type="text" name="npc_spells_id" size="5" value="0"></td>
+              <td align="left" width="15%">Spell Scale:  <br><input type="text" name="spellscale" size="5" value="100">%</td>
             </tr>
             <tr>
               <td align="left" width="14%">Max Dmg:     <br><input type="text" name="maxdmg" size="5" value="<?=$maxdmg?>"></td>
               <td align="left" width="14%">MP Regen:    <br><input type="text" name="mana_regen_rate" size="5" value="0"></td>
+              <td align="left" width="14%">Aggroradius: <br><input type="text" name="aggroradius" size="5" value="70"></td>
               <td align="left" width="14%">Assistradius:<br><input type="text" name="assistradius" size="5" value="0"></td>
               <td align="left" width="14%">Always Aggro:<br><input type="text" name="always_aggro" size="5" value="0"></td>
               <td align="left" width="14%">Slow Mit:    <br><input type="text" name="slow_mitigation" size="5" value="0"></td>
-              <td align="left" width="14%">&nbsp;</td>
               <td align="left" width="15%">Heal Scale:  <br><input type="text" name="healscale" size="5" value="100">%</td>
+            </tr>
+            <tr>
+              <td align="left" width="14%">Heroic Strikethrough:<br><input type="text" name="heroic_strikethrough" size="5" value="0"></td>
+              <td align="left" width="14%">&nbsp;</td>
+              <td align="left" width="14%">&nbsp;</td>
+              <td align="left" width="14%">&nbsp;</td>
+              <td align="left" width="14%">&nbsp;</td>
+              <td align="left" width="14%">&nbsp;</td>
+              <td align="left" width="15%">&nbsp;</td>
             </tr>
           </table>
           <center>
@@ -326,14 +335,17 @@
             </tr>
             <tr>
               <td align="left" width="17%">
-                Flymode<br>
+                Flymode:<br>
                 <select name="flymode">
 <?foreach ($flymodetype as $key=>$value):?>
                   <option value="<?=$key?>"<?echo ($key == -1) ? " selected" : "";?>><?=$key?>: <?=$value?></option>
 <?endforeach;?>
                 </select>
               </td>
-              <td align="left" width="17%">&nbsp;</td>
+              <td align="left" width="17%">
+                Faction Amt:<br>
+                <input type="text" size="10" name="faction_amount" value="0">
+              </td>
               <td align="left" width="17%">&nbsp;</td>
               <td align="left" width="17%">&nbsp;</td>
               <td align="left" width="16%">&nbsp;</td>

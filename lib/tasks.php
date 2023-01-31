@@ -21,6 +21,7 @@ $rewardmethods = array(
 );
 
 $activitytypes = array(
+  0   => "None",
   1   => "Deliver",
   2   => "Kill",
   3   => "Loot",
@@ -33,6 +34,7 @@ $activitytypes = array(
   10  => "Use Skill On",
   11  => "Touch",
   13  => "Collect",
+  14  => "Trigger Phrase",
   100 => "Give Cash",
   255 => "Custom"
 );
@@ -131,7 +133,7 @@ switch ($action) {
       }
     }	
     break;
-  case 7: // Update activities
+  case 7: // Update activity
     check_authorization();
     update_activity();
     $tskid = $_POST['taskid'];
@@ -143,7 +145,7 @@ switch ($action) {
     $tskid = $_GET['tskid'];
     header("Location: index.php?editor=tasks&tskid=$tskid");
     exit;
-  case 9: // Get activity ID
+  case 9: // Add activity
     check_authorization();
     $body = new Template("templates/tasks/activity.add.tmpl.php");
     $body->set('tskid', $_GET['tskid']);
@@ -153,7 +155,7 @@ switch ($action) {
     $body->set('suggestid', suggest_activity_id());
     $body->set('suggeststep', suggest_step());
     break;
-  case 10: // Add activity
+  case 10: // Insert activity
     check_authorization();
     add_activity();
     $tskid = $_POST['taskid'];
@@ -390,7 +392,7 @@ function get_activities() {
   $result = $mysql_content_db->query_mult_assoc($query);
   if ($result) {
     foreach ($result as $result) {
-      $array['activity'][$result['activityid']] = array("taskid"=>$result['taskid'], "activityid"=>$result['activityid'], "req_activity_id"=>$result['req_activity_id'], "step"=>$result['step'], "activitytype"=>$result['activitytype'], "target_name"=>$result['target_name'], "item_list"=>$result['item_list'], "description_override"=>$result['description_override'], "skill_list"=>$result['skill_list'], "spell_list"=>$result['spell_list'], "goalid"=>$result['goalid'], "goal_match_list"=>$result['goal_match_list'], "goalmethod"=>$result['goalmethod'], "goalcount"=>$result['goalcount'], "delivertonpc"=>$result['delivertonpc'], "optional"=>$result['optional']);
+      $array['activity'][$result['activityid']] = array("taskid"=>$result['taskid'], "activityid"=>$result['activityid'], "req_activity_id"=>$result['req_activity_id'], "step"=>$result['step'], "activitytype"=>$result['activitytype'], "target_name"=>$result['target_name'], "goalmethod"=>$result['goalmethod'], "goalcount"=>$result['goalcount'], "description_override"=>$result['description_override'], "npc_match_list"=>$result['npc_match_list'], "item_id_list"=>$result['item_id_list'], "item_list"=>$result['item_list'], "dz_switch_id"=>$result['dz_switch_id'], "min_x"=>$result['min_x'], "min_y"=>$result['min_y'], "min_z"=>$result['min_z'], "max_x"=>$result['max_x'], "max_y"=>$result['max_y'], "max_z"=>$result['max_z'], "skill_list"=>$result['skill_list'], "spell_list"=>$result['spell_list'], "zones"=>$result['zones'], "zone_version"=>$result['zone_version'], "optional"=>$result['optional']);
     }
   }
   return $array;
@@ -593,8 +595,13 @@ function suggest_activity_id() {
 
   $query = "SELECT MAX(activityid) AS aid FROM task_activities WHERE taskid=\"$tskid\"";
   $result = $mysql_content_db->query_assoc($query);
-  
-  return ($result['aid'] + 1);
+
+  if ($result['aid'] == NULL) {
+    return 0;
+  }
+  else {
+    return $result['aid'] + 1;
+  }
 }
 
 function suggest_explore_id() {
@@ -620,8 +627,8 @@ function suggest_step() {
   $result = $mysql_content_db->query_assoc($query);
   
   if ($result['step'] == NULL) {
-    return 0;
-      }
+    return 1;
+  }
   else {
     return $result['step'] + 1;
   }

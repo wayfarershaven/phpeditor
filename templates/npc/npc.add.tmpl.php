@@ -346,7 +346,10 @@
                 Faction Amt:<br>
                 <input type="text" size="10" name="faction_amount" value="0">
               </td>
-              <td align="left" width="17%">&nbsp;</td>
+              <td align="left" width="17%">
+                Trap Template:<br>
+                <input type="text" size="10" name="trap_template" value="0">
+              </td>
               <td align="left" width="17%">&nbsp;</td>
               <td align="left" width="16%">&nbsp;</td>
               <td align="left" width="16%">&nbsp;</td>

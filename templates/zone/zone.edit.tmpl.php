@@ -1,4 +1,4 @@
-    <form name="zone_edit" method="post" action="index.php?editor=zone&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&action=3">
+<form name="zone_edit" method="post" action="index.php?editor=zone&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&action=3">
       <div class="edit_form">
         <div class="edit_form_header">
           Edit Zone: <?=$zoneidnumber?> (<?=$short_name?>)
@@ -60,6 +60,12 @@
                   <td align="left" width="25%">Max Movement Update:<br><input type="text" name="max_movement_update_range" size="7" value="<?=$max_movement_update_range?>"></td>
                   <td align="left" width="25%">Underworld:<br><input type="text" name="underworld" size="7" value="<?=$underworld?>"></td>
                   <td align="left" width="25%">Underworld Teleport Index:<br><input type="text" name="underworld_teleport_index" size="7" value="<?=$underworld_teleport_index?>"></td>
+                  <td align="left" width="25%">&nbsp;</td>
+                </tr>
+                <tr>
+                  <td align="left" width="25%">Lava Damage:<br><input type="text" name="lava_damage" size="7" value="<?=$lava_damage?>"</td>
+                  <td align="left" width="25%">Min Lava Damage:<br><input type="text" name="min_lava_damage" size="7" value="<?=$min_lava_damage?>"</td>
+                  <td align="left" width="25%">&nbsp;</td>
                   <td align="left" width="25%">&nbsp;</td>
                 </tr>
                 <tr>

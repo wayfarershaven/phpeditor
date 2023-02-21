@@ -1,4 +1,4 @@
-    <div class="table_container">
+<div class="table_container">
       <div class="table_header">
         <div style="float:right">
           <a href="index.php?editor=zone&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&action=8"><img src="images/add.gif" border="0" title="Add a graveyard to <?=$short_name?>"></a>
@@ -79,6 +79,11 @@
                   <tr>
                     <td align="left" width="33%">Max Movement Update: <?=$max_movement_update_range?></td>
                     <td align="left" width="33%">Underworld Teleport Index: <?=$underworld_teleport_index?></td>
+                    <td align="left" width="34%">&nbsp;</td>
+                  </tr>
+                  <tr>
+                    <td align="left" width="33%">Lava Damage: <?=$lava_damage?></td>
+                    <td align="left" width="33%">Min Lava Damage: <?=$min_lava_damage?></td>
                     <td align="left" width="34%">&nbsp;</td>
                   </tr>
                   <tr>

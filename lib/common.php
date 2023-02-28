@@ -5,7 +5,13 @@ function getNPCName($npcid) {
   
   $query = "SELECT name FROM npc_types WHERE id=$npcid";
   $result = $mysql_content_db->query_assoc($query);
-  return $result['name'];
+
+  if ($result) {
+    return $result['name'];
+  }
+  else {
+    return "N/A";
+  }
 }
 
 function getZoneLongName($short_name, $version=0) {
@@ -13,7 +19,13 @@ function getZoneLongName($short_name, $version=0) {
 
   $query = "SELECT long_name FROM zone WHERE short_name=\"$short_name\" AND version=$version";
   $result = $mysql_content_db->query_assoc($query);
-  return $result['long_name'];
+
+  if ($result) {
+    return $result['long_name'];
+  }
+  else {
+    return "N/A";
+  }
 }
 
 function getZoneID($short_name) {
@@ -21,6 +33,7 @@ function getZoneID($short_name) {
 
   $query = "SELECT zoneidnumber AS id FROM zone WHERE short_name=\"$short_name\"";
   $result = $mysql_content_db->query_assoc($query);
+
   if ($result) {
     return $result['id'];
   }
@@ -48,7 +61,13 @@ function getZoneName($zoneidnumber) {
 
   $query = "SELECT short_name FROM zone WHERE zoneidnumber=\"$zoneidnumber\"";
   $result = $mysql_content_db->query_assoc($query);
-  return $result['short_name'];
+
+  if ($result) {
+    return $result['short_name'];
+  }
+  else {
+    return "N/A";
+  }
 }
 
 function getZoneVersion($zoneid) {
@@ -587,7 +606,6 @@ function delete_player($playerid) {
   $mysql->query_no_result($query);
   $query = "DELETE FROM guild_members WHERE char_id=$playerid";
   $mysql->query_no_result($query);
-  //hackers?
   $query = "DELETE FROM instance_list_player WHERE charid=$playerid";
   $mysql->query_no_result($query);
   $query = "DELETE FROM inventory WHERE charid=$playerid";
@@ -626,8 +644,6 @@ function delete_account($acctid) {
   $query = "DELETE FROM account_ip WHERE accid=$acctid";
   $mysql->query_no_result($query);
   $query = "DELETE FROM account_rewards WHERE account_id=$acctid";
-  $mysql->query_no_result($query);
-  $query = "DELETE FROM eventlog WHERE accountid=$acctid";
   $mysql->query_no_result($query);
   $query = "DELETE FROM gm_ips WHERE account_id=$acctid";
   $mysql->query_no_result($query);

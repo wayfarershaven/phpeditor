@@ -190,26 +190,18 @@
   }
 ?>
                 <td valign="top" align="left">
-                  Summon (1):<br><input type="text" name="1" size="10" value="<?=$specabilcont[1]?>" title="Summon: 1, type, cooldownMS, hp% &#013;example: 1,1,10000,95 (summon target to NPC) &#013;example 1,2,10000,95 (move NPC to target)"><br>
-                  Enrage (2):<br><input type="text" name="2" size="10" value="<?=$specabilcont[2]?>" title="Enrage: 2, hp%, durationMS, cooldownMS &#013;example: 2,10,1000,30000"><br>
-                  Rampage (3):<br><input type="text" name="3" size="10" value="<?=$specabilcont[3]?>"><br>
-                  AE Rampage (4):<br><input type="text" name="4" size="10" value="<?=$specabilcont[4]?>"><br>
-                  Flurry (5):<br><input type="text" name="5" size="10" value="<?=$specabilcont[5]?>"><br>
-                  Tunnel Vision (29):<br><input type="text" name="29" size="10" value="<?=$specabilcont[29]?>"><br>
-                  Leashed (32):<br><input type="text" name="32" size="10" value="<?=$specabilcont[32]?>" onChange="tetherCheck();"><br>
-                  Tethered (33):<br><input type="text" name="33" size="10" value="<?=$specabilcont[33]?>" onChange="tetherCheck();"><br>
-                  Flee Percent (37):<br><input type="text" name="37" size="10" value="<?=$specabilcont[37]?>"><br>
-                  Chase Distance (40):<br><input type="text" name="40" size="10" value="<?=$specabilcont[40]?>"><br>
-                  Casting Resist Diff (43):<br><input type="text" name="43" size="10" value="<?=$specabilcont[43]?>"><br>
-                  Counter Avoid Damage (44):<br>
-                    <select name="44">
-                      <option value=""<?echo ($specabilcont[44] == '') ? ' selected' : '';?>>None</option>
-                      <option value="44,0^"<?echo ($specabilcont[44] == '44,0') ? ' selected' : '';?>>All (44,0)</option>
-                      <option value="44,1^"<?echo ($specabilcont[44] == '44,1') ? ' selected' : '';?>>Riposte (44,1)</option>
-                      <option value="44,2^"<?echo ($specabilcont[44] == '44,2') ? ' selected' : '';?>>Block (44,2)</option>
-                      <option value="44,3^"<?echo ($specabilcont[44] == '44,3') ? ' selected' : '';?>>Parry (44,3)</option>
-                      <option value="44,4^"<?echo ($specabilcont[44] == '44,4') ? ' selected' : '';?>>Dodge (44,4)</option>
-                    </select><br>
+                  Summon (1):<br><input type="text" name="1" size="10" value="<?echo (isset($specabilcont[1])) ? $specabilcont[1] : "";?>"><br>
+                  Enrage (2):<br><input type="text" name="2" size="10" value="<?echo (isset($specabilcont[2])) ? $specabilcont[2] : "";?>"><br>
+                  Rampage (3):<br><input type="text" name="3" size="10" value="<?echo (isset($specabilcont[3])) ? $specabilcont[3] : "";?>"><br>
+                  AE Rampage (4):<br><input type="text" name="4" size="10" value="<?echo (isset($specabilcont[4])) ? $specabilcont[4] : "";?>"><br>
+                  Flurry (5):<br><input type="text" name="5" size="10" value="<?echo (isset($specabilcont[5])) ? $specabilcont[5] : "";?>"><br>
+                  Tunnel Vision (29):<br><input type="text" name="29" size="10" value="<?echo (isset($specabilcont[29])) ? $specabilcont[29] : "";?>"><br>
+                  Leashed (32):<br><input type="text" name="32" size="10" value="<?echo (isset($specabilcont[32])) ? $specabilcont[32] : "";?>" onChange="tetherCheck();"><br>
+                  Tethered (33):<br><input type="text" name="33" size="10" value="<?echo (isset($specabilcont[33])) ? $specabilcont[33] : "";?>" onChange="tetherCheck();"><br>
+                  Flee Percent (37):<br><input type="text" name="37" size="10" value="<?echo (isset($specabilcont[37])) ? $specabilcont[37] : "";?>"><br>
+                  Chase Distance (40):<br><input type="text" name="40" size="10" value="<?echo (isset($specabilcont[40])) ? $specabilcont[40] : "";?>"><br>
+                  Casting Resist Diff (43):<br><input type="text" name="43" size="10" value="<?echo (isset($specabilcont[43])) ? $specabilcont[43] : "";?>"><br>
+                  Counter Avoid Damage (44):<br><input type="text" name="44" size="10" value="<?echo (isset($specabilcont[44])) ? $specabilcont[44] : "";?>"><br>
                 </td>
                 <td valign="top" align="left">
                   <input type="checkbox" name="6" value="6,1^"<?echo ($specabil[6] == 1) ? " checked" : "";?>> Triple Attack (6)<br>

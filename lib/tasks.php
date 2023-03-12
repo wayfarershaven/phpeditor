@@ -452,6 +452,7 @@ function update_tasks() {
   $description = mysqli_real_escape_string($mysql_content_db, $_POST['description']); 
   $reward_text = mysqli_real_escape_string($mysql_content_db, $_POST['reward_text']);
   $completion_emote = mysqli_real_escape_string($mysql_content_db, $_POST['completion_emote']);
+  $replay_timer_group = $_POST['replay_timer_group'];
   $replay_timer_seconds = $_POST['replay_timer_seconds'];
   $request_timer_group = $_POST['request_timer_group'];
   $request_timer_seconds = $_POST['request_timer_seconds'];
@@ -644,6 +645,7 @@ function add_tasks() {
   $description = mysqli_real_escape_string($mysql_content_db, $_POST['description']); 
   $reward_text = mysqli_real_escape_string($mysql_content_db, $_POST['reward_text']);
   $completion_emote = mysqli_real_escape_string($mysql_content_db, $_POST['completion_emote']);
+  $replay_timer_group = $_POST['replay_timer_group'];
   $replay_timer_seconds = $_POST['replay_timer_seconds'];
   $request_timer_group = $_POST['request_timer_group'];
   $request_timer_seconds = $_POST['request_timer_seconds'];

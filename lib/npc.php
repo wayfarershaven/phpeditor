@@ -1108,7 +1108,7 @@ function get_pet() {
 function get_pets() {
   global $mysql_content_db;
 
-  $query = "SELECT type, petpower, npcID FROM pets";
+  $query = "SELECT type, petpower, npcID FROM pets ORDER BY TYPE, petpower";
   $results = $mysql_content_db->query_mult_assoc($query);
 
   if ($results) {

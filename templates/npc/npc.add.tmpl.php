@@ -1,8 +1,6 @@
   <form name="npc_add" method="post" action="index.php?editor=npc&z=<?=$currzone?>&zoneid=<?=$currzoneid?>&action=26">
     <div class="edit_form">
-      <div class="edit_form_header">
-        Add an NPC to <?=$currzone?>
-      </div>
+    <div class="edit_form_header">Add an NPC to <?=$currzone?></div>
       <div class="edit_form_content">
         <center>
           <fieldset style="text-align: left;">
@@ -10,7 +8,7 @@
             <table width="100%">
               <tr>
                 <td valign="top">
-                  Suggested NPCID:<br>
+                  NPCID:<br>
                   <input type="text" name="id" value="<?=$suggestedid?>"><br><br>
                   NPC Name: <br><input type="text" name="name" size="40" value=""><br><br>
                   Title:    <br><input type="text" name="lastname" size="40" value=""><br><br>
@@ -18,8 +16,8 @@
                   Max Level:<br><input type="text" name="maxlevel" size="10" value="0"><br><br>
                 </td>
                 <td valign="top">
-                    Race:<br>
-                    <select name="race" style="width: 265px;" onChange="raceCheck();">
+                Race:<br>
+                <select name="race" style="width: 265px;" onChange="raceCheck();">
 <?foreach($races as $key=>$value):?>
                       <option value="<?=$key?>"<?echo ($key == 1)? " selected" : "";?>><?=$key?>: <?=$value?></option>
 <?endforeach;?>
@@ -114,8 +112,8 @@
               </tr>
               <tr>
                 <td align="left" width="14%">AC:<br><input type="text" name="charm_ac" size="5" value="0"></td>
-                <td align="left" width="14%">Min Dmg:<br><input type="text" name="charm_min_dmg" size="5" value="0"></td>
-                <td align="left" width="14%">Max Dmg:<br><input type="text" name="charm_max_dmg" size="5" value="0"></td>
+                <td align="left" width="14%">Min Dmg:      <br><input type="text" name="mindmg" size="5" value="<?=$mindmg?>" onChange="sdamageCheck();"></td>
+                <td align="left" width="14%">Max Dmg:     <br><input type="text" name="maxdmg" size="5" value="<?=$maxdmg?>" onChange="sdamageCheck();"></td>
                 <td align="left" width="14%">Atk:<br><input type="text" name="charm_atk" size="5" value="0"></td>
                 <td align="left" width="14%">Atk Delay:<br><input type="text" name="charm_attack_delay" size="5" value="0"></td>
                 <td align="left" width="15%">Accuracy:<br><input type="text" name="charm_accuracy_rating" size="5" value="0"></td>
@@ -126,16 +124,16 @@
         <fieldset>
           <legend><strong><font size="4">Resists</font></strong></legend>
             <table width="100%" border="0" cellpadding="3" cellspacing="0">
-              <tr>
-                <td colspan="7">1 Resist = 0.5%<br>250 Resist = 100%</td>
-              </tr>
-              <tr>
-                <td align="left" width="13%">MR:      <br><input type="text" name="MR" size="5" value="<?=$resists?>"></td>
-                <td align="left" width="13%">CR:      <br><input type="text" name="CR" size="5" value="<?=$resists?>"></td>
-                <td align="left" width="13%">FR:      <br><input type="text" name="FR" size="5" value="<?=$resists?>"></td>
-                <td align="left" width="13%">PR:      <br><input type="text" name="PR" size="5" value="<?=$resists?>"></td>
-                <td align="left" width="13%">DR:      <br><input type="text" name="DR" size="5" value="<?=$resists?>"></td>
-                <td align="left" width="14%">Corrup:  <br><input type="text" name="Corrup" size="5" value="<?=$resists?>"></td>
+            <tr>
+              <td colspan="7">1 Resist = 0.5%<br>200 Resist = 100%</td>
+            </tr>
+            <tr>
+              <td align="left" width="13%">MR:      <br><input type="text" name="MR" size="5" value="<?=$resists?>"></td>
+              <td align="left" width="13%">CR:      <br><input type="text" name="CR" size="5" value="<?=$resists?>"></td>
+              <td align="left" width="13%">FR:      <br><input type="text" name="FR" size="5" value="<?=$resists?>"></td>
+              <td align="left" width="13%">PR:      <br><input type="text" name="PR" size="5" value="<?=$resists?>"></td>
+              <td align="left" width="13%">DR:      <br><input type="text" name="DR" size="5" value="<?=$resists?>"></td>
+              <td align="left" width="15%">Corrup:  <br><input type="text" name="Corrup" size="5" value="<?=$resists?>"></td>
 <?
   $PhR_Default = 15 + ($level / 3);
   if ($level > 50)
@@ -236,21 +234,6 @@
           </center>
         </fieldset><br>
         <fieldset>
-          <legend><strong><font size="4">Experience/Loot</font></strong></legend>
-          <table width="100%" border="0" cellpadding="3" cellspacing="0">
-            <tr>
-              <td align="left" width="33%">Loottable ID:<br><input type="text" name="loottable_id" size="5" value="0"></td>
-              <td align="left" width="33%"><input type="checkbox" name="private_corpse" value="1"> Corpse does not Unlock</td>
-              <td align="left" width="34%"><input type="checkbox" name="skip_global_loot" value="1"> Skip Global Loot</td>
-            </tr>
-            <tr>
-              <td align="left" width="33%">Experience Mod:<br><input type="text" name="exp_mod" size="5" value="100"></td>
-              <td align="left" width="33%">&nbsp;</td>
-              <td align="left" width="34%">&nbsp;</td>
-            </tr>
-          </table>
-        </fieldset><br>
-        <fieldset>
           <legend><strong><font size="4">Appearance</font></strong></legend>
           <table width="100%" border="0" cellpadding="3" cellspacing="0">
             <tr>
@@ -292,7 +275,7 @@
                 Melee1 Type:<br>
                 <select name="prim_melee_type" style="width: 200px;">
 <?foreach($skilltypes as $key=>$value):?>
-                  <option value="<?=$key?>"<?echo ($key == 28)? " selected" : "";?>><?=$key?>: <?=$value?></option>
+                  <option value="<?=$key?>"<?echo ($key == 28) ? " selected" : "";?>><?=$key?>: <?=$value?></option>
 <?endforeach;?>
                 </select>
               </td> 
@@ -300,10 +283,25 @@
                 Melee2 Type:<br>
                 <select name="sec_melee_type" style="width: 200px;">
 <?foreach($skilltypes as $key=>$value):?>
-                  <option value="<?=$key?>"<?echo ($key == 28)? " selected" : "";?>><?=$key?>: <?=$value?></option>
+                  <option value="<?=$key?>"<?echo ($key == 28) ? " selected" : "";?>><?=$key?>: <?=$value?></option>
 <?endforeach;?>
                 </select>
               </td>
+            </tr>
+          </table>
+        </fieldset><br>
+        <fieldset>
+          <legend><strong><font size="4">Experience/Loot</font></strong></legend>
+          <table width="100%" border="0" cellpadding="3" cellspacing="0">
+            <tr>
+              <td align="left" width="33%">Loottable ID:<br><input type="text" name="loottable_id" size="5" value="0"></td>
+              <td align="left" width="33%"><input type="checkbox" name="private_corpse" value="1"> Corpse does not Unlock</td>
+              <td align="left" width="34%"><input type="checkbox" name="skip_global_loot" value="1"> Skip Global Loot</td>
+            </tr>
+            <tr>
+              <td align="left" width="33%">Experience Mod:<br><input type="text" name="exp_mod" size="5" value="100"></td>
+              <td align="left" width="33%">&nbsp;</td>
+              <td align="left" width="34%">&nbsp;</td>
             </tr>
           </table>
         </fieldset><br>

@@ -57,12 +57,9 @@
                 <td align="left" width="16%">Accuracy:<br><input type="text" name="Accuracy" size="10" value="<?=$Accuracy?>"></td>
               </tr>
             <tr>
-              <td align="left">
+            <td align="left">
                 See Invis:<br>
-                <select name="see_invis">
-                  <option value="0"<?echo ($see_invis == 0) ? " selected" : "";?>>No</option>
-                  <option value="1"<?echo ($see_invis == 1) ? " selected" : "";?>>Yes</option>
-                </select>
+                <input type="text" name="see_invis" size="5" value="0">
               </td>
               <td align="left">
                 See ITU:<br>

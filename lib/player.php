@@ -390,7 +390,7 @@ function modify_exp_modifier() {
   $mysql->query_no_result($query);
 }
 
-function delete_exp_modifier($character_id, $zone_id) {
+function delete_exp_modifier($character_id, $zone_id, $instance_version) {
   global $mysql;
 
   $query = "DELETE FROM character_exp_modifiers WHERE character_id=$character_id AND zone_id=$zone_id AND instance_version=$instance_version";

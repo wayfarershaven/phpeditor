@@ -227,10 +227,10 @@ function spell_dbstrus() {
   $result1 = $mysql_content_db->query_assoc($query1);
   $descnum = $result1['descnum'];
 
-  $query2 = "SELECT txtfile FROM dbstr_us WHERE descnum=$descnum and type_=6";
+  $query2 = "SELECT value FROM db_str WHERE `id`=$descnum and `type`=6";
   $result2 = $mysql_content_db->query_assoc($query2);
-  if(isset($result2['txtfile'])) {
-	$txtfile = $result2['txtfile'];
+  if(isset($result2['value'])) {
+	$txtfile = $result2['value'];
   } else {
 	  $txtfile = "";
   }
@@ -244,7 +244,7 @@ function update_dbstrus() {
 	$descnum = $_POST['descnum'];
 	$txtfile = mysqli_real_escape_string($mysql_content_db, $_POST['txtfile']);
 	if ($descnum > 0) {
-		$query = "REPLACE INTO dbstr_us VALUES ($descnum, 6, \"$txtfile\", 0)";
+		$query = "REPLACE INTO db_str VALUES ($descnum, 6, \"$txtfile\")";
 		$mysql_content_db->query_no_result($query);
 	}
 }
@@ -587,7 +587,7 @@ function generateDBSTRUSFile() {
   $lastid = 0;
   $success = false;
 
-  $query = "SELECT * FROM dbstr_us ORDER BY descnum ASC, type_ ASC";
+  $query = "SELECT * FROM db_str ORDER BY `id` ASC, `type` ASC";
   $results = $mysql_content_db->query($query, MYSQLI_USE_RESULT);
 
   if ($results) {
@@ -598,7 +598,7 @@ function generateDBSTRUSFile() {
 
     while ($spelldata = $results->fetch_assoc()) {
       fwrite($fileOut, implode("^", $spelldata) . "\n");
-      $lastid = $spelldata['descnum'];
+      $lastid = $spelldata['id'];
       $count++;
     }
 
@@ -618,7 +618,7 @@ function importDBSTRUSFile() {
   $success = false;
 
   #Delete table contents for upload...
-  $query = "TRUNCATE TABLE dbstr_us";
+  $query = "TRUNCATE TABLE db_str";
   $mysql_content_db->query_no_result($query);
 
   $fileOut = fopen($dbstr_us, 'r');
@@ -628,10 +628,10 @@ function importDBSTRUSFile() {
   
   $query_out = 
     "LOAD DATA INFILE '$my_root_dbstrus/$dbstr_us'
-     INTO TABLE dbstr_us
+     INTO TABLE db_str
      FIELDS TERMINATED BY '^'
      LINES TERMINATED BY '\n'
-    (descnum,type_,txtfile,unknown)";
+    (id,type,value,@dummy)";
 	$mysql_content_db->query_no_result($query_out);
 
     fclose($fileOut);

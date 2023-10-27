@@ -1011,6 +1011,7 @@ switch ($action) {
     break;
   case 90: // Add NPC Scale
     check_authorization();
+    $javascript = new Template("templates/npc/js.tmpl.php");
     $breadcrumbs .= " >> <a href='index.php?editor=npc&action=89'>NPC Scaling</a> >> Add Scale";
     $body = new Template("templates/npc/npc.scale.add.tmpl.php");
     $body->set('npc_scaling_types', $npc_scaling_types);
@@ -1023,9 +1024,10 @@ switch ($action) {
     exit;
   case 92: // Edit NPC Scale
     check_authorization();
+    $javascript = new Template("templates/npc/js.tmpl.php");
     $breadcrumbs .= " >> <a href='index.php?editor=npc&action=89'>NPC Scaling</a> >> Edit Scale";
     $body = new Template("templates/npc/npc.scale.edit.tmpl.php");
-    $scale = get_npc_scale($_GET['type'], $_GET['level'], $_GET['zone_id'], $_GET['instance_version']);
+    $scale = get_npc_scale($_GET['type'], $_GET['level'], $_GET['zone_id_list'], $_GET['instance_version_list']);
     if ($scale) {
       $body->set('scale', $scale);
       $body->set('npc_scaling_types', $npc_scaling_types);
@@ -1041,7 +1043,7 @@ switch ($action) {
     exit;
   case 94: // Delete NPC Scale
     check_authorization();
-    delete_npc_scale($_GET['type'], $_GET['level'], $_GET['zone_id'], $_GET['instance_version']);
+    delete_npc_scale($_GET['type'], $_GET['level'], $_GET['zone_id_list'], $_GET['instance_version_list']);
     header("Location: index.php?editor=npc&action=89");
     exit;
 }
@@ -1493,7 +1495,7 @@ function update_npc() {
   //unique_
   //fixed
   if ($ignore_despawn != $_POST['ignore_despawn']) $fields .= "ignore_despawn=\"" . $_POST['ignore_despawn'] . "\", ";
-  //show_name
+  if ($show_name != $_POST['show_name']) $fields .= "show_name=\"" . $_POST['show_name'] . "\", ";
   //untargetable
   if ($charm_ac != $_POST['charm_ac']) $fields .= "charm_ac=\"" . $_POST['charm_ac'] . "\", ";
   if ($charm_min_dmg != $_POST['charm_min_dmg']) $fields .= "charm_min_dmg=\"" . $_POST['charm_min_dmg'] . "\", ";
@@ -1655,7 +1657,7 @@ function add_npc() {
   //unique_
   //fixed
   $fields .= "ignore_despawn=\"" . $_POST['ignore_despawn'] . "\", ";
-  //show_name
+  $fields .= "show_name=\"" . $_POST['show_name'] . "\", ";
   //untargetable
   $fields .= "charm_ac=\"" . $_POST['charm_ac'] . "\", ";
   $fields .= "charm_min_dmg=\"" . $_POST['charm_min_dmg'] . "\", ";
@@ -1796,7 +1798,7 @@ function copy_npc() {
   //unique_
   //fixed
   $fields .= "ignore_despawn=\"" . $_POST['ignore_despawn'] . "\", ";
-  //show_name
+  $fields .= "show_name=\"" . $_POST['show_name'] . "\", ";
   //untargetable
   $fields .= "charm_ac=\"" . $_POST['charm_ac'] . "\", ";
   $fields .= "charm_min_dmg=\"" . $_POST['charm_min_dmg'] . "\", ";
@@ -2745,7 +2747,7 @@ function delete_beastlord_pet($player_race) {
 function get_npc_scaling() {
   global $mysql_content_db;
 
-  $query = "SELECT * FROM npc_scale_global_base ORDER BY type, level";
+  $query = "SELECT * FROM npc_scale_global_base ORDER BY type, level, zone_id_list, instance_version_list";
   $results = $mysql_content_db->query_mult_assoc($query);
 
   if ($results) {
@@ -2756,10 +2758,10 @@ function get_npc_scaling() {
   }
 }
 
-function get_npc_scale($type, $level, $zone_id, $instance_version) {
+function get_npc_scale($type, $level, $zone_id_list, $instance_version_list) {
   global $mysql_content_db;
 
-  $query = "SELECT * FROM npc_scale_global_base WHERE type=$type AND level=$level AND zone_id=$zone_id AND instance_version=$instance_version";
+  $query = "SELECT * FROM npc_scale_global_base WHERE type=$type AND level=$level AND zone_id_list=\"$zone_id_list\" AND instance_version_list=\"$instance_version_list\"";
   $result = $mysql_content_db->query_assoc($query);
 
   if ($result) {
@@ -2786,8 +2788,8 @@ function insert_npc_scale() {
 
   $type = $_POST['type'];
   $level = $_POST['level'];
-  $zone_id = $_POST['zone_id'];
-  $instance_version = $_POST['instance_version'];
+  $zone_id_list = $_POST['zone_id_list'];
+  $instance_version_list = $_POST['instance_version_list'];
   $ac = $_POST['ac'];
   $hp = $_POST['hp'];
   $accuracy = $_POST['accuracy'];
@@ -2810,12 +2812,15 @@ function insert_npc_scale() {
   $min_dmg = $_POST['min_dmg'];
   $max_dmg = $_POST['max_dmg'];
   $hp_regen_rate = $_POST['hp_regen_rate'];
+  $hp_regen_per_second = $_POST['hp_regen_per_second'];
   $attack_delay = $_POST['attack_delay'];
   $spell_scale = $_POST['spell_scale'];
   $heal_scale = $_POST['heal_scale'];
+  $avoidance = $_POST['avoidance'];
+  $heroic_strikethrough = $_POST['heroic_strikethrough'];
   $special_abilities = $special;
 
-  $query = "INSERT INTO npc_scale_global_base SET type=$type, level=$level, zone_id=$zone_id, instance_version=$instance_version, ac=$ac, hp=$hp, accuracy=$accuracy, slow_mitigation=$slow_mitigation, attack=$attack, strength=$strength, stamina=$stamina, dexterity=$dexterity, agility=$agility, intelligence=$intelligence, wisdom=$wisdom, charisma=$charisma, magic_resist=$magic_resist, cold_resist=$cold_resist, fire_resist=$fire_resist, poison_resist=$poison_resist, disease_resist=$disease_resist, corruption_resist=$corruption_resist, physical_resist=$physical_resist, min_dmg=$min_dmg, max_dmg=$max_dmg, hp_regen_rate=$hp_regen_rate, attack_delay=$attack_delay, spell_scale=$spell_scale, heal_scale=$heal_scale, special_abilities=\"$special_abilities\"";
+  $query = "INSERT INTO npc_scale_global_base SET type=$type, level=$level, zone_id_list=\"$zone_id_list\", instance_version_list=\"$instance_version_list\", ac=$ac, hp=$hp, accuracy=$accuracy, slow_mitigation=$slow_mitigation, attack=$attack, strength=$strength, stamina=$stamina, dexterity=$dexterity, agility=$agility, intelligence=$intelligence, wisdom=$wisdom, charisma=$charisma, magic_resist=$magic_resist, cold_resist=$cold_resist, fire_resist=$fire_resist, poison_resist=$poison_resist, disease_resist=$disease_resist, corruption_resist=$corruption_resist, physical_resist=$physical_resist, min_dmg=$min_dmg, max_dmg=$max_dmg, hp_regen_rate=$hp_regen_rate, hp_regen_per_second=$hp_regen_per_second, attack_delay=$attack_delay, spell_scale=$spell_scale, heal_scale=$heal_scale, avoidance=$avoidance, heroic_strikethrough=$heroic_strikethrough, special_abilities=\"$special_abilities\"";
   $mysql_content_db->query_no_result($query);
 }
 
@@ -2835,12 +2840,12 @@ function update_npc_scale() {
 
   $old_type = $_POST['old_type'];
   $old_level = $_POST['old_level'];
-  $old_zone_id = $_POST['old_zone_id'];
-  $old_instance_version = $_POST['old_instance_version'];
+  $old_zone_id_list = $_POST['old_zone_id_list'];
+  $old_instance_version_list = $_POST['old_instance_version_list'];
   $type = $_POST['type'];
   $level = $_POST['level'];
-  $zone_id = $_POST['zone_id'];
-  $instance_version = $_POST['instance_version'];
+  $zone_id_list = $_POST['zone_id_list'];
+  $instance_version_list = $_POST['instance_version_list'];
   $ac = $_POST['ac'];
   $hp = $_POST['hp'];
   $accuracy = $_POST['accuracy'];
@@ -2863,19 +2868,22 @@ function update_npc_scale() {
   $min_dmg = $_POST['min_dmg'];
   $max_dmg = $_POST['max_dmg'];
   $hp_regen_rate = $_POST['hp_regen_rate'];
+  $hp_regen_per_second = $_POST['hp_regen_per_second'];
   $attack_delay = $_POST['attack_delay'];
   $spell_scale = $_POST['spell_scale'];
   $heal_scale = $_POST['heal_scale'];
+  $avoidance = $_POST['avoidance'];
+  $heroic_strikethrough = $_POST['heroic_strikethrough'];
   $special_abilities = $special;
 
-  $query = "UPDATE npc_scale_global_base SET type=$type, level=$level, zone_id=$zone_id, instance_version=$instance_version, ac=$ac, hp=$hp, accuracy=$accuracy, slow_mitigation=$slow_mitigation, attack=$attack, strength=$strength, stamina=$stamina, dexterity=$dexterity, agility=$agility, intelligence=$intelligence, wisdom=$wisdom, charisma=$charisma, magic_resist=$magic_resist, cold_resist=$cold_resist, fire_resist=$fire_resist, poison_resist=$poison_resist, disease_resist=$disease_resist, corruption_resist=$corruption_resist, physical_resist=$physical_resist, min_dmg=$min_dmg, max_dmg=$max_dmg, hp_regen_rate=$hp_regen_rate, attack_delay=$attack_delay, spell_scale=$spell_scale, heal_scale=$heal_scale, special_abilities=\"$special_abilities\" WHERE type=$old_type AND level=$old_level AND zone_id=$old_zone_id AND instance_version=$old_instance_version";
+  $query = "UPDATE npc_scale_global_base SET type=$type, level=$level, zone_id_list=\"$zone_id_list\", instance_version_list=\"$instance_version_list\", ac=$ac, hp=$hp, accuracy=$accuracy, slow_mitigation=$slow_mitigation, attack=$attack, strength=$strength, stamina=$stamina, dexterity=$dexterity, agility=$agility, intelligence=$intelligence, wisdom=$wisdom, charisma=$charisma, magic_resist=$magic_resist, cold_resist=$cold_resist, fire_resist=$fire_resist, poison_resist=$poison_resist, disease_resist=$disease_resist, corruption_resist=$corruption_resist, physical_resist=$physical_resist, min_dmg=$min_dmg, max_dmg=$max_dmg, hp_regen_rate=$hp_regen_rate, hp_regen_per_second=$hp_regen_per_second, attack_delay=$attack_delay, spell_scale=$spell_scale, heal_scale=$heal_scale, avoidance=$avoidance, heroic_strikethrough=$heroic_strikethrough, special_abilities=\"$special_abilities\" WHERE type=$old_type AND level=$old_level AND zone_id_list=$old_zone_id_list AND instance_version_list=$old_instance_version_list";
   $mysql_content_db->query_no_result($query);
 }
 
-function delete_npc_scale($type, $level, $zone_id, $instance_version) {
+function delete_npc_scale($type, $level, $zone_id_list, $instance_version_list) {
   global $mysql_content_db;
 
-  $query = "DELETE FROM npc_scale_global_base WHERE type=$type AND level=$level AND zone_id=$zone_id AND instance_version=$instance_version";
+  $query = "DELETE FROM npc_scale_global_base WHERE type=$type AND level=$level AND zone_id_list=$zone_id_list AND instance_version_list=$instance_version_list";
   $mysql_content_db->query_no_result($query);
 }
 ?>

@@ -50,6 +50,28 @@
             </td>
           </tr>
           <tr>
+            <td>
+              <strong>Min Expansion</strong><br>
+              <input type="text" name="min_expansion" size="7" value="-1"><br><br>
+            </td>
+            <td>
+              <strong>Max Expansion</strong><br>
+              <input type="text" name="max_expansion" size="7" value="-1"><br><br>
+            </td>
+          </tr>
+          <tr>
+            <td colspan="2">
+              <strong>Content Flags</strong><br>
+              <input type="text" name="content_flags" size="38" value=""><br><br>
+            </td>
+          </tr>
+          <tr>
+            <td colspan="2">
+              <strong>Content Flags Disabled</strong><br>
+              <input type="text" name="content_flags_disabled" size="38" value=""><br><br>
+            </td>
+          </tr>
+          <tr>
             <td align="left" colspan="2">
               <strong>Message</strong><br>
               <textarea name="message" cols="38" rows="3"></textarea><br><br>

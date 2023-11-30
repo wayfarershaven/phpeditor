@@ -276,88 +276,24 @@ switch ($action) {
     }
     $body->set("langtypes", $langtypes);
     break;
-  case 999: // Tiered Item
-     check_authorization();
-	 $javascript = new Template("templates/iframes/js.tmpl.php");
-	 $body = new Template("templates/items/items.tiered.tmpl.php");
-     $body->set("itemsize", $itemsize);
-     $body->set("itemmaterial", $itemmaterial);
-     $body->set("itemtypes", $itemtypes);
-     $body->set("itemldontheme", $itemldontheme);
-     $body->set("skilltypes", $skilltypes);
-     $body->set("bodytypes", $bodytypes);
-     $body->set("itemraces", $races);
-     $body->set("itemsaugrestrict", $itemsaugrestrict);
-     $body->set("itembagsize", $itembagsize);
-     $body->set("world_containers", $world_containers);
-     $body->set("itembardtype", $itembardtype);
-     $body->set("itempointtype", $itempointtype);
-     $body->set("itemcasttype", $itemcasttype);
-     $body->set("proccasttype", $proccasttype);
-     $body->set("worncasttype", $worncasttype);
-     $body->set("focuscasttype", $focuscasttype);
-     $body->set("scrollcasttype", $scrollcasttype);
-     $body->set("yesno", $yesno);
-	 
-	 if(isset($_GET['id'])) {
-		 $body->set('newid', $_GET['id']); 
-		 if(isset($_GET['hp_scale'])) { $body->set('hp_scale', $_GET['hp_scale']); }
-		 if(isset($_GET['manaend_scale'])) { $body->set('manaend_scale', $_GET['manaend_scale']); }
-		 if(isset($_GET['basestats_scale'])) { $body->set('basestats_scale', $_GET['basestats_scale']); }
-		 if(isset($_GET['ac_scale'])) { $body->set('ac_scale', $_GET['ac_scale']); }
-		 if(isset($_GET['haste_scale'])) { $body->set('haste_scale', $_GET['haste_scale']); }
-		 if(isset($_GET['regens_scale'])) { $body->set('regens_scale', $_GET['regens_scale']); }
-		 if(isset($_GET['resists_scale'])) { $body->set('resists_scale', $_GET['resists_scale']); }
-		 
-		 if(isset($_GET['damage_scale'])) { $body->set('damage_scale', $_GET['damage_scale']); }
-		 if(isset($_GET['backstab_scale'])) { $body->set('backstab_scale', $_GET['backstab_scale']); }
-		 if(isset($_GET['elemdmg_scale'])) { $body->set('elemdmg_scale', $_GET['elemdmg_scale']); }
-		 if(isset($_GET['attack_scale'])) { $body->set('attack_scale', $_GET['attack_scale']); }
-		 if(isset($_GET['spelldmg_scale'])) { $body->set('spelldmg_scale', $_GET['spelldmg_scale']); }
-		 if(isset($_GET['healamt_scale'])) { $body->set('healamt_scale', $_GET['healamt_scale']); }
-		 if(isset($_GET['mods_scale'])) { $body->set('mods_scale', $_GET['mods_scale']); }
-		 
-		 $tiered_vars = item_info();
-		 if ($tiered_vars) {
-		 	foreach ($tiered_vars as $key=>$value) {
-		 		$body->set($key, $value);
-		 	}
-		 }
-	 } else {
-		$body->set('newid', get_max_id());
-	 }
-	 
-     $body->set("factions", factions_array());
-     $vars = getdate();
-     if ($vars) {
-      foreach ($vars as $key=>$value) {
-        $body->set($key, $value);
-      }
-     }
-     break;
-  case 1000: //Tiered Item Generate
-     check_authorization();
-     tiered_add_item();
-     $id = $_POST['id'];
-	 $hp_scale = $_POST['hp_scale'];
-	 $manaend_scale = $_POST['manaend_scale'];
-	 $basestats_scale = $_POST['basestats_scale'];
-	 $ac_scale = $_POST['ac_scale'];
-	 $haste_scale = $_POST['haste_scale'];
-	 $regens_scale = $_POST['regens_scale'];
-	 $resists_scale = $_POST['resists_scale'];
-	 
-	 $damage_scale = $_POST['damage_scale'];
-	 $backstab_scale = $_POST['backstab_scale'];
-	 $elemdmg_scale = $_POST['elemdmg_scale'];
-	 $attack_scale = $_POST['attack_scale'];
-	 $spelldmg_scale = $_POST['spelldmg_scale'];
-	 $healamt_scale = $_POST['healamt_scale'];
-	 $mods_scale = $_POST['mods_scale'];
-	 
-	 
-     header("Location: index.php?editor=items&id=$id&action=999&hp_scale=$hp_scale&manaend_scale=$manaend_scale&basestats_scale=$basestats_scale&ac_scale=$ac_scale&haste_scale=$haste_scale&regens_scale=$regens_scale&resists_scale=$resists_scale&damage_scale=$damage_scale&backstab_scale=$backstab_scale&elemdmg_scale=$elemdmg_scale&attack_scale=$attack_scale&spelldmg_scale=$spelldmg_scale&healamt_scale=$healamt_scale&mods_scale=$mods_scale");
-	exit;
+  case 17: //Import Items Compare
+    $body = new Template("templates/items/items.compare.tmpl.php");
+    $breadcrumbs .= " >> Item Import Comparison";
+    $columns = get_item_compare_fields();
+    if ($columns) {
+      $body->set("columns", $columns);
+    }
+    break;
+  case 18: //Items Diff
+    $body = new Template("templates/items/items.diff.tmpl.php");
+    $column = $_GET['column'];
+    $breadcrumbs .= " >> Item Import Comparison >> Items Diff (" . $column . ")";
+    $body->set("column", $column);
+    $diff = get_items_diff($column);
+    if ($diff) {
+      $body->set("diff", $diff);
+    }
+    break;
 }
 
 function item_info() {
@@ -1220,378 +1156,37 @@ function delete_starting_item() {
   $mysql_content_db->query_no_result($query);
 }
 
-function tiered_add_item () {
-  global $mysql;
+function get_item_compare_fields() {
+  global $mysql_content_db;
+  $columns = array();
 
-  // Define checkbox fields:
-  $slots = 0;
-  if (isset($_POST['slot_Charm'])) $slots = $slots+1;
-  if (isset($_POST['slot_Ear01'])) $slots = $slots+2;
-  if (isset($_POST['slot_Head'])) $slots = $slots+4;
-  if (isset($_POST['slot_Face'])) $slots = $slots+8;
-  if (isset($_POST['slot_Ear02'])) $slots = $slots+16;
-  if (isset($_POST['slot_Neck'])) $slots = $slots+32;
-  if (isset($_POST['slot_Shoulder'])) $slots = $slots+64;
-  if (isset($_POST['slot_Arms'])) $slots = $slots+128;
-  if (isset($_POST['slot_Back'])) $slots = $slots+256;
-  if (isset($_POST['slot_Bracer01'])) $slots = $slots+512;
-  if (isset($_POST['slot_Bracer02'])) $slots = $slots+1024;
-  if (isset($_POST['slot_Range'])) $slots = $slots+2048;
-  if (isset($_POST['slot_Hands'])) $slots = $slots+4096;
-  if (isset($_POST['slot_Primary'])) $slots = $slots+8192;
-  if (isset($_POST['slot_Secondary'])) $slots = $slots+16384;
-  if (isset($_POST['slot_Ring01'])) $slots = $slots+32768;
-  if (isset($_POST['slot_Ring02'])) $slots = $slots+65536;
-  if (isset($_POST['slot_Chest'])) $slots = $slots+131072;
-  if (isset($_POST['slot_Legs'])) $slots = $slots+262144;
-  if (isset($_POST['slot_Feet'])) $slots = $slots+524288;
-  if (isset($_POST['slot_Waist'])) $slots = $slots+1048576;
-  if (isset($_POST['slot_Powersource'])) $slots = $slots+2097152;
-  if (isset($_POST['slot_Ammo'])) $slots = $slots+4194304;
-  
+  try {
+    $query = "SHOW COLUMNS FROM items_new";
+    $results = $mysql_content_db->query_mult_assoc($query);
 
-  $races = 0;
-  if (isset($_POST['race_Human'])) $races = $races+1;
-  if (isset($_POST['race_Barbarian'])) $races = $races+2;
-  if (isset($_POST['race_Erudite'])) $races = $races+4;
-  if (isset($_POST['race_Wood_Elf'])) $races = $races+8;
-  if (isset($_POST['race_High_Elf'])) $races = $races+16;
-  if (isset($_POST['race_Dark_Elf'])) $races = $races+32;
-  if (isset($_POST['race_Half_Elf'])) $races = $races+64;
-  if (isset($_POST['race_Dwarf'])) $races = $races+128;
-  if (isset($_POST['race_Troll'])) $races = $races+256;
-  if (isset($_POST['race_Ogre'])) $races = $races+512;
-  if (isset($_POST['race_Halfling'])) $races = $races+1024;
-  if (isset($_POST['race_Gnome'])) $races = $races+2048;
-  if (isset($_POST['race_Iksar'])) $races = $races+4096;
-  if (isset($_POST['race_Vah_Shir'])) $races = $races+8192;
-  if (isset($_POST['race_Froglok'])) $races = $races+16384;
-  if (isset($_POST['race_Drakkin'])) $races = $races+32768;
-  if (isset($_POST['race_Shroud'])) $races = $races+65536;
-  
-  $classes = 0;
-  if (isset($_POST['class_Warrior'])) $classes = $classes+1;
-  if (isset($_POST['class_Cleric'])) $classes = $classes+2;
-  if (isset($_POST['class_Paladin'])) $classes = $classes+4;
-  if (isset($_POST['class_Ranger'])) $classes = $classes+8;
-  if (isset($_POST['class_Shadowknight'])) $classes = $classes+16;
-  if (isset($_POST['class_Druid'])) $classes = $classes+32;
-  if (isset($_POST['class_Monk'])) $classes = $classes+64;
-  if (isset($_POST['class_Bard'])) $classes = $classes+128;
-  if (isset($_POST['class_Rogue'])) $classes = $classes+256;
-  if (isset($_POST['class_Shaman'])) $classes = $classes+512;
-  if (isset($_POST['class_Necromancer'])) $classes = $classes+1024;
-  if (isset($_POST['class_Wizard'])) $classes = $classes+2048;
-  if (isset($_POST['class_Magician'])) $classes = $classes+4096;
-  if (isset($_POST['class_Enchanter'])) $classes = $classes+8192;
-  if (isset($_POST['class_Beastlord'])) $classes = $classes+16384;
-  if (isset($_POST['class_Berserker'])) $classes = $classes+32768;
-  
-  $deity = 0;
-  if (isset($_POST['deity_Agnostic'])) $deity = $deity+1;
-  if (isset($_POST['deity_Bertox'])) $deity = $deity+2;
-  if (isset($_POST['deity_Brell'])) $deity = $deity+4;
-  if (isset($_POST['deity_Cazic'])) $deity = $deity+8;
-  if (isset($_POST['deity_Erollsi'])) $deity = $deity+16;
-  if (isset($_POST['deity_Bristlebane'])) $deity = $deity+32;
-  if (isset($_POST['deity_Innoruuk'])) $deity = $deity+64;
-  if (isset($_POST['deity_Karana'])) $deity = $deity+128;
-  if (isset($_POST['deity_Mithaniel_Marr'])) $deity = $deity+256;
-  if (isset($_POST['deity_Prexus'])) $deity = $deity+512;
-  if (isset($_POST['deity_Quellious'])) $deity = $deity+1024;
-  if (isset($_POST['deity_Rallos_Zek'])) $deity = $deity+2048;
-  if (isset($_POST['deity_Rodcet_Nife'])) $deity = $deity+4096;
-  if (isset($_POST['deity_Solusek_Ro'])) $deity = $deity+8192;
-  if (isset($_POST['deity_The_Tribunal'])) $deity = $deity+16384;
-  if (isset($_POST['deity_Tunare'])) $deity = $deity+32768;
-  if (isset($_POST['deity_Veeshan'])) $deity = $deity+65536;
-
-  $augtype = 0;
-  if (isset($_POST['augtype_Type_1'])) $augtype = $augtype+1;
-  if (isset($_POST['augtype_Type_2'])) $augtype = $augtype+2;
-  if (isset($_POST['augtype_Type_3'])) $augtype = $augtype+4;
-  if (isset($_POST['augtype_Type_4'])) $augtype = $augtype+8;
-  if (isset($_POST['augtype_Type_5'])) $augtype = $augtype+16;
-  if (isset($_POST['augtype_Type_6'])) $augtype = $augtype+32;
-  if (isset($_POST['augtype_Type_7'])) $augtype = $augtype+64;
-  if (isset($_POST['augtype_Type_8'])) $augtype = $augtype+128;
-  if (isset($_POST['augtype_Type_9'])) $augtype = $augtype+256;
-  if (isset($_POST['augtype_Type_10'])) $augtype = $augtype+512;
-  if (isset($_POST['augtype_Type_11'])) $augtype = $augtype+1024;
-  if (isset($_POST['augtype_Type_12'])) $augtype = $augtype+2048;
-  if (isset($_POST['augtype_Type_13'])) $augtype = $augtype+4096;
-  if (isset($_POST['augtype_Type_14'])) $augtype = $augtype+8192;
-  if (isset($_POST['augtype_Type_15'])) $augtype = $augtype+16384;
-  if (isset($_POST['augtype_Type_16'])) $augtype = $augtype+32768;
-  if (isset($_POST['augtype_Type_17'])) $augtype = $augtype+65536;
-  if (isset($_POST['augtype_Type_18'])) $augtype = $augtype+131072;
-  if (isset($_POST['augtype_Type_19'])) $augtype = $augtype+262144;
-  if (isset($_POST['augtype_Type_20'])) $augtype = $augtype+524288;
-  if (isset($_POST['augtype_Type_21'])) $augtype = $augtype+1048576;
-  if (isset($_POST['augtype_Type_22'])) $augtype = $augtype+2097152;
-  if (isset($_POST['augtype_Type_23'])) $augtype = $augtype+4194304;
-  if (isset($_POST['augtype_Type_24'])) $augtype = $augtype+8388608;
-  if (isset($_POST['augtype_Type_25'])) $augtype = $augtype+16777216;
-  if (isset($_POST['augtype_Type_26'])) $augtype = $augtype+33554432;
-  if (isset($_POST['augtype_Type_27'])) $augtype = $augtype+67108864;
-  if (isset($_POST['augtype_Type_28'])) $augtype = $augtype+134217728;
-  if (isset($_POST['augtype_Type_29'])) $augtype = $augtype+268435456;
-  if (isset($_POST['augtype_Type_30'])) $augtype = $augtype+536870912;
-  
-	//$tiered_items = "clientfiles/tiered_items/tiered_items.txt";
-	//
-	//$spellquery = "SELECT * FROM dbstr_us ORDER BY descnum ASC, type_ ASC";
-	//$dirname = dirname($tiered_items);
-	//if (!is_dir($dirname))
-	//{
-	//	mkdir($dirname, 0755, true);
-	//}
-	//$fh = fopen($tiered_items, 'a');
-	//if(!$fh) { die("Error opening $tiered_items for writing.  Make sure the path is writable."); }
-  
-  $start_rank = 0; $end_rank = 9;
-  $upgrade_rank = 1;
-  for ($i = $start_rank; $i <= $end_rank; $i++) {
-	if($i >= 4 && $i <= 6) {
-		$upgrade_rank = 2;
-	}
-	elseif($i >= 7 && $i <= 9) {
-		$upgrade_rank = 3;
-	}
-	$fields = '';
-	$fields .= "slots=\"$slots\", ";
-	$fields .= "races=\"$races\", ";
-	$fields .= "classes=\"$classes\", ";
-	$fields .= "deity=\"$deity\", ";
-	$fields .= "augtype=\"$augtype\", ";
-	$fields .= "itemtype=\"" . $_POST['itemtype'] . "\", ";
-	$fields .= "lore=\"" . $_POST['lore'] . "\", ";
-	$fields .= "itemclass=\"" . $_POST['itemclass'] . "\", ";
-	$fields .= "stackable=\"" . $_POST['stackable'] . "\", ";
-	$fields .= "stacksize=\"" . $_POST['stacksize'] . "\", ";
-	$fields .= "maxcharges=\"" . $_POST['maxcharges'] . "\", ";
-	$fields .= "filename=\"" . $_POST['filename'] . "\", ";
-	$fields .= "book=\"" . $_POST['book'] . "\", ";
-	$fields .= "booktype=\"" . $_POST['booktype'] . "\", ";
-	$fields .= "powersourcecapacity=\"" . $_POST['powersourcecapacity'] . "\", ";
-	$fields .= "charmfile=\"" . $_POST['charmfile'] . "\", ";
-	$fields .= "charmfileid=\"" . $_POST['charmfileid'] . "\", ";
-	$fields .= "scriptfileid=\"" . $_POST['scriptfileid'] . "\", ";
-	$fields .= "potionbeltslots=\"" . $_POST['potionbeltslots'] . "\", ";
-	$fields .= "bagsize=\"" . $_POST['bagsize'] . "\", ";
-	$fields .= "bagslots=\"" . $_POST['bagslots'] . "\", ";
-	$fields .= "bagwr=\"" . $_POST['bagwr'] . "\", ";
-	$fields .= "bagtype=\"" . $_POST['bagtype'] . "\", ";
-	$fields .= "nodrop=\"" . $_POST['nodrop'] . "\", ";
-	$fields .= "norent=\"" . $_POST['norent'] . "\", ";
-	$fields .= "magic=\"" . $_POST['magic'] . "\", ";
-	$fields .= "tradeskills=\"" . $_POST['tradeskills'] . "\", ";
-	$fields .= "artifactflag=\"" . $_POST['artifactflag'] . "\", ";
-	$fields .= "questitemflag=\"" . $_POST['questitemflag'] . "\", ";
-	$fields .= "attuneable=\"" . $_POST['attuneable'] . "\", ";
-	$fields .= "nopet=\"" . $_POST['nopet'] . "\", ";
-	$fields .= "fvnodrop=\"" . $_POST['fvnodrop'] . "\", ";
-	$fields .= "notransfer=\"" . $_POST['notransfer'] . "\", ";
-	$fields .= "potionbelt=\"" . $_POST['potionbelt'] . "\", ";
-	$fields .= "benefitflag=\"" . $_POST['benefitflag'] . "\", ";
-	$fields .= "expendablearrow=\"" . $_POST['expendablearrow'] . "\", ";
-	$fields .= "loregroup=\"" . $_POST['loregroup'] . "\", ";
-	$fields .= "reqlevel=\"" . $_POST['reqlevel'] . "\", ";
-	$fields .= "reclevel=\"" . $_POST['reclevel'] . "\", ";
-	$fields .= "recskill=\"" . $_POST['recskill'] . "\", ";
-	$fields .= "evolvinglevel=\"" . $_POST['evolvinglevel'] . "\", ";
-	$fields .= "delay=\"" . $_POST['delay'] . "\", ";
-	$fields .= "`range`=\"" . $_POST['range'] . "\", ";
-	$fields .= "banedmgamt=\"" . $_POST['banedmgamt'] . "\", ";
-	$fields .= "banedmgraceamt=\"" . $_POST['banedmgraceamt'] . "\", ";
-	$fields .= "banedmgrace=\"" . $_POST['banedmgrace'] . "\", ";
-	$fields .= "banedmgbody=\"" . $_POST['banedmgbody'] . "\", ";
-	$fields .= "accuracy=\"" . $_POST['accuracy'] . "\", ";
-	$fields .= "light=\"" . $_POST['light'] . "\", ";
-	$fields .= "avoidance=\"" . $_POST['avoidance'] . "\", ";
-	$fields .= "purity=\"" . $_POST['purity'] . "\", ";
-	$fields .= "combateffects=\"" . $_POST['combateffects'] . "\", ";
-	
-	//NAME FOR TIER
-	$in_id = $_POST['id'] + $i;
-	$fields .= "id=\"" . $in_id . "\", ";
-	$fields .= "name=\"" . $_POST['itemname'] . " +$i\", ";
-	
-	//HP
-	$fields .= "hp=\"" . ($_POST['hp'] > 0 ? ($_POST['hp'] + ($_POST['hp_scale'] * $i * $upgrade_rank)) : $_POST['hp']) . "\", ";
-	
-	//AC
-	$fields .= "ac=\"" . ($_POST['ac'] > 0 ? ($_POST['ac'] + ($_POST['ac_scale'] * $i * $upgrade_rank)) : $_POST['ac']) . "\", ";
-	
-	//MANA ENDUR
-	$fields .= "mana=\"" . ($_POST['mana'] > 0 ? ($_POST['mana'] + ($_POST['manaend_scale'] * $i * $upgrade_rank)) : $_POST['mana']) . "\", ";
-	$fields .= "endur=\"" . ($_POST['endur'] > 0 ? ($_POST['endur'] + ($_POST['manaend_scale'] * $i * $upgrade_rank)) : $_POST['endur']) . "\", ";
-	
-	//WEAPON DAMAGE
-	$fields .= "damage=\"" . ($_POST['damage'] > 0 ? ($_POST['damage'] + ($_POST['damage_scale'] * $i * $upgrade_rank)) : $_POST['damage']) . "\", ";
-	$fields .= "backstabdmg=\"" . ($_POST['backstabdmg'] > 0 ? ($_POST['backstabdmg'] + ($_POST['backstab_scale'] * $i * $upgrade_rank)) : $_POST['backstabdmg']) . "\", ";
-	$fields .= "elemdmgamt=\"" . ($_POST['elemdmgamt'] > 0 ? ($_POST['elemdmgamt'] + ($_POST['elemdmg_scale'] * $i * $upgrade_rank)) : $_POST['elemdmgamt']) . "\", ";
-	
-	//REGENS
-	$fields .= "regen=\"" . ($_POST['regen'] > 0 ? ($_POST['regen'] + ($_POST['regens_scale'] * $i * $upgrade_rank)) : $_POST['regen']) . "\", ";
-	$fields .= "manaregen=\"" . ($_POST['manaregen'] > 0 ? ($_POST['manaregen'] + ($_POST['regens_scale'] * $i * $upgrade_rank)) : $_POST['manaregen']) . "\", ";
-	$fields .= "enduranceregen=\"" . ($_POST['enduranceregen'] > 0 ? ($_POST['enduranceregen'] + ($_POST['regens_scale'] * $i * $upgrade_rank)) : $_POST['enduranceregen']) . "\", ";
-	
-	//BASIC STATS
-	$fields .= "aagi=\"" . ($_POST['aagi'] > 0 ? ($_POST['aagi'] + ($_POST['basestats_scale'] * $i)) : $_POST['aagi']) . "\", ";
-	$fields .= "acha=\"" . ($_POST['acha'] > 0 ? ($_POST['acha'] + ($_POST['basestats_scale'] * $i)) : $_POST['acha']) . "\", ";
-	$fields .= "adex=\"" . ($_POST['adex'] > 0 ? ($_POST['adex'] + ($_POST['basestats_scale'] * $i)) : $_POST['adex']) . "\", ";
-	$fields .= "aint=\"" . ($_POST['aint'] > 0 ? ($_POST['aint'] + ($_POST['basestats_scale'] * $i)) : $_POST['aint']) . "\", ";
-	$fields .= "asta=\"" . ($_POST['asta'] > 0 ? ($_POST['asta'] + ($_POST['basestats_scale'] * $i)) : $_POST['asta']) . "\", ";
-	$fields .= "astr=\"" . ($_POST['astr'] > 0 ? ($_POST['astr'] + ($_POST['basestats_scale'] * $i)) : $_POST['astr']). "\", ";
-	$fields .= "awis=\"" . ($_POST['awis'] > 0 ? ($_POST['awis'] + ($_POST['basestats_scale'] * $i)) : $_POST['awis']) . "\", ";
-	
-	//HEAL / Spell / Atk
-	$fields .= "healamt=\"" . ($_POST['healamt'] > 0 ? ($_POST['healamt'] + ($_POST['healamt_scale'] * $i * $upgrade_rank)) : $_POST['healamt']) . "\", ";
-	$fields .= "spelldmg=\"" . ($_POST['spelldmg'] > 0 ? ($_POST['spelldmg'] + ($_POST['spelldmg_scale'] * $i * $upgrade_rank)) : $_POST['spelldmg']) . "\", ";
-	$fields .= "attack=\"" . ($_POST['attack'] > 0 ? ($_POST['attack'] + ($_POST['attack_scale'] * $i * $upgrade_rank)) : $_POST['attack']) . "\", ";
-	
-	//HASTE
-	$fields .= "haste=\"" . ($_POST['haste'] > 0 ? ($_POST['haste'] + ($_POST['haste_scale'] * $i * $upgrade_rank)) : $_POST['haste']) . "\", ";
-	
-	//RESISTS
-	$fields .= "cr=\"" . ($_POST['cr'] > 0 ? ($_POST['cr'] + ($_POST['resists_scale'] * $i * $upgrade_rank)) : $_POST['cr']) . "\", ";
-	$fields .= "dr=\"" . ($_POST['dr'] > 0 ? ($_POST['dr'] + ($_POST['resists_scale'] * $i * $upgrade_rank)) : $_POST['dr']) . "\", ";
-	$fields .= "fr=\"" . ($_POST['fr'] > 0 ? ($_POST['fr'] + ($_POST['resists_scale'] * $i * $upgrade_rank)) : $_POST['fr']) . "\", ";
-	$fields .= "mr=\"" . ($_POST['mr'] > 0 ? ($_POST['mr'] + ($_POST['resists_scale'] * $i * $upgrade_rank)) : $_POST['mr']) . "\", ";
-	$fields .= "pr=\"" . ($_POST['pr'] > 0 ? ($_POST['pr'] + ($_POST['resists_scale'] * $i * $upgrade_rank)) : $_POST['pr']) . "\", ";
-	$fields .= "svcorruption=\"" . ($_POST['svcorruption'] > 0 ? ($_POST['svcorruption'] + ($_POST['resists_scale'] * $i * $upgrade_rank)) : $_POST['svcorruption']) . "\", ";
-	
-	//HEROIC STATS
-	$fields .= "heroic_agi=\"" . $_POST['heroic_agi'] . "\", ";
-	$fields .= "heroic_cha=\"" . $_POST['heroic_cha'] . "\", ";
-	$fields .= "heroic_dex=\"" . $_POST['heroic_dex'] . "\", ";
-	$fields .= "heroic_int=\"" . $_POST['heroic_int'] . "\", ";
-	$fields .= "heroic_sta=\"" . $_POST['heroic_sta'] . "\", ";
-	$fields .= "heroic_str=\"" . $_POST['heroic_str'] . "\", ";
-	$fields .= "heroic_wis=\"" . $_POST['heroic_wis'] . "\", ";
-	
-	//HEROIC RESISTS
-	$fields .= "heroic_cr=\"" . $_POST['heroic_cr'] . "\", ";
-	$fields .= "heroic_dr=\"" . $_POST['heroic_dr'] . "\", ";
-	$fields .= "heroic_fr=\"" . $_POST['heroic_fr'] . "\", ";
-	$fields .= "heroic_mr=\"" . $_POST['heroic_mr'] . "\", ";
-	$fields .= "heroic_pr=\"" . $_POST['heroic_pr'] . "\", ";
-	$fields .= "heroic_svcorrup=\"" . $_POST['heroic_svcorrup'] . "\", ";
-	
-	//MODs
-	$fields .= "stunresist=\"" . ($_POST['stunresist'] > 0 ? ($_POST['stunresist'] + ($_POST['mods_scale'] * $i)) : $_POST['stunresist']) . "\", ";
-	$fields .= "damageshield=\"" . ($_POST['damageshield'] > 0 ? ($_POST['damageshield'] + ($_POST['mods_scale'] * $i)) : $_POST['damageshield']) . "\", ";
-	$fields .= "dotshielding=\"" . ($_POST['dotshielding'] > 0 ? ($_POST['dotshielding'] + ($_POST['mods_scale'] * $i)) : $_POST['dotshielding']) . "\", ";
-	$fields .= "shielding=\"" . ($_POST['shielding'] > 0 ? ($_POST['shielding'] + ($_POST['mods_scale'] * $i)) : $_POST['shielding']) . "\", ";
-	$fields .= "spellshield=\"" . ($_POST['spellshield'] > 0 ? ($_POST['spellshield'] + ($_POST['mods_scale'] * $i)) : $_POST['spellshield']) . "\", ";
-	$fields .= "strikethrough=\"" . ($_POST['strikethrough'] > 0 ? ($_POST['strikethrough'] + ($_POST['mods_scale'] * $i)) : $_POST['strikethrough']) . "\", ";
-	$fields .= "dsmitigation=\"" . ($_POST['dsmitigation'] > 0 ? ($_POST['dsmitigation'] + ($_POST['mods_scale'] * $i)) : $_POST['dsmitigation']) . "\", ";
-	$fields .= "clairvoyance=\"" . ($_POST['clairvoyance'] > 0 ? ($_POST['clairvoyance'] + ($_POST['mods_scale'] * $i)) : $_POST['clairvoyance']) . "\", ";
-	
-	
-	
-	$fields .= "extradmgskill=\"" . $_POST['extradmgskill'] . "\", ";
-	$fields .= "extradmgamt=\"" . $_POST['extradmgamt'] . "\", ";
-	$fields .= "elemdmgtype=\"" . $_POST['elemdmgtype'] . "\", ";
-	$fields .= "skillmodtype=\"" . $_POST['skillmodtype'] . "\", ";
-	$fields .= "skillmodvalue=\"" . $_POST['skillmodvalue'] . "\", ";
-	$fields .= "bardvalue=\"" . $_POST['bardvalue'] . "\", ";
-	$fields .= "price=\"" . $_POST['price'] . "\", ";
-	$fields .= "sellrate=\"" . $_POST['sellrate'] . "\", ";
-	$fields .= "favor=\"" . $_POST['favor'] . "\", ";
-	$fields .= "guildfavor=\"" . $_POST['guildfavor'] . "\", ";
-	$fields .= "ldonprice=\"" . $_POST['ldonprice'] . "\", ";
-	$fields .= "ldonsellbackrate=\"" . $_POST['ldonsellbackrate'] . "\", ";
-	$fields .= "ldonsold=\"" . $_POST['ldonsold'] . "\", ";
-	$fields .= "ldontheme=\"" . $_POST['ldontheme'] . "\", ";
-	$fields .= "pointtype=\"" . $_POST['pointtype'] . "\", ";
-	$fields .= "icon=\"" . $_POST['icon'] . "\", ";
-	$fields .= "idfile=\"" . $_POST['idfile'] . "\", ";
-	$fields .= "weight=\"" . $_POST['weight'] . "\", ";
-	$fields .= "color=\"" . $_POST['color'] . "\", ";
-	$fields .= "size=\"" . $_POST['size'] . "\", ";
-	$fields .= "material=\"" . $_POST['material'] . "\", ";
-	$fields .= "elitematerial=\"" . $_POST['elitematerial'] . "\", ";
-	$fields .= "casttime=\"" . $_POST['casttime'] . "\", ";
-	$fields .= "casttime_=\"" . $_POST['casttime_'] . "\", ";
-	$fields .= "recastdelay=\"" . $_POST['recastdelay'] . "\", ";
-	$fields .= "recasttype=\"" . $_POST['recasttype'] . "\", ";
-	$fields .= "clicktype=\"" . $_POST['clicktype'] . "\", ";
-	$fields .= "clickeffect=\"" . $_POST['clickeffect'] . "\", ";
-	$fields .= "clicklevel=\"" . $_POST['clicklevel'] . "\", ";
-	$fields .= "clicklevel2=\"" . $_POST['clicklevel2'] . "\", ";
-	$fields .= "clickname=\"" . $_POST['clickname'] . "\", ";
-	$fields .= "proctype=\"" . $_POST['proctype'] . "\", ";
-	$fields .= "proceffect=\"" . $_POST['proceffect'] . "\", ";
-	$fields .= "proclevel=\"" . $_POST['proclevel'] . "\", ";
-	$fields .= "proclevel2=\"" . $_POST['proclevel2'] . "\", ";
-	$fields .= "procrate=\"" . $_POST['procrate'] . "\", ";
-	$fields .= "procname=\"" . $_POST['procname'] . "\", ";
-	$fields .= "worntype=\"" . $_POST['worntype'] . "\", ";
-	$fields .= "worneffect=\"" . $_POST['worneffect'] . "\", ";
-	$fields .= "wornlevel=\"" . $_POST['wornlevel'] . "\", ";
-	$fields .= "wornlevel2=\"" . $_POST['wornlevel2'] . "\", ";
-	$fields .= "wornname=\"" . $_POST['wornname'] . "\", ";
-	$fields .= "focustype=\"" . $_POST['focustype'] . "\", ";
-	$fields .= "focuseffect=\"" . $_POST['focuseffect'] . "\", ";
-	$fields .= "focuslevel=\"" . $_POST['focuslevel'] . "\", ";
-	$fields .= "focuslevel2=\"" . $_POST['focuslevel2'] . "\", ";
-	$fields .= "focusname=\"" . $_POST['focusname'] . "\", ";
-	$fields .= "scrolltype=\"" . $_POST['scrolltype'] . "\", ";
-	$fields .= "scrolleffect=\"" . $_POST['scrolleffect'] . "\", ";
-	$fields .= "scrolllevel=\"" . $_POST['scrolllevel'] . "\", ";
-	$fields .= "scrolllevel2=\"" . $_POST['scrolllevel2'] . "\", ";
-	$fields .= "scrollname=\"" . $_POST['scrollname'] . "\", ";
-	$fields .= "bardtype=\"" . $_POST['bardtype'] . "\", ";
-	$fields .= "bardeffect=\"" . $_POST['bardeffect'] . "\", ";
-	$fields .= "bardlevel=\"" . $_POST['bardlevel'] . "\", ";
-	$fields .= "bardlevel2=\"" . $_POST['bardlevel2'] . "\", ";
-	$fields .= "bardname=\"" . $_POST['bardname'] . "\", ";
-	$fields .= "augslot1visible=\"" . $_POST['augslot1visible'] . "\", ";
-	$fields .= "augslot2visible=\"" . $_POST['augslot2visible'] . "\", ";
-	$fields .= "augslot3visible=\"" . $_POST['augslot3visible'] . "\", ";
-	$fields .= "augslot4visible=\"" . $_POST['augslot4visible'] . "\", ";
-	$fields .= "augslot5visible=\"" . $_POST['augslot5visible'] . "\", ";
-	$fields .= "augslot1type=\"" . $_POST['augslot1type'] . "\", ";
-	$fields .= "augslot2type=\"" . $_POST['augslot2type'] . "\", ";
-	$fields .= "augslot3type=\"" . $_POST['augslot3type'] . "\", ";
-	$fields .= "augslot4type=\"" . $_POST['augslot4type'] . "\", ";
-	$fields .= "augslot5type=\"" . $_POST['augslot5type'] . "\", ";
-	$fields .= "augrestrict=\"" . $_POST['augrestrict'] . "\", ";
-	$fields .= "augdistiller=\"" . $_POST['augdistiller'] . "\", ";
-	$fields .= "factionmod1=\"" . $_POST['factionmod1'] . "\", ";
-	$fields .= "factionmod2=\"" . $_POST['factionmod2'] . "\", ";
-	$fields .= "factionmod3=\"" . $_POST['factionmod3'] . "\", ";
-	$fields .= "factionmod4=\"" . $_POST['factionmod4'] . "\", ";
-	$fields .= "factionamt1=\"" . $_POST['factionamt1'] . "\", ";
-	$fields .= "factionamt2=\"" . $_POST['factionamt2'] . "\", ";
-	$fields .= "factionamt3=\"" . $_POST['factionamt3'] . "\", ";
-	$fields .= "factionamt4=\"" . $_POST['factionamt4'] . "\", ";
-	$fields .= "created=\"" . $_POST['created'] . "\", ";
-	$fields .= "verified=\"" . $_POST['verified'] . "\", ";
-	$fields .= "updated=\"" . $_POST['updated'] . "\", ";
-	$fields .= "source=\"" . $_POST['source'] . "\", ";
-	$fields .= "comment=\"" . $_POST['comment'] . "\"";
-	
-	$query = "INSERT INTO items SET $fields";
-	
-	$mysql->query_no_result($query);
-	//fwrite($fh, $query . ";\n");
+    if ($results) {
+      foreach ($results as $result) {
+        array_push($columns, $result['Field']);
+      }
+    }
+  } catch (Exception $e) {
+    logSQL("Item comparison request: " . $e->getMessage());
   }
-  
-//  fclose($fh);
 
+  return $columns;
 }
 
-function tiered_stats () {
-	$result = array();
-	foreach ($_POST as $key => $value) {
-		array_push($result, $key);
-		$result[$key] = $value;
-		print "Key $key = $value";
-	}	
-	return $result;
-}
+function get_items_diff($column) {
+  global $mysql_content_db;
 
+  $query = "SELECT oi.id AS id, oi.Name AS Name, oi.$column AS old_$column, ni.$column AS new_$column FROM items oi JOIN items_new ni ON oi.id=ni.id WHERE oi.$column != ni.$column ORDER BY oi.id";
+  $results = $mysql_content_db->query_mult_assoc($query);
+
+  if ($results) {
+    return $results;
+  }
+  else {
+    return NULL;
+  }
+}
 ?>

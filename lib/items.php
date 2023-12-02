@@ -136,6 +136,7 @@ switch ($action) {
     $body = new Template("templates/items/items.book.tmpl.php");
     $breadcrumbs .= " >> Book Text";
     $body->set('name', $_GET['name']);
+    $body->set('item_id', $_GET['id']);
     $vars = book_info();
     if ($vars) {
       foreach ($vars as $key=>$value) {
@@ -147,9 +148,9 @@ switch ($action) {
   case 4: //Update Book Text
     check_authorization();
     update_book();
-    $id = $_POST['id'];
-    if ($id) {
-      header("Location: index.php?editor=items&id=$id&action=2");
+    $item_id = $_POST['item_id'];
+    if ($item_id) {
+      header("Location: index.php?editor=items&id=$item_id&action=2");
     }
     else {
       header("Location: index.php?editor=items&action=16");
@@ -214,10 +215,6 @@ switch ($action) {
     $items = get_starting_items();
     if ($items) {
       $body->set("items", $items);
-      $body->set("races", $races);
-      $body->set("classes", $classes);
-      $body->set("deities", $deities);
-      $body->set("zones", $zoneids);
     }
     break;
   case 11: //Edit Starting Item
@@ -225,21 +222,15 @@ switch ($action) {
     $body = new Template("templates/items/items.starting.edit.tmpl.php");
     $breadcrumbs .= " >> <a href='index.php?editor=items&action=10'>Starting Items</a> >> Edit Starting Item";
     $id = $_GET['id'];
-    $race = $_GET['race'];
-    $item = get_starting_item($id, $race);
+    $item = get_starting_item($id);
     if ($item) {
       $body->set("item", $item);
-      $body->set("races", $races);
-      $body->set("classes", $classes);
-      $body->set("deities", $deities);
-      $body->set("zones", $zoneids);
     }
     break;
   case 12: //Update Starting Item
     check_authorization();
     update_starting_item();
     $id = $_POST['id'];
-    $race = $_POST['race'];
     header("Location: index.php?editor=items&action=10");
     exit;
   case 13: //Add Starting Item
@@ -249,21 +240,16 @@ switch ($action) {
     $breadcrumbs .= " >> <a href='index.php?editor=items&action=10'>Starting Items</a> >> Add Starting Item";
     $nextid = next_starting_item_id();
     $body->set("nextid", $nextid);
-    $body->set("races", $races);
-    $body->set("classes", $classes);
-    $body->set("deities", $deities);
-    $body->set("zones", $zoneids);
     break;
   case 14: //Insert Starting Item
     check_authorization();
     insert_starting_item();
     $id = $_POST['id'];
-    $race = $_POST['race'];
     header("Location: index.php?editor=items&action=10");
     exit;
   case 15: //Delete Starting Item
     check_authorization();
-    delete_starting_item();
+    delete_starting_item($_GET['id']);
     header("Location: index.php?editor=items&action=10");
     exit;
   case 999: // Tiered Item
@@ -356,6 +342,24 @@ switch ($action) {
       $body->set("books", $books);
     }
     $body->set("langtypes", $langtypes);
+    break;
+  case 17: //Import Items Compare
+    $body = new Template("templates/items/items.compare.tmpl.php");
+    $breadcrumbs .= " >> Item Import Comparison";
+    $columns = get_item_compare_fields();
+    if ($columns) {
+      $body->set("columns", $columns);
+    }
+    break;
+  case 18: //Items Diff
+    $body = new Template("templates/items/items.diff.tmpl.php");
+    $column = $_GET['column'];
+    $breadcrumbs .= " >> Item Import Comparison >> Items Diff (" . $column . ")";
+    $body->set("column", $column);
+    $diff = get_items_diff($column);
+    if ($diff) {
+      $body->set("diff", $diff);
+    }
     break;
 }
 
@@ -1124,10 +1128,10 @@ function get_starting_items() {
   }
 }
 
-function get_starting_item($id, $race) {
+function get_starting_item($id) {
   global $mysql_content_db;
 
-  $query = "SELECT * FROM starting_items WHERE id=$id AND race=$race LIMIT 1";
+  $query = "SELECT * FROM starting_items WHERE id=$id";
   $result = $mysql_content_db->query_assoc($query);
 
   if ($result) {
@@ -1142,11 +1146,11 @@ function update_starting_item() {
   global $mysql_content_db;
 
   $id = $_POST['id'];
-  $race = $_POST['race'];
-  $class = $_POST['class'];
-  $deityid = $_POST['deityid'];
-  $zoneid = $_POST['zoneid'];
-  $itemid = $_POST['itemid'];
+  $race_list = $_POST['race_list'];
+  $class_list = $_POST['class_list'];
+  $deity_list = $_POST['deity_list'];
+  $zone_id_list = $_POST['zone_id_list'];
+  $item_id = $_POST['item_id'];
   $item_charges = $_POST['item_charges'];
   $gm = $_POST['gm'];
   $slot = $_POST['slot'];
@@ -1155,7 +1159,7 @@ function update_starting_item() {
   $content_flags = $_POST['content_flags'];
   $content_flags_disabled = $_POST['content_flags_disabled'];
 
-  $query = "UPDATE starting_items SET class=$class, deityid=$deityid, zoneid=$zoneid, itemid=$itemid, item_charges=$item_charges, gm=$gm, slot=$slot, min_expansion=$min_expansion, max_expansion=$max_expansion, content_flags=NULL, content_flags_disabled=NULL WHERE id=$id AND race=$race";
+  $query = "UPDATE starting_items SET race_list=\"$race_list\", class_list=\"$class_list\", deity_list=\"$deity_list\", zone_id_list=\"$zone_id_list\", item_id=$item_id, item_charges=$item_charges, gm=$gm, slot=$slot, min_expansion=$min_expansion, max_expansion=$max_expansion, content_flags=NULL, content_flags_disabled=NULL WHERE id=$id";
   $mysql_content_db->query_no_result($query);
 
   if ($content_flags != "") {
@@ -1173,11 +1177,11 @@ function insert_starting_item() {
   global $mysql_content_db;
 
   $id = $_POST['id'];
-  $race = $_POST['race'];
-  $class = $_POST['class'];
-  $deityid = $_POST['deityid'];
-  $zoneid = $_POST['zoneid'];
-  $itemid = $_POST['itemid'];
+  $race_list = $_POST['race_list'];
+  $class_list = $_POST['class_list'];
+  $deity_list = $_POST['deity_list'];
+  $zone_id_list = $_POST['zone_id_list'];
+  $item_id = $_POST['item_id'];
   $item_charges = $_POST['item_charges'];
   $gm = $_POST['gm'];
   $slot = $_POST['slot'];
@@ -1186,7 +1190,7 @@ function insert_starting_item() {
   $content_flags = $_POST['content_flags'];
   $content_flags_disabled = $_POST['content_flags_disabled'];
 
-  $query = "INSERT INTO starting_items SET id=$id, race=$race, class=$class, deityid=$deityid, zoneid=$zoneid, itemid=$itemid, item_charges=$item_charges, gm=$gm, slot=$slot, min_expansion=$min_expansion, max_expansion=$max_expansion, content_flags=NULL, content_flags_disabled=NULL";
+  $query = "INSERT INTO starting_items SET id=$id, race_list=\"$race_list\", class_list=\"$class_list\", deity_list=\"$deity_list\", zone_id_list=\"$zone_id_list\", item_id=$item_id, item_charges=$item_charges, gm=$gm, slot=$slot, min_expansion=$min_expansion, max_expansion=$max_expansion, content_flags=NULL, content_flags_disabled=NULL";
   $mysql_content_db->query_no_result($query);
 
   if ($content_flags != "") {
@@ -1209,13 +1213,10 @@ function next_starting_item_id() {
   return $result['id'] + 1;
 }
 
-function delete_starting_item() {
+function delete_starting_item($id) {
   global $mysql_content_db;
 
-  $id = $_GET['id'];
-  $race = $_GET['race'];
-
-  $query = "DELETE FROM starting_items WHERE id=$id AND race=$race";
+  $query = "DELETE FROM starting_items WHERE id=$id";
   $mysql_content_db->query_no_result($query);
 }
 
@@ -1593,4 +1594,37 @@ function tiered_stats () {
 	return $result;
 }
 
+function get_item_compare_fields() {
+  global $mysql_content_db;
+  $columns = array();
+
+  try {
+    $query = "SHOW COLUMNS FROM items_new";
+    $results = $mysql_content_db->query_mult_assoc($query);
+
+    if ($results) {
+      foreach ($results as $result) {
+        array_push($columns, $result['Field']);
+      }
+    }
+  } catch (Exception $e) {
+    logSQL("Item comparison request: " . $e->getMessage());
+  }
+
+  return $columns;
+}
+
+function get_items_diff($column) {
+  global $mysql_content_db;
+
+  $query = "SELECT oi.id AS id, oi.Name AS Name, oi.$column AS old_$column, ni.$column AS new_$column FROM items oi JOIN items_new ni ON oi.id=ni.id WHERE oi.$column != ni.$column ORDER BY oi.id";
+  $results = $mysql_content_db->query_mult_assoc($query);
+
+  if ($results) {
+    return $results;
+  }
+  else {
+    return NULL;
+  }
+}
 ?>

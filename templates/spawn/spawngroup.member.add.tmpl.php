@@ -26,6 +26,17 @@
       </tr>
       <tr>
         <td class="edit_form_content">
+          Min Time:<br>
+          <input type="text" name="min_time" size="5" value="0">
+        </td>
+        <td class="edit_form_content">&nbsp;</td>
+        <td class="edit_form_content">
+          Max Time:<br>
+          <input type="text" name="max_time" size="5" value="0">
+       </td>
+      </tr>
+      <tr>
+        <td class="edit_form_content">
           <strong>Min Expansion:</strong><br>
           <input type="text" name="min_expansion" value="-1">
         </td>

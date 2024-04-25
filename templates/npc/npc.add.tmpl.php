@@ -109,8 +109,8 @@
               </tr>
               <tr>
                 <td align="left" width="14%">AC:<br><input type="text" name="charm_ac" size="5" value="0"></td>
-                <td align="left" width="14%">Min Dmg:      <br><input type="text" name="mindmg" size="5" value="<?=$mindmg?>" onChange="sdamageCheck();"></td>
-                <td align="left" width="14%">Max Dmg:     <br><input type="text" name="maxdmg" size="5" value="<?=$maxdmg?>" onChange="sdamageCheck();"></td>
+                <td align="left" width="14%">Min Dmg:<br><input type="text" name="charm_min_dmg" size="5" value="0"></td>
+                <td align="left" width="14%">Max Dmg:<br><input type="text" name="charm_max_dmg" size="5" value="0"></td>
                 <td align="left" width="14%">Atk:<br><input type="text" name="charm_atk" size="5" value="0"></td>
                 <td align="left" width="14%">Atk Delay:<br><input type="text" name="charm_attack_delay" size="5" value="0"></td>
                 <td align="left" width="15%">Accuracy:<br><input type="text" name="charm_accuracy_rating" size="5" value="0"></td>

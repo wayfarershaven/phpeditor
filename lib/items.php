@@ -136,7 +136,9 @@ switch ($action) {
     $body = new Template("templates/items/items.book.tmpl.php");
     $breadcrumbs .= " >> Book Text";
     $body->set('name', $_GET['name']);
-    $body->set('item_id', $_GET['id']);
+    if (isset($_GET['id'])) {
+      $body->set('item_id', $_GET['id']);
+    }
     $vars = book_info();
     if ($vars) {
       foreach ($vars as $key=>$value) {
@@ -407,7 +409,7 @@ function update_book() {
   global $mysql_content_db;
 
   $name = $_POST['name'];
-  $txtfile = $_POST['txtfile'];
+  $txtfile = mysqli_real_escape_string($mysql_content_db, $_POST['txtfile']);
   $language = $_POST['language'];
 
   $query = "REPLACE INTO books SET txtfile=\"$txtfile\", name=\"$name\", language=$language";
@@ -1146,20 +1148,26 @@ function update_starting_item() {
   global $mysql_content_db;
 
   $id = $_POST['id'];
-  $race_list = $_POST['race_list'];
   $class_list = $_POST['class_list'];
+  $race_list = $_POST['race_list'];
   $deity_list = $_POST['deity_list'];
   $zone_id_list = $_POST['zone_id_list'];
   $item_id = $_POST['item_id'];
   $item_charges = $_POST['item_charges'];
-  $gm = $_POST['gm'];
-  $slot = $_POST['slot'];
+  $augment_one = $_POST['augment_one'];
+  $augment_two = $_POST['augment_two'];
+  $augment_three = $_POST['augment_three'];
+  $augment_four = $_POST['augment_four'];
+  $augment_five = $_POST['augment_five'];
+  $augment_six = $_POST['augment_six'];
+  $stauts = $_POST['status'];
+  $inventory_slot = $_POST['inventory_slot'];
   $min_expansion = $_POST['min_expansion'];
   $max_expansion = $_POST['max_expansion'];
   $content_flags = $_POST['content_flags'];
   $content_flags_disabled = $_POST['content_flags_disabled'];
 
-  $query = "UPDATE starting_items SET race_list=\"$race_list\", class_list=\"$class_list\", deity_list=\"$deity_list\", zone_id_list=\"$zone_id_list\", item_id=$item_id, item_charges=$item_charges, gm=$gm, slot=$slot, min_expansion=$min_expansion, max_expansion=$max_expansion, content_flags=NULL, content_flags_disabled=NULL WHERE id=$id";
+  $query = "UPDATE starting_items SET class_list=\"$class_list\",race_list=\"$race_list\",  deity_list=\"$deity_list\", zone_id_list=\"$zone_id_list\", item_id=$item_id, item_charges=$item_charges, augment_one=$augment_one, augment_two=$augment_two, augment_three=$augment_three, augment_four=$augment_four, augment_five=$augment_five, augment_six=$augment_six, status=$status, inventory_slot=$inventory_slot, min_expansion=$min_expansion, max_expansion=$max_expansion, content_flags=NULL, content_flags_disabled=NULL WHERE id=$id";
   $mysql_content_db->query_no_result($query);
 
   if ($content_flags != "") {
@@ -1177,20 +1185,26 @@ function insert_starting_item() {
   global $mysql_content_db;
 
   $id = $_POST['id'];
-  $race_list = $_POST['race_list'];
   $class_list = $_POST['class_list'];
+  $race_list = $_POST['race_list'];
   $deity_list = $_POST['deity_list'];
   $zone_id_list = $_POST['zone_id_list'];
   $item_id = $_POST['item_id'];
   $item_charges = $_POST['item_charges'];
-  $gm = $_POST['gm'];
-  $slot = $_POST['slot'];
+  $augment_one = $_POST['augment_one'];
+  $augment_two = $_POST['augment_two'];
+  $augment_three = $_POST['augment_three'];
+  $augment_four = $_POST['augment_four'];
+  $augment_five = $_POST['augment_five'];
+  $augment_six = $_POST['augment_six'];
+  $status = $_POST['status'];
+  $inventory_slot = $_POST['inventory_slot'];
   $min_expansion = $_POST['min_expansion'];
   $max_expansion = $_POST['max_expansion'];
   $content_flags = $_POST['content_flags'];
   $content_flags_disabled = $_POST['content_flags_disabled'];
 
-  $query = "INSERT INTO starting_items SET id=$id, race_list=\"$race_list\", class_list=\"$class_list\", deity_list=\"$deity_list\", zone_id_list=\"$zone_id_list\", item_id=$item_id, item_charges=$item_charges, gm=$gm, slot=$slot, min_expansion=$min_expansion, max_expansion=$max_expansion, content_flags=NULL, content_flags_disabled=NULL";
+  $query = "INSERT INTO starting_items SET id=$id, class_list=\"$class_list\", race_list=\"$race_list\", deity_list=\"$deity_list\", zone_id_list=\"$zone_id_list\", item_id=$item_id, item_charges=$item_charges, augment_one=$augment_one, augment_two=$augment_two, augment_three=$augment_three, augment_four=$augment_four, augment_five=$augment_five, augment_six=$augment_six, status=$status, inventory_slot=$inventory_slot, min_expansion=$min_expansion, max_expansion=$max_expansion, content_flags=NULL, content_flags_disabled=NULL";
   $mysql_content_db->query_no_result($query);
 
   if ($content_flags != "") {

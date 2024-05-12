@@ -282,7 +282,7 @@ switch ($action) {
       $body->set('filter', $filter);
     }
     if ($page_stats['page']) {
-      $active_tasks = getActiveTasks($page_stats['page'], $curr_size, $curr_sort, $filter['sql']);
+      $active_tasks = getActiveTasks($page_stats['page'], $curr_size, $curr_sort, ((isset($filter)) ? $filter['sql'] : null));
     }
     if (isset($active_tasks)) {
       $body->set('active_tasks', $active_tasks);
@@ -311,7 +311,7 @@ switch ($action) {
       $body->set('filter', $filter);
     }
     if ($page_stats['page']) {
-      $completed_tasks = getCompletedTasks($page_stats['page'], $curr_size, $curr_sort, $filter['sql']);
+      $completed_tasks = getCompletedTasks($page_stats['page'], $curr_size, $curr_sort, ((isset($filter)) ? $filter['sql'] : null));
     }
     if (isset($completed_tasks)) {
       $body->set('completed_tasks', $completed_tasks);
@@ -472,8 +472,9 @@ function update_tasks() {
   $repeatable = $_POST['repeatable'];
   $faction_reward = $_POST['faction_reward'];
   $faction_amount = $_POST['faction_amount'];
+  $enabled = $_POST['enabled'];
 
-  $query = "UPDATE tasks SET type=\"$type\", duration=\"$duration\", duration_code=\"$duration_code\", title=\"$title\", description=\"$description\", reward_text=\"$reward_text\", reward_id_list=\"$reward_id_list\", cash_reward=\"$cash_reward\", exp_reward=\"$exp_reward\", reward_method=\"$reward_method\", reward_points=\"$reward_points\", reward_point_type=\"$reward_point_type\", min_level=\"$min_level\", max_level=\"$max_level\", level_spread=\"$level_spread\", min_players=\"$min_players\", max_players=\"$max_players\", repeatable=\"$repeatable\", faction_reward=\"$faction_reward\", completion_emote=\"$completion_emote\", replay_timer_group=\"$replay_timer_group\", replay_timer_seconds=\"$replay_timer_seconds\", request_timer_group=\"$request_timer_group\", request_timer_seconds=\"$request_timer_seconds\", dz_template_id=\"$dz_template_id\", lock_activity_id=\"$lock_activity_id\", faction_amount=\"$faction_amount\" WHERE id=\"$id\"";
+  $query = "UPDATE tasks SET type=\"$type\", duration=\"$duration\", duration_code=\"$duration_code\", title=\"$title\", description=\"$description\", reward_text=\"$reward_text\", reward_id_list=\"$reward_id_list\", cash_reward=\"$cash_reward\", exp_reward=\"$exp_reward\", reward_method=\"$reward_method\", reward_points=\"$reward_points\", reward_point_type=\"$reward_point_type\", min_level=\"$min_level\", max_level=\"$max_level\", level_spread=\"$level_spread\", min_players=\"$min_players\", max_players=\"$max_players\", repeatable=\"$repeatable\", faction_reward=\"$faction_reward\", completion_emote=\"$completion_emote\", replay_timer_group=\"$replay_timer_group\", replay_timer_seconds=\"$replay_timer_seconds\", request_timer_group=\"$request_timer_group\", request_timer_seconds=\"$request_timer_seconds\", dz_template_id=\"$dz_template_id\", lock_activity_id=\"$lock_activity_id\", faction_amount=\"$faction_amount\", enabled=\"$enabled\" WHERE id=\"$id\"";
   $mysql_content_db->query_no_result($query);
 }
 
@@ -505,11 +506,12 @@ function update_activity() {
   $zones = mysqli_real_escape_string($mysql_content_db, $_POST['zones']);
   $zone_version = $_POST['zone_version'];
   $optional = $_POST['optional'];
+  $list_group = $_POST['list_group'];
 
   $query = "DELETE FROM task_activities WHERE taskid=\"$taskid\" AND activityid=\"$activityid\"";
   $mysql_content_db->query_no_result($query);
 
-  $query = "INSERT INTO task_activities SET taskid=\"$taskid\", activityid=\"$newactivityid\", req_activity_id=\"$req_activity_id\", step=\"$step\", activitytype=\"$activitytype\", target_name=\"$target_name\", goalmethod=\"$goalmethod\", goalcount=\"$goalcount\", description_override=\"$description_override\", npc_match_list=\"$npc_match_list\", item_id_list=\"$item_id_list\", item_list=\"$item_list\", dz_switch_id=\"$dz_switch_id\", min_x=\"$min_x\", min_y=\"$min_y\", min_z=\"$min_z\", max_x=\"$max_x\", max_y=\"$max_y\", max_z=\"$max_z\", skill_list=\"$skill_list\", spell_list=\"$spell_list\", zones=\"$zones\", zone_version=\"$zone_version\", optional=\"$optional\"";
+  $query = "INSERT INTO task_activities SET taskid=\"$taskid\", activityid=\"$newactivityid\", req_activity_id=\"$req_activity_id\", step=\"$step\", activitytype=\"$activitytype\", target_name=\"$target_name\", goalmethod=\"$goalmethod\", goalcount=\"$goalcount\", description_override=\"$description_override\", npc_match_list=\"$npc_match_list\", item_id_list=\"$item_id_list\", item_list=\"$item_list\", dz_switch_id=\"$dz_switch_id\", min_x=\"$min_x\", min_y=\"$min_y\", min_z=\"$min_z\", max_x=\"$max_x\", max_y=\"$max_y\", max_z=\"$max_z\", skill_list=\"$skill_list\", spell_list=\"$spell_list\", zones=\"$zones\", zone_version=\"$zone_version\", optional=\"$optional\", list_group=\"$list_group\"";
   $mysql_content_db->query_no_result($query);
 }
 
@@ -665,8 +667,9 @@ function add_tasks() {
   $repeatable = $_POST['repeatable'];
   $faction_reward = $_POST['faction_reward'];
   $faction_amount = $_POST['faction_amount'];
+  $enabled = $_POST['enabled'];
 
-  $query = "INSERT INTO tasks SET id=\"$id\", type=\"$type\", duration=\"$duration\", duration_code=\"$duration_code\", title=\"$title\", description=\"$description\", reward_text=\"$reward_text\", reward_id_list=\"$reward_id_list\", cash_reward=\"$cash_reward\", exp_reward=\"$exp_reward\", reward_method=\"$reward_method\", reward_points=\"$reward_points\", reward_point_type=\"$reward_point_type\", min_level=\"$min_level\", max_level=\"$max_level\", level_spread=\"$level_spread\", min_players=\"$min_players\", max_players=\"$max_players\", repeatable=\"$repeatable\", faction_reward=\"$faction_reward\", completion_emote=\"$completion_emote\", replay_timer_group=\"$replay_timer_group\", replay_timer_seconds=\"$replay_timer_seconds\", request_timer_group=\"$request_timer_group\", request_timer_seconds=\"$request_timer_seconds\", dz_template_id=\"$dz_template_id\", lock_activity_id=\"$lock_activity_id\", faction_amount=\"$faction_amount\"";
+  $query = "INSERT INTO tasks SET id=\"$id\", type=\"$type\", duration=\"$duration\", duration_code=\"$duration_code\", title=\"$title\", description=\"$description\", reward_text=\"$reward_text\", reward_id_list=\"$reward_id_list\", cash_reward=\"$cash_reward\", exp_reward=\"$exp_reward\", reward_method=\"$reward_method\", reward_points=\"$reward_points\", reward_point_type=\"$reward_point_type\", min_level=\"$min_level\", max_level=\"$max_level\", level_spread=\"$level_spread\", min_players=\"$min_players\", max_players=\"$max_players\", repeatable=\"$repeatable\", faction_reward=\"$faction_reward\", completion_emote=\"$completion_emote\", replay_timer_group=\"$replay_timer_group\", replay_timer_seconds=\"$replay_timer_seconds\", request_timer_group=\"$request_timer_group\", request_timer_seconds=\"$request_timer_seconds\", dz_template_id=\"$dz_template_id\", lock_activity_id=\"$lock_activity_id\", faction_amount=\"$faction_amount\", enabled=\"$enabled\"";
   $mysql_content_db->query_no_result($query);
 }
 
@@ -698,8 +701,9 @@ function add_activity() {
   $zone_version = $_POST['zone_version'];
   $zoneid = $_POST['zoneid'];
   $optional = $_POST['optional'];
+  $list_group = $_POST['list_group'];
 
-  $query = "INSERT INTO task_activities SET taskid=\"$taskid\", activityid=\"$activityid\", req_activity_id=\"$req_activity_id\", step=\"$step\", activitytype=\"$activitytype\", target_name=\"$target_name\", goalmethod=\"$goalmethod\", goalcount=\"$goalcount\", description_override=\"$description_override\", npc_match_list=\"$npc_match_list\", item_id_list=\"$item_id_list\", item_list=\"$item_list\", dz_switch_id=\"$dz_switch_id\", min_x=\"$min_x\", min_y=\"$min_y\", min_z=\"$min_z\", max_x=\"$max_x\", max_y=\"$max_y\", max_z=\"$max_z\", skill_list=\"$skill_list\", spell_list=\"$spell_list\", zones=\"$zones\", zone_version=\"$zone_version\", optional=\"$optional\"";
+  $query = "INSERT INTO task_activities SET taskid=\"$taskid\", activityid=\"$activityid\", req_activity_id=\"$req_activity_id\", step=\"$step\", activitytype=\"$activitytype\", target_name=\"$target_name\", goalmethod=\"$goalmethod\", goalcount=\"$goalcount\", description_override=\"$description_override\", npc_match_list=\"$npc_match_list\", item_id_list=\"$item_id_list\", item_list=\"$item_list\", dz_switch_id=\"$dz_switch_id\", min_x=\"$min_x\", min_y=\"$min_y\", min_z=\"$min_z\", max_x=\"$max_x\", max_y=\"$max_y\", max_z=\"$max_z\", skill_list=\"$skill_list\", spell_list=\"$spell_list\", zones=\"$zones\", zone_version=\"$zone_version\", optional=\"$optional\", list_group=\"$list_group\"";
   $mysql_content_db->query_no_result($query);
 }
 
@@ -793,7 +797,7 @@ function build_filter() {
   global $mysql, $mysql_content_db;
   $filter1 = $_GET['filter1'];
   $filter2 = $_GET['filter2'];
-  $filter_final = array();
+  $filter_final = array('sql'=>'');
 
   if ($filter1) { // Filter by task title
     $query = "SELECT id FROM tasks WHERE title LIKE \"%$filter1%\"";

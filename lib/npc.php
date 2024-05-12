@@ -411,7 +411,7 @@ switch ($action) {
     exit;
   case 27: // Search npcs
     $body = new Template("templates/npc/npc.searchresults.tmpl.php");
-    if (isset($_GET['npcid']) && $_GET['npcid'] != "ID") {
+    if (isset($_GET['npc_id']) && $_GET['npc_id'] != "ID") {
       $results = search_npc_by_id();
     }
     else {
@@ -1514,6 +1514,7 @@ function update_npc() {
   if ($heroic_strikethrough != $_POST['heroic_strikethrough']) $fields .= "heroic_strikethrough=\"" . $_POST['heroic_strikethrough'] . "\", ";
   if ($faction_amount != $_POST['faction_amount']) $fields .= "faction_amount=\"" . $_POST['faction_amount'] . "\", ";
   if ($keeps_sold_items != $_POST['keeps_sold_items']) $fields .= "keeps_sold_items=\"" . $_POST['keeps_sold_items'] . "\", ";
+  if ($is_parcel_merchant != $_POST['is_parcel_merchant']) $fields .= "is_parcel_merchant=\"" . $_POST['is_parcel_merchant'] . "\", ";
 
   $fields =  rtrim($fields, ", ");
 
@@ -1675,7 +1676,8 @@ function add_npc() {
   $fields .= "exp_mod=\"" .$_POST['exp_mod'] . "\", ";
   $fields .= "heroic_strikethrough=\"" .$_POST['heroic_strikethrough'] . "\", ";
   $fields .= "faction_amount=\"" .$_POST['faction_amount'] . "\", ";
-  $fields .= "keeps_sold_items=\"" .$_POST['keeps_sold_items'] . "\"";
+  $fields .= "keeps_sold_items=\"" .$_POST['keeps_sold_items'] . "\", ";
+  $fields .= "is_parcel_merchant=\"" .$_POST['is_parcel_merchant'] . "\"";
 
   if ($fields != '') {
     $query = "INSERT INTO npc_types SET $fields";
@@ -1816,7 +1818,8 @@ function copy_npc() {
   $fields .= "exp_mod=\"" . $_POST['exp_mod'] . "\", ";
   $fields .= "heroic_strikethrough=\"" . $_POST['heroic_strikethrough'] . "\", ";
   $fields .= "faction_amount=\"" . $_POST['faction_amount'] . "\", ";
-  $fields .= "keeps_sold_items=\"" . $_POST['keeps_sold_items'] . "\"";
+  $fields .= "keeps_sold_items=\"" . $_POST['keeps_sold_items'] . "\", ";
+  $fields .= "is_parcel_merchant=\"" . $_POST['is_parcel_merchant'] . "\"";
 
   if ($fields != '') {
     $query = "INSERT INTO npc_types SET $fields";
@@ -2288,6 +2291,9 @@ function delete_npc() {
   global $mysql_content_db, $npcid;
 
   $query = "DELETE FROM npc_types WHERE id=$npcid";
+  $mysql_content_db->query_no_result($query);
+
+  $query = "DELETE FROM spawnentry WHERE npcID=$npcid";
   $mysql_content_db->query_no_result($query);
 }
 

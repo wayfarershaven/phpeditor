@@ -76,7 +76,12 @@ function getZoneVersion($zoneid) {
   $query = "SELECT version FROM zone WHERE id = \"$zoneid\"";
   $result = $mysql_content_db->query_assoc($query);
 
-  return $result['version'];
+  if ($result) {
+    return $result['version'];
+  }
+  else {
+    return 0;
+  }
 }
 
 function searchItems($search) {
@@ -219,7 +224,7 @@ function check_admin_authorization() {
 
 function search_npc_by_id() {
   global $mysql_content_db;
-  $npcid = $_GET['npcid'];
+  $npcid = $_GET['npc_id'];
 
   $query = "SELECT id, name FROM npc_types WHERE id=\"$npcid\"";
   $results = $mysql_content_db->query_mult_assoc($query);
@@ -582,6 +587,8 @@ function delete_player($playerid) {
   //character_material?
   $query = "DELETE FROM character_memmed_spells WHERE id=$playerid";
   $mysql->query_no_result($query);
+  $query = "DELETE FROM character_parcels WHERE char_id=$playerid";
+  $mysql->query_no_result($query);
   $query = "DELETE FROM character_pet_buffs WHERE char_id=$playerid";
   $mysql->query_no_result($query);
   $query = "DELETE FROM character_pet_info WHERE char_id=$playerid";
@@ -609,7 +616,7 @@ function delete_player($playerid) {
   $mysql->query_no_result($query);
   $query = "DELETE FROM friends WHERE charid=$playerid";
   $mysql->query_no_result($query);
-  $query = "DELETE FROM group_id WHERE charid=$playerid";
+  $query = "DELETE FROM group_id WHERE character_id=$playerid";
   $mysql->query_no_result($query);
   $query = "DELETE FROM guild_members WHERE char_id=$playerid";
   $mysql->query_no_result($query);
@@ -661,10 +668,15 @@ function delete_account($acctid) {
 function get_currency_name($curr_id) {
   global $mysql_content_db;
 
-  $query = "SELECT a.item_id, i.name FROM alternate_currency a, items i WHERE a.item_id=i.id AND a.id=$curr_id";
+  $query = "SELECT a.item_id AS id, i.name AS `name` FROM alternate_currency a, items i WHERE a.item_id=i.id AND a.id=$curr_id LIMIT 1";
   $result = $mysql_content_db->query_assoc($query);
 
-  return $result['name'];
+  if ($result) {
+    return $result['name'];
+  }
+  else {
+    return "Item not in DB";
+  }
 }
 
 function factions_array() {
@@ -812,6 +824,34 @@ function isValidLoot($loottable_id) {
   }
   else {
     return false;
+  }
+}
+
+function get_tribute_name($id) {
+  global $mysql_content_db;
+
+  $query = "SELECT `name` FROM tributes WHERE id=$id";
+  $result = $mysql_content_db->query_assoc($query);
+
+  if ($result) {
+    return $result['name'];
+  }
+  else {
+    return null;
+  }
+}
+
+function get_tribute_cost_by_tier($id, $tier) {
+  global $mysql_content_db;
+
+  $query = "SELECT cost FROM tribute_levels WHERE tribute_id=$id ORDER BY level, cost";
+  $result = $mysql_content_db->query_mult_assoc($query);
+
+  if ($result) {
+    return $result[$tier]['cost'];
+  }
+  else {
+    return null;
   }
 }
 
